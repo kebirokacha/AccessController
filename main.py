@@ -1,7 +1,8 @@
 from PySide6.QtWidgets import QApplication ,QMainWindow 
 from resources.ui.Main_ui import Ui_MainWindow
 from custom_widgets.camera.CameraWidget import CameraWidget
-from custom_widgets.dataBase.DataBaseWidget import DataBaseWidget
+from custom_widgets.dataBase.DataBase import DataBaseWidget
+
 
 class MainPage (Ui_MainWindow ,QMainWindow):
 	liveTab = None
@@ -22,8 +23,8 @@ class MainPage (Ui_MainWindow ,QMainWindow):
 	def closeEvent(self, event):
 		if self.liveTab is not None:
 			self.liveTab.closeEvent(event)
-		if self.dataBaseTab is not None and self.dataBaseTab.addPersonWidgetWindow is not None:
-			self.dataBaseTab.addPersonWidgetWindow.close()
+		if self.dataBaseTab is not None and self.dataBaseTab.PersonDetailsWidgetWindow is not None:
+			self.dataBaseTab.PersonDetailsWidgetWindow.close()
 		event.accept()
 
 	def setLiveTab(self):
@@ -41,9 +42,14 @@ class MainPage (Ui_MainWindow ,QMainWindow):
 	def setDtataBaseTab(self):
 		if self.dataBaseTab is None:
 			self.dataBaseTab = DataBaseWidget()
+			self.dataBaseTab.populateTableWithPersonsInfo()
 			self.tabWidget.addTab(self.dataBaseTab ,'Data Base')
 			self.tabWidget.setCurrentIndex(self.tabWidget.count() - 1)
-		
+
+	def onTabChange(self ,index):
+		current_tab_name = self.tabWidget.tabText(index)
+		if current_tab_name == "Data Base": 
+			self.dataBaseTab.populateTableWithPersonsInfo()	
 
 if __name__=="__main__":
 	import sys

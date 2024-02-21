@@ -15,19 +15,22 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QGridLayout,
-    QHBoxLayout, QHeaderView, QLabel, QLineEdit,
-    QPushButton, QSizePolicy, QSpacerItem, QTableWidget,
-    QTableWidgetItem, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QFrame,
+    QGridLayout, QHBoxLayout, QLabel, QLineEdit,
+    QPushButton, QScrollArea, QSizePolicy, QSpacerItem,
+    QVBoxLayout, QWidget)
 
 class Ui_DataBase(object):
     def setupUi(self, DataBase):
         if not DataBase.objectName():
             DataBase.setObjectName(u"DataBase")
-        DataBase.resize(944, 597)
+        DataBase.resize(642, 525)
         DataBase.setStyleSheet(u"#DataBase {\n"
-"	\n"
 "	background-color: rgb(43, 45, 53);\n"
+"}\n"
+"\n"
+"#cardInfoGrid QGridLayout{\n"
+"	border :10 px solid green;\n"
 "}\n"
 "\n"
 "#DataBase QPushButton{\n"
@@ -35,12 +38,15 @@ class Ui_DataBase(object):
 "	border-radius: 12px;\n"
 "	padding: 15px;\n"
 "}\n"
+"\n"
 "#DataBase #addButton{\n"
 "	background-color: rgb(0, 142, 246);\n"
+"}\n"
+"\n"
+"#cardInfoGrid{\n"
+"	border: 2px solid red\n"
 "}")
-        self.gridLayout = QGridLayout(DataBase)
-        self.gridLayout.setObjectName(u"gridLayout")
-        self.verticalLayout = QVBoxLayout()
+        self.verticalLayout = QVBoxLayout(DataBase)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
@@ -143,25 +149,34 @@ class Ui_DataBase(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout_3)
 
-        self.tableWidget = QTableWidget(DataBase)
-        if (self.tableWidget.columnCount() < 5):
-            self.tableWidget.setColumnCount(5)
-        __qtablewidgetitem = QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(0, __qtablewidgetitem)
-        __qtablewidgetitem1 = QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(1, __qtablewidgetitem1)
-        __qtablewidgetitem2 = QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(2, __qtablewidgetitem2)
-        __qtablewidgetitem3 = QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(3, __qtablewidgetitem3)
-        __qtablewidgetitem4 = QTableWidgetItem()
-        self.tableWidget.setHorizontalHeaderItem(4, __qtablewidgetitem4)
-        self.tableWidget.setObjectName(u"tableWidget")
+        self.frame = QFrame(DataBase)
+        self.frame.setObjectName(u"frame")
+        self.frame.setFrameShape(QFrame.StyledPanel)
+        self.frame.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_5 = QHBoxLayout(self.frame)
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.scrollArea = QScrollArea(self.frame)
+        self.scrollArea.setObjectName(u"scrollArea")
+        self.scrollArea.setWidgetResizable(True)
+        self.scrollArea.setAlignment(Qt.AlignCenter)
+        self.scrollAreaWidgetContents = QWidget()
+        self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 610, 375))
+        self.horizontalLayout_4 = QHBoxLayout(self.scrollAreaWidgetContents)
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.cardInfoGrid = QGridLayout()
+        self.cardInfoGrid.setObjectName(u"cardInfoGrid")
+        self.cardInfoGrid.setHorizontalSpacing(6)
+        self.cardInfoGrid.setVerticalSpacing(4)
 
-        self.verticalLayout.addWidget(self.tableWidget)
+        self.horizontalLayout_4.addLayout(self.cardInfoGrid)
+
+        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+
+        self.horizontalLayout_5.addWidget(self.scrollArea)
 
 
-        self.gridLayout.addLayout(self.verticalLayout, 0, 0, 1, 1)
+        self.verticalLayout.addWidget(self.frame)
 
 
         self.retranslateUi(DataBase)
@@ -185,15 +200,5 @@ class Ui_DataBase(object):
         self.modelingButton.setText(QCoreApplication.translate("DataBase", u"Modeling", None))
         self.deleteButton.setText(QCoreApplication.translate("DataBase", u"Delete", None))
         self.checkBox.setText(QCoreApplication.translate("DataBase", u"ALL", None))
-        ___qtablewidgetitem = self.tableWidget.horizontalHeaderItem(0)
-        ___qtablewidgetitem.setText(QCoreApplication.translate("DataBase", u"Selected", None));
-        ___qtablewidgetitem1 = self.tableWidget.horizontalHeaderItem(1)
-        ___qtablewidgetitem1.setText(QCoreApplication.translate("DataBase", u"Faces Library Name", None));
-        ___qtablewidgetitem2 = self.tableWidget.horizontalHeaderItem(2)
-        ___qtablewidgetitem2.setText(QCoreApplication.translate("DataBase", u"People Number", None));
-        ___qtablewidgetitem3 = self.tableWidget.horizontalHeaderItem(3)
-        ___qtablewidgetitem3.setText(QCoreApplication.translate("DataBase", u"Status", None));
-        ___qtablewidgetitem4 = self.tableWidget.horizontalHeaderItem(4)
-        ___qtablewidgetitem4.setText(QCoreApplication.translate("DataBase", u"Details", None));
     # retranslateUi
 

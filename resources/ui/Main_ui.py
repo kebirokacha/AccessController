@@ -18,13 +18,13 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QMainWindow,
     QMenuBar, QPushButton, QSizePolicy, QStatusBar,
     QTabWidget, QWidget)
-from . import resources_rc
+from. import resources_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(742, 606)
+        MainWindow.resize(750, 661)
         MainWindow.setStyleSheet(u"QMainWindow{\n"
 "	background-color: rgb(53, 53, 53);\n"
 "}\n"
@@ -116,23 +116,23 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.playBackButton)
 
-        self.eventsButton = QPushButton(self.mainTab)
-        self.eventsButton.setObjectName(u"eventsButton")
-        icon2 = QIcon()
-        icon2.addFile(u":/icons/Icons/Notification.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.eventsButton.setIcon(icon2)
-        self.eventsButton.setIconSize(QSize(30, 30))
-
-        self.horizontalLayout.addWidget(self.eventsButton, 0, Qt.AlignVCenter)
-
         self.dataBaseButton = QPushButton(self.mainTab)
         self.dataBaseButton.setObjectName(u"dataBaseButton")
-        icon3 = QIcon()
-        icon3.addFile(u":/icons/Icons/Data-Base.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.dataBaseButton.setIcon(icon3)
+        icon2 = QIcon()
+        icon2.addFile(u":/icons/Icons/Data-Base.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.dataBaseButton.setIcon(icon2)
         self.dataBaseButton.setIconSize(QSize(30, 30))
 
         self.horizontalLayout.addWidget(self.dataBaseButton)
+
+        self.eventsButton = QPushButton(self.mainTab)
+        self.eventsButton.setObjectName(u"eventsButton")
+        icon3 = QIcon()
+        icon3.addFile(u":/icons/Icons/gear.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.eventsButton.setIcon(icon3)
+        self.eventsButton.setIconSize(QSize(30, 30))
+
+        self.horizontalLayout.addWidget(self.eventsButton)
 
 
         self.gridLayout_2.addLayout(self.horizontalLayout, 0, 0, 1, 1)
@@ -146,7 +146,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 742, 22))
+        self.menubar.setGeometry(QRect(0, 0, 750, 26))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -165,8 +165,8 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.titleTab), QCoreApplication.translate("MainWindow", u"Access Controler", None))
         self.liveButton.setText(QCoreApplication.translate("MainWindow", u"  Live", None))
         self.playBackButton.setText(QCoreApplication.translate("MainWindow", u"  PlayBack", None))
-        self.eventsButton.setText(QCoreApplication.translate("MainWindow", u"  Events", None))
         self.dataBaseButton.setText(QCoreApplication.translate("MainWindow", u"  Data Base", None))
+        self.eventsButton.setText(QCoreApplication.translate("MainWindow", u"parametre ", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.mainTab), QCoreApplication.translate("MainWindow", u"Main", None))
     # retranslateUi
 

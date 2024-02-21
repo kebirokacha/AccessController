@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>../Icons/gear.png</file>
     <file>../Icons/circle-dot.png</file>
     <file>../Icons/Data-Base.png</file>
     <file>../Icons/Home.png</file>

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'AddPersonWidget.ui'
+## Form generated from reading UI file 'PersonDetails.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.1
 ##
@@ -20,14 +20,14 @@ from PySide6.QtWidgets import (QApplication, QDateEdit, QDateTimeEdit, QHBoxLayo
     QSpacerItem, QVBoxLayout, QWidget)
 from resources.qrcs import addPerson_rc
 
-class Ui_AddPersonWidget(object):
-    def setupUi(self, AddPersonWidget):
-        if not AddPersonWidget.objectName():
-            AddPersonWidget.setObjectName(u"AddPersonWidget")
-        AddPersonWidget.resize(600, 500)
-        AddPersonWidget.setMinimumSize(QSize(600, 500))
-        AddPersonWidget.setMaximumSize(QSize(600, 500))
-        AddPersonWidget.setStyleSheet(u"QWidget#AddPersonWidget{\n"
+class Ui_PersonDetails(object):
+    def setupUi(self, PersonDetails):
+        if not PersonDetails.objectName():
+            PersonDetails.setObjectName(u"PersonDetails")
+        PersonDetails.resize(600, 500)
+        PersonDetails.setMinimumSize(QSize(600, 500))
+        PersonDetails.setMaximumSize(QSize(600, 500))
+        PersonDetails.setStyleSheet(u"QWidget#AddPersonWidget{\n"
 "	background-color: rgb(43, 45, 53);\n"
 "}\n"
 "QPushButton{\n"
@@ -100,11 +100,11 @@ class Ui_AddPersonWidget(object):
 "	border-radius: 12px; \n"
 "}\n"
 "")
-        self.horizontalLayout_3 = QHBoxLayout(AddPersonWidget)
+        self.horizontalLayout_3 = QHBoxLayout(PersonDetails)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.verticalLayout_3 = QVBoxLayout()
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.personPictureLabel = QLabel(AddPersonWidget)
+        self.personPictureLabel = QLabel(PersonDetails)
         self.personPictureLabel.setObjectName(u"personPictureLabel")
         self.personPictureLabel.setPixmap(QPixmap(u":/images/images/Person.jpg"))
         self.personPictureLabel.setAlignment(Qt.AlignCenter)
@@ -124,12 +124,12 @@ class Ui_AddPersonWidget(object):
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.horizontalLayout_5 = QHBoxLayout()
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
-        self.nameLabel = QLabel(AddPersonWidget)
+        self.nameLabel = QLabel(PersonDetails)
         self.nameLabel.setObjectName(u"nameLabel")
 
         self.horizontalLayout_5.addWidget(self.nameLabel)
 
-        self.nameInput = QLineEdit(AddPersonWidget)
+        self.nameInput = QLineEdit(PersonDetails)
         self.nameInput.setObjectName(u"nameInput")
         self.nameInput.setAlignment(Qt.AlignCenter)
 
@@ -142,13 +142,13 @@ class Ui_AddPersonWidget(object):
 
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.birthdayLabel = QLabel(AddPersonWidget)
+        self.birthdayLabel = QLabel(PersonDetails)
         self.birthdayLabel.setObjectName(u"birthdayLabel")
         self.birthdayLabel.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
         self.horizontalLayout_2.addWidget(self.birthdayLabel)
 
-        self.birthdayInput = QDateEdit(AddPersonWidget)
+        self.birthdayInput = QDateEdit(PersonDetails)
         self.birthdayInput.setObjectName(u"birthdayInput")
         self.birthdayInput.setAlignment(Qt.AlignCenter)
         self.birthdayInput.setCurrentSection(QDateTimeEdit.DaySection)
@@ -162,13 +162,14 @@ class Ui_AddPersonWidget(object):
 
         self.horizontalLayout_6 = QHBoxLayout()
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
-        self.phoneNumberLabel = QLabel(AddPersonWidget)
+        self.phoneNumberLabel = QLabel(PersonDetails)
         self.phoneNumberLabel.setObjectName(u"phoneNumberLabel")
 
         self.horizontalLayout_6.addWidget(self.phoneNumberLabel)
 
-        self.phoneNumberInput = QLineEdit(AddPersonWidget)
+        self.phoneNumberInput = QLineEdit(PersonDetails)
         self.phoneNumberInput.setObjectName(u"phoneNumberInput")
+        self.phoneNumberInput.setMaxLength(32767)
         self.phoneNumberInput.setAlignment(Qt.AlignCenter)
 
         self.horizontalLayout_6.addWidget(self.phoneNumberInput)
@@ -180,12 +181,12 @@ class Ui_AddPersonWidget(object):
 
         self.horizontalLayout_7 = QHBoxLayout()
         self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
-        self.emailLabel = QLabel(AddPersonWidget)
+        self.emailLabel = QLabel(PersonDetails)
         self.emailLabel.setObjectName(u"emailLabel")
 
         self.horizontalLayout_7.addWidget(self.emailLabel)
 
-        self.emailInput = QLineEdit(AddPersonWidget)
+        self.emailInput = QLineEdit(PersonDetails)
         self.emailInput.setObjectName(u"emailInput")
         self.emailInput.setAlignment(Qt.AlignCenter)
 
@@ -198,12 +199,12 @@ class Ui_AddPersonWidget(object):
 
         self.horizontalLayout_8 = QHBoxLayout()
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
-        self.adresseLabel = QLabel(AddPersonWidget)
+        self.adresseLabel = QLabel(PersonDetails)
         self.adresseLabel.setObjectName(u"adresseLabel")
 
         self.horizontalLayout_8.addWidget(self.adresseLabel)
 
-        self.adresseInput = QLineEdit(AddPersonWidget)
+        self.adresseInput = QLineEdit(PersonDetails)
         self.adresseInput.setObjectName(u"adresseInput")
         self.adresseInput.setAlignment(Qt.AlignCenter)
 
@@ -214,7 +215,7 @@ class Ui_AddPersonWidget(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout_8)
 
-        self.selectImageButton = QPushButton(AddPersonWidget)
+        self.selectImageButton = QPushButton(PersonDetails)
         self.selectImageButton.setObjectName(u"selectImageButton")
 
         self.verticalLayout.addWidget(self.selectImageButton)
@@ -228,12 +229,12 @@ class Ui_AddPersonWidget(object):
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.addButton = QPushButton(AddPersonWidget)
+        self.addButton = QPushButton(PersonDetails)
         self.addButton.setObjectName(u"addButton")
 
         self.horizontalLayout.addWidget(self.addButton)
 
-        self.cancelButton = QPushButton(AddPersonWidget)
+        self.cancelButton = QPushButton(PersonDetails)
         self.cancelButton.setObjectName(u"cancelButton")
 
         self.horizontalLayout.addWidget(self.cancelButton)
@@ -259,26 +260,28 @@ class Ui_AddPersonWidget(object):
         QWidget.setTabOrder(self.selectImageButton, self.addButton)
         QWidget.setTabOrder(self.addButton, self.cancelButton)
 
-        self.retranslateUi(AddPersonWidget)
+        self.retranslateUi(PersonDetails)
 
-        QMetaObject.connectSlotsByName(AddPersonWidget)
+        QMetaObject.connectSlotsByName(PersonDetails)
     # setupUi
 
-    def retranslateUi(self, AddPersonWidget):
-        AddPersonWidget.setWindowTitle(QCoreApplication.translate("AddPersonWidget", u"Form", None))
+    def retranslateUi(self, PersonDetails):
+        PersonDetails.setWindowTitle(QCoreApplication.translate("PersonDetails", u"Form", None))
         self.personPictureLabel.setText("")
-        self.nameLabel.setText(QCoreApplication.translate("AddPersonWidget", u"Name", None))
-        self.nameInput.setPlaceholderText(QCoreApplication.translate("AddPersonWidget", u"Name", None))
-        self.birthdayLabel.setText(QCoreApplication.translate("AddPersonWidget", u"Birthday", None))
-        self.birthdayInput.setDisplayFormat(QCoreApplication.translate("AddPersonWidget", u"d/M/yyyy", None))
-        self.phoneNumberLabel.setText(QCoreApplication.translate("AddPersonWidget", u"Phone", None))
-        self.phoneNumberInput.setPlaceholderText(QCoreApplication.translate("AddPersonWidget", u"Phone Number", None))
-        self.emailLabel.setText(QCoreApplication.translate("AddPersonWidget", u"Email", None))
-        self.emailInput.setPlaceholderText(QCoreApplication.translate("AddPersonWidget", u"Email", None))
-        self.adresseLabel.setText(QCoreApplication.translate("AddPersonWidget", u"Adresse", None))
-        self.adresseInput.setPlaceholderText(QCoreApplication.translate("AddPersonWidget", u"Adresse", None))
-        self.selectImageButton.setText(QCoreApplication.translate("AddPersonWidget", u"Select Image", None))
-        self.addButton.setText(QCoreApplication.translate("AddPersonWidget", u"Add", None))
-        self.cancelButton.setText(QCoreApplication.translate("AddPersonWidget", u"Cancel", None))
+        self.nameLabel.setText(QCoreApplication.translate("PersonDetails", u"Name", None))
+        self.nameInput.setPlaceholderText(QCoreApplication.translate("PersonDetails", u"Name", None))
+        self.birthdayLabel.setText(QCoreApplication.translate("PersonDetails", u"Birthday", None))
+        self.birthdayInput.setDisplayFormat(QCoreApplication.translate("PersonDetails", u"d/M/yyyy", None))
+        self.phoneNumberLabel.setText(QCoreApplication.translate("PersonDetails", u"Phone", None))
+        self.phoneNumberInput.setInputMask("")
+        self.phoneNumberInput.setPlaceholderText(QCoreApplication.translate("PersonDetails", u"+000000000000", None))
+        self.emailLabel.setText(QCoreApplication.translate("PersonDetails", u"Email", None))
+        self.emailInput.setInputMask("")
+        self.emailInput.setPlaceholderText(QCoreApplication.translate("PersonDetails", u"Email", None))
+        self.adresseLabel.setText(QCoreApplication.translate("PersonDetails", u"Adresse", None))
+        self.adresseInput.setPlaceholderText(QCoreApplication.translate("PersonDetails", u"Adresse", None))
+        self.selectImageButton.setText(QCoreApplication.translate("PersonDetails", u"Select Image", None))
+        self.addButton.setText(QCoreApplication.translate("PersonDetails", u"Add", None))
+        self.cancelButton.setText(QCoreApplication.translate("PersonDetails", u"Cancel", None))
     # retranslateUi
 

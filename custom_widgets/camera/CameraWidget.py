@@ -42,7 +42,7 @@ class Thread(QThread):
     def __init__(self, parent=None):
         QThread.__init__(self, parent)
         self.status = True
-        database_manager = DataBaseManager("peoples.db")
+        database_manager = DataBaseManager()
         self.known_embeddings = database_manager.getEncodingArray()
         self.names = database_manager.getPersonNames()
         self.capture = cv.VideoCapture(0)

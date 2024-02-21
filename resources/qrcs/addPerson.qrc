@@ -2,4 +2,8 @@
   <qresource prefix="images">
     <file>../images/Person.jpg</file>
   </qresource>
+  <qresource prefix="icons">
+    <file>../Icons/trash.png</file>
+    <file>../Icons/pencil.png</file>
+  </qresource>
 </RCC>

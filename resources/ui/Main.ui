@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>742</width>
-    <height>606</height>
+    <width>750</width>
+    <height>661</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -146,14 +146,14 @@ QTabWidget::pane {
             </property>
            </widget>
           </item>
-          <item alignment="Qt::AlignVCenter">
-           <widget class="QPushButton" name="eventsButton">
+          <item>
+           <widget class="QPushButton" name="dataBaseButton">
             <property name="text">
-             <string>  Events</string>
+             <string>  Data Base</string>
             </property>
             <property name="icon">
              <iconset resource="resources.qrc">
-              <normaloff>:/icons/Icons/Notification.png</normaloff>:/icons/Icons/Notification.png</iconset>
+              <normaloff>:/icons/Icons/Data-Base.png</normaloff>:/icons/Icons/Data-Base.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -164,13 +164,13 @@ QTabWidget::pane {
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="dataBaseButton">
+           <widget class="QPushButton" name="eventsButton">
             <property name="text">
-             <string>  Data Base</string>
+             <string>parametre </string>
             </property>
             <property name="icon">
              <iconset resource="resources.qrc">
-              <normaloff>:/icons/Icons/Data-Base.png</normaloff>:/icons/Icons/Data-Base.png</iconset>
+              <normaloff>:/icons/Icons/gear.png</normaloff>:/icons/Icons/gear.png</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -193,8 +193,8 @@ QTabWidget::pane {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>742</width>
-     <height>22</height>
+     <width>750</width>
+     <height>26</height>
     </rect>
    </property>
   </widget>
