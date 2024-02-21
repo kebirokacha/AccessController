@@ -164,7 +164,7 @@ QTabWidget::pane {
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="eventsButton">
+           <widget class="QPushButton" name="settingbutton">
             <property name="text">
              <string>parametre </string>
             </property>

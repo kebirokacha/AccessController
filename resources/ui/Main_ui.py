@@ -18,7 +18,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QMainWindow,
     QMenuBar, QPushButton, QSizePolicy, QStatusBar,
     QTabWidget, QWidget)
-from. import resources_rc
+import resources.ui.Main_ui
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -125,14 +125,14 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.dataBaseButton)
 
-        self.eventsButton = QPushButton(self.mainTab)
-        self.eventsButton.setObjectName(u"eventsButton")
+        self.settingbutton = QPushButton(self.mainTab)
+        self.settingbutton.setObjectName(u"settingbutton")
         icon3 = QIcon()
         icon3.addFile(u":/icons/Icons/gear.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.eventsButton.setIcon(icon3)
-        self.eventsButton.setIconSize(QSize(30, 30))
+        self.settingbutton.setIcon(icon3)
+        self.settingbutton.setIconSize(QSize(30, 30))
 
-        self.horizontalLayout.addWidget(self.eventsButton)
+        self.horizontalLayout.addWidget(self.settingbutton)
 
 
         self.gridLayout_2.addLayout(self.horizontalLayout, 0, 0, 1, 1)
@@ -166,7 +166,7 @@ class Ui_MainWindow(object):
         self.liveButton.setText(QCoreApplication.translate("MainWindow", u"  Live", None))
         self.playBackButton.setText(QCoreApplication.translate("MainWindow", u"  PlayBack", None))
         self.dataBaseButton.setText(QCoreApplication.translate("MainWindow", u"  Data Base", None))
-        self.eventsButton.setText(QCoreApplication.translate("MainWindow", u"parametre ", None))
+        self.settingbutton.setText(QCoreApplication.translate("MainWindow", u"parametre ", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.mainTab), QCoreApplication.translate("MainWindow", u"Main", None))
     # retranslateUi
 

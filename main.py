@@ -2,12 +2,13 @@ from PySide6.QtWidgets import QApplication ,QMainWindow
 from resources.ui.Main_ui import Ui_MainWindow
 from custom_widgets.camera.CameraWidget import CameraWidget
 from custom_widgets.dataBase.DataBase import DataBaseWidget
+from custom_widgets.setting.Setting import Setting
 
 
 class MainPage (Ui_MainWindow ,QMainWindow):
 	liveTab = None
 	playBackTab = None
-	eventsTab = None
+	settingTab = None
 	dataBaseTab = None
 	
 	def __init__(self):
@@ -18,6 +19,8 @@ class MainPage (Ui_MainWindow ,QMainWindow):
 		self.tabWidget.setTabEnabled(0,False)
 		self.liveButton.clicked.connect(self.setLiveTab)
 		self.dataBaseButton.clicked.connect(self.setDtataBaseTab)
+		self.settingbutton.clicked.connect(self.setSettingTab)
+
 
 
 	def closeEvent(self, event):
@@ -36,8 +39,12 @@ class MainPage (Ui_MainWindow ,QMainWindow):
 	def setPlayTab(self):
 		pass
 
-	def setEventsTab(self):
-		pass
+	def setSettingTab(self):
+		if self.settingTab is None:
+			self.liveTab = Setting()
+			self.tabWidget.addTab(self.liveTab,'Live')
+			self.tabWidget.setCurrentIndex(self.tabWidget.count() - 1)
+		
 
 	def setDtataBaseTab(self):
 		if self.dataBaseTab is None:

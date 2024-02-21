@@ -112,11 +112,11 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.label.setText(QCoreApplication.translate("Form", u"TextLabel", None))
+        self.label.setText(QCoreApplication.translate("Form", u"Face Detection", None))
         self.checkBox.setText("")
-        self.label_2.setText(QCoreApplication.translate("Form", u"TextLabel", None))
+        self.label_2.setText(QCoreApplication.translate("Form", u"Face recognition", None))
         self.checkBox_2.setText("")
-        self.label_3.setText(QCoreApplication.translate("Form", u"TextLabel", None))
+        self.label_3.setText(QCoreApplication.translate("Form", u"tracking", None))
         self.checkBox_3.setText("")
     # retranslateUi
 
