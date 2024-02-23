@@ -24,7 +24,7 @@ class Ui_DataBase(object):
     def setupUi(self, DataBase):
         if not DataBase.objectName():
             DataBase.setObjectName(u"DataBase")
-        DataBase.resize(642, 525)
+        DataBase.resize(790, 525)
         DataBase.setStyleSheet(u"* {\n"
 "	background-color: rgb(33, 33, 33);\n"
 "}\n"
@@ -50,10 +50,15 @@ class Ui_DataBase(object):
 "	border: 1px solid  red\n"
 "\n"
 "}\n"
+"#DataBase #deleteButton::hover{\n"
+"	\n"
+"	background-color: rgb(255, 0, 4);\n"
+"\n"
+"}\n"
 "#nameInput{\n"
 "	background-color:  rgb(33, 33, 33);\n"
 "	border: 1px solid rgb(204, 204, 204);\n"
-"    border-radius: 4px;\n"
+"    border-radius: 12px;\n"
 "    color: rgb(204, 204, 204);\n"
 "\n"
 "}\n"
@@ -64,18 +69,21 @@ class Ui_DataBase(object):
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.nameLabel = QLabel(DataBase)
         self.nameLabel.setObjectName(u"nameLabel")
+        self.nameLabel.setMinimumSize(QSize(0, 0))
+        self.nameLabel.setMaximumSize(QSize(45, 16777215))
         font = QFont()
         font.setFamilies([u"Inter"])
         font.setPointSize(10)
         font.setBold(True)
         self.nameLabel.setFont(font)
-        self.nameLabel.setAlignment(Qt.AlignCenter)
+        self.nameLabel.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
         self.horizontalLayout.addWidget(self.nameLabel)
 
         self.nameInput = QLineEdit(DataBase)
         self.nameInput.setObjectName(u"nameInput")
-        self.nameInput.setMaximumSize(QSize(160, 16777215))
+        self.nameInput.setMinimumSize(QSize(0, 35))
+        self.nameInput.setMaximumSize(QSize(170, 16777215))
         font1 = QFont()
         font1.setFamilies([u"Inter"])
         font1.setPointSize(10)
@@ -85,6 +93,7 @@ class Ui_DataBase(object):
 
         self.modelingLabel = QLabel(DataBase)
         self.modelingLabel.setObjectName(u"modelingLabel")
+        self.modelingLabel.setMaximumSize(QSize(65, 16777215))
         self.modelingLabel.setFont(font)
         self.modelingLabel.setAlignment(Qt.AlignCenter)
 
@@ -162,13 +171,12 @@ class Ui_DataBase(object):
         self.scrollArea.setAlignment(Qt.AlignCenter)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 602, 371))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 750, 371))
         self.horizontalLayout_4 = QHBoxLayout(self.scrollAreaWidgetContents)
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.cardInfoGrid = QGridLayout()
+        self.cardInfoGrid.setSpacing(6)
         self.cardInfoGrid.setObjectName(u"cardInfoGrid")
-        self.cardInfoGrid.setHorizontalSpacing(6)
-        self.cardInfoGrid.setVerticalSpacing(4)
 
         self.horizontalLayout_4.addLayout(self.cardInfoGrid)
 

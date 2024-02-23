@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>642</width>
+    <width>790</width>
     <height>525</height>
    </rect>
   </property>
@@ -39,10 +39,15 @@ color: rgb(189, 189, 189);
 	border: 1px solid  red
 
 }
+#DataBase #deleteButton::hover{
+	
+	background-color: rgb(255, 0, 4);
+
+}
 #nameInput{
 	background-color:  rgb(33, 33, 33);
 	border: 1px solid rgb(204, 204, 204);
-    border-radius: 4px;
+    border-radius: 12px;
     color: rgb(204, 204, 204);
 
 }
@@ -50,9 +55,21 @@ color: rgb(189, 189, 189);
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0,0,0">
      <item>
       <widget class="QLabel" name="nameLabel">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>45</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <family>Inter</family>
@@ -64,15 +81,21 @@ color: rgb(189, 189, 189);
         <string>Name</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignCenter</set>
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QLineEdit" name="nameInput">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>35</height>
+        </size>
+       </property>
        <property name="maximumSize">
         <size>
-         <width>160</width>
+         <width>170</width>
          <height>16777215</height>
         </size>
        </property>
@@ -86,6 +109,12 @@ color: rgb(189, 189, 189);
      </item>
      <item>
       <widget class="QLabel" name="modelingLabel">
+       <property name="maximumSize">
+        <size>
+         <width>65</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <family>Inter</family>
@@ -244,18 +273,15 @@ color: rgb(189, 189, 189);
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>602</width>
+           <width>750</width>
            <height>371</height>
           </rect>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0">
           <item>
            <layout class="QGridLayout" name="cardInfoGrid">
-            <property name="horizontalSpacing">
+            <property name="spacing">
              <number>6</number>
-            </property>
-            <property name="verticalSpacing">
-             <number>4</number>
             </property>
            </layout>
           </item>

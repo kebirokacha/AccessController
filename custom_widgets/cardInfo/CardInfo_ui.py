@@ -62,6 +62,7 @@ class Ui_CardInfo(object):
         self.horizontalLayout_2.addWidget(self.imageLabel)
 
         self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setSpacing(10)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -136,6 +137,8 @@ class Ui_CardInfo(object):
 
         self.horizontalLayout.addLayout(self.verticalLayout_2)
 
+        self.horizontalLayout.setStretch(0, 1)
+        self.horizontalLayout.setStretch(1, 3)
 
         self.horizontalLayout_2.addLayout(self.horizontalLayout)
 
