@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'PersonDetails.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.1
+## Created by: Qt User Interface Compiler version 6.6.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -27,8 +27,8 @@ class Ui_PersonDetails(object):
         PersonDetails.resize(600, 500)
         PersonDetails.setMinimumSize(QSize(600, 500))
         PersonDetails.setMaximumSize(QSize(600, 500))
-        PersonDetails.setStyleSheet(u"QWidget#AddPersonWidget{\n"
-"	background-color: rgb(43, 45, 53);\n"
+        PersonDetails.setStyleSheet(u"QWidget#PersonDetails{\n"
+"	background-color: rgb(33, 33, 33);\n"
 "}\n"
 "QPushButton{\n"
 "	border:2px solid rgb(189, 189, 189); \n"
@@ -37,11 +37,11 @@ class Ui_PersonDetails(object):
 "	height:50px;\n"
 "	font-size:20px\n"
 "}\n"
-"QPushButton#add_button{\n"
+"QPushButton#addButton{\n"
 "	background-color: rgb(28, 113, 216);\n"
 "}\n"
 "QLineEdit{\n"
-"	background-color: rgb(43, 45, 53);\n"
+"	background-color: rgb(33, 33, 33);\n"
 "	border:2px solid rgb(189, 189, 189); \n"
 "	border-radius:12px;\n"
 "	color: rgb(255, 255, 255);\n"
@@ -55,14 +55,14 @@ class Ui_PersonDetails(object):
 "}\n"
 "\n"
 "QLabel { \n"
-"	background-color: rgb(43, 45, 53); \n"
+"	background-color: rgb(33, 33, 33);\n"
 "	color: rgb(255, 255, 255); \n"
 "	height: 50px; \n"
 "	font-size: 20px; \n"
 "}\n"
 "\n"
 "QDateEdit { \n"
-"	background-color: rgb(43, 45, 53); \n"
+"	background-color: rgb(33, 33, 33);\n"
 "	border: 2px solid rgb(189, 189, 189); \n"
 "	border-radius: 12px; \n"
 "	color: rgb(255, 255, 255); \n"
@@ -70,8 +70,8 @@ class Ui_PersonDetails(object):
 "	font-size: 20px; \n"
 "}\n"
 "\n"
-"QDateEdit::up-button, QDateEdit::"
-                        "down-button { \n"
+"QDateEdit::up-button, QDateEdit::down-"
+                        "button { \n"
 "	subcontrol-origin: border; \n"
 "	subcontrol-position: right center; \n"
 "	width: 20px; \n"
@@ -111,7 +111,7 @@ class Ui_PersonDetails(object):
 
         self.verticalLayout_3.addWidget(self.personPictureLabel)
 
-        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout_3.addItem(self.verticalSpacer_2)
 
@@ -220,7 +220,7 @@ class Ui_PersonDetails(object):
 
         self.verticalLayout.addWidget(self.selectImageButton)
 
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout.addItem(self.verticalSpacer)
 

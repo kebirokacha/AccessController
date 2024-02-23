@@ -1,24 +1,16 @@
-import cv2 as cv 
-import cvzone
-from ultralytics import YOLO
-import face_recognition
-from .Setting_ui import Ui_Form
-from PySide6.QtCore import QThread, Qt, Signal, Slot
-from PySide6.QtGui import QImage, QPixmap
+
 from PySide6.QtWidgets import  QWidget
+from .Setting_ui import Ui_Setting
 from databasemanager import DataBaseManager
 
 
-class Setting (Ui_Form,QWidget):
+class Setting (Ui_Setting,QWidget):
     def __init__(self):
         super(Setting,self).__init__()
         self.setupUi(self)
         self.checkBox.stateChanged.connect(self.faceDetection)
         self.checkBox_2.stateChanged.connect(self.faceRecognition)
         self.checkBox_3.stateChanged.connect(self.tracking)
-        database_manager = DataBaseManager()
-        self.known_embeddings = database_manager.getEncodingArray()
-        self.names = database_manager.getPersonNames()
     def faceDetection(self,state):
         
         # Slot function to handle checkbox state changes

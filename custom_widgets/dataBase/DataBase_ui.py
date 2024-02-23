@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'DataBase.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.1
+## Created by: Qt User Interface Compiler version 6.6.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -25,27 +25,39 @@ class Ui_DataBase(object):
         if not DataBase.objectName():
             DataBase.setObjectName(u"DataBase")
         DataBase.resize(642, 525)
-        DataBase.setStyleSheet(u"#DataBase {\n"
-"	background-color: rgb(43, 45, 53);\n"
+        DataBase.setStyleSheet(u"* {\n"
+"	background-color: rgb(33, 33, 33);\n"
+"}\n"
+"#DataBase QLabel ,QPushButton{\n"
+"color: rgb(189, 189, 189);\n"
 "}\n"
 "\n"
-"#cardInfoGrid QGridLayout{\n"
-"	border :10 px solid green;\n"
-"}\n"
 "\n"
 "#DataBase QPushButton{\n"
 "	border : 1px solid rgb(189, 189, 189);\n"
 "	border-radius: 12px;\n"
 "	padding: 15px;\n"
-"}\n"
 "\n"
-"#DataBase #addButton{\n"
+"}\n"
+"#DataBase #registerIdButton{\n"
 "	background-color: rgb(0, 142, 246);\n"
-"}\n"
 "\n"
-"#cardInfoGrid{\n"
-"	border: 2px solid red\n"
-"}")
+"}\n"
+"#DataBase #batchRegisterButton{\n"
+"	border: 1px solid  rgb(0, 142, 246);\n"
+"}\n"
+"#DataBase #deleteButton{\n"
+"	border: 1px solid  red\n"
+"\n"
+"}\n"
+"#nameInput{\n"
+"	background-color:  rgb(33, 33, 33);\n"
+"	border: 1px solid rgb(204, 204, 204);\n"
+"    border-radius: 4px;\n"
+"    color: rgb(204, 204, 204);\n"
+"\n"
+"}\n"
+"")
         self.verticalLayout = QVBoxLayout(DataBase)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.horizontalLayout = QHBoxLayout()
@@ -53,30 +65,23 @@ class Ui_DataBase(object):
         self.nameLabel = QLabel(DataBase)
         self.nameLabel.setObjectName(u"nameLabel")
         font = QFont()
+        font.setFamilies([u"Inter"])
+        font.setPointSize(10)
         font.setBold(True)
         self.nameLabel.setFont(font)
         self.nameLabel.setAlignment(Qt.AlignCenter)
 
         self.horizontalLayout.addWidget(self.nameLabel)
 
-        self.lineEdit = QLineEdit(DataBase)
-        self.lineEdit.setObjectName(u"lineEdit")
-        self.lineEdit.setMaximumSize(QSize(160, 16777215))
+        self.nameInput = QLineEdit(DataBase)
+        self.nameInput.setObjectName(u"nameInput")
+        self.nameInput.setMaximumSize(QSize(160, 16777215))
+        font1 = QFont()
+        font1.setFamilies([u"Inter"])
+        font1.setPointSize(10)
+        self.nameInput.setFont(font1)
 
-        self.horizontalLayout.addWidget(self.lineEdit)
-
-        self.genderLabel = QLabel(DataBase)
-        self.genderLabel.setObjectName(u"genderLabel")
-        self.genderLabel.setFont(font)
-        self.genderLabel.setAlignment(Qt.AlignCenter)
-
-        self.horizontalLayout.addWidget(self.genderLabel)
-
-        self.genderComboBox = QComboBox(DataBase)
-        self.genderComboBox.addItem("")
-        self.genderComboBox.setObjectName(u"genderComboBox")
-
-        self.horizontalLayout.addWidget(self.genderComboBox)
+        self.horizontalLayout.addWidget(self.nameInput)
 
         self.modelingLabel = QLabel(DataBase)
         self.modelingLabel.setObjectName(u"modelingLabel")
@@ -88,6 +93,7 @@ class Ui_DataBase(object):
         self.modelingComboBox = QComboBox(DataBase)
         self.modelingComboBox.addItem("")
         self.modelingComboBox.setObjectName(u"modelingComboBox")
+        self.modelingComboBox.setFont(font1)
 
         self.horizontalLayout.addWidget(self.modelingComboBox)
 
@@ -110,24 +116,6 @@ class Ui_DataBase(object):
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.registerIdButton = QPushButton(DataBase)
-        self.registerIdButton.setObjectName(u"registerIdButton")
-        self.registerIdButton.setFont(font)
-
-        self.horizontalLayout_2.addWidget(self.registerIdButton)
-
-        self.batchRegisterButton = QPushButton(DataBase)
-        self.batchRegisterButton.setObjectName(u"batchRegisterButton")
-        self.batchRegisterButton.setFont(font)
-
-        self.horizontalLayout_2.addWidget(self.batchRegisterButton)
-
-        self.modelingButton = QPushButton(DataBase)
-        self.modelingButton.setObjectName(u"modelingButton")
-        self.modelingButton.setFont(font)
-
-        self.horizontalLayout_2.addWidget(self.modelingButton)
-
         self.deleteButton = QPushButton(DataBase)
         self.deleteButton.setObjectName(u"deleteButton")
         self.deleteButton.setFont(font)
@@ -136,15 +124,28 @@ class Ui_DataBase(object):
 
         self.checkBox = QCheckBox(DataBase)
         self.checkBox.setObjectName(u"checkBox")
+        self.checkBox.setFont(font1)
 
         self.horizontalLayout_2.addWidget(self.checkBox)
 
 
         self.horizontalLayout_3.addLayout(self.horizontalLayout_2)
 
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_3.addItem(self.horizontalSpacer)
+
+        self.batchRegisterButton = QPushButton(DataBase)
+        self.batchRegisterButton.setObjectName(u"batchRegisterButton")
+        self.batchRegisterButton.setFont(font)
+
+        self.horizontalLayout_3.addWidget(self.batchRegisterButton)
+
+        self.registerIdButton = QPushButton(DataBase)
+        self.registerIdButton.setObjectName(u"registerIdButton")
+        self.registerIdButton.setFont(font)
+
+        self.horizontalLayout_3.addWidget(self.registerIdButton)
 
 
         self.verticalLayout.addLayout(self.horizontalLayout_3)
@@ -161,7 +162,7 @@ class Ui_DataBase(object):
         self.scrollArea.setAlignment(Qt.AlignCenter)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 610, 375))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 602, 371))
         self.horizontalLayout_4 = QHBoxLayout(self.scrollAreaWidgetContents)
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.cardInfoGrid = QGridLayout()
@@ -187,18 +188,14 @@ class Ui_DataBase(object):
     def retranslateUi(self, DataBase):
         DataBase.setWindowTitle(QCoreApplication.translate("DataBase", u"Form", None))
         self.nameLabel.setText(QCoreApplication.translate("DataBase", u"Name", None))
-        self.genderLabel.setText(QCoreApplication.translate("DataBase", u"Gender", None))
-        self.genderComboBox.setItemText(0, QCoreApplication.translate("DataBase", u"ALL", None))
-
         self.modelingLabel.setText(QCoreApplication.translate("DataBase", u"Modeling", None))
         self.modelingComboBox.setItemText(0, QCoreApplication.translate("DataBase", u"ALL", None))
 
         self.resetButton.setText(QCoreApplication.translate("DataBase", u"Reset", None))
         self.searchButton.setText(QCoreApplication.translate("DataBase", u"Search", None))
-        self.registerIdButton.setText(QCoreApplication.translate("DataBase", u"Register ID", None))
-        self.batchRegisterButton.setText(QCoreApplication.translate("DataBase", u"Batch Register", None))
-        self.modelingButton.setText(QCoreApplication.translate("DataBase", u"Modeling", None))
         self.deleteButton.setText(QCoreApplication.translate("DataBase", u"Delete", None))
         self.checkBox.setText(QCoreApplication.translate("DataBase", u"ALL", None))
+        self.batchRegisterButton.setText(QCoreApplication.translate("DataBase", u"Batch Register", None))
+        self.registerIdButton.setText(QCoreApplication.translate("DataBase", u"Register ID", None))
     # retranslateUi
 

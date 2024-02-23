@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>Setting</class>
+ <widget class="QWidget" name="Setting">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -12,6 +12,20 @@
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#Setting{
+	background-color: rgb(43, 45, 53);
+	
+}
+#Setting #frame{
+	background-color: rgb(53, 53, 53);
+}
+
+#Setting QLabel {
+	color:rgb(189, 189, 189);
+
+}</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="1" column="0">
@@ -78,6 +92,18 @@
         </item>
         <item>
          <widget class="QCheckBox" name="checkBox">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>20</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -96,6 +122,12 @@
         </item>
         <item>
          <widget class="QCheckBox" name="checkBox_2">
+          <property name="maximumSize">
+           <size>
+            <width>20</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -114,6 +146,12 @@
         </item>
         <item>
          <widget class="QCheckBox" name="checkBox_3">
+          <property name="maximumSize">
+           <size>
+            <width>20</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="text">
            <string/>
           </property>

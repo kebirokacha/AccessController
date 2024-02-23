@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QApplication ,QMainWindow 
+from PySide6.QtWidgets import QApplication ,QMainWindow  
 from resources.ui.Main_ui import Ui_MainWindow
 from custom_widgets.camera.CameraWidget import CameraWidget
 from custom_widgets.dataBase.DataBase import DataBaseWidget
@@ -41,8 +41,8 @@ class MainPage (Ui_MainWindow ,QMainWindow):
 
 	def setSettingTab(self):
 		if self.settingTab is None:
-			self.liveTab = Setting()
-			self.tabWidget.addTab(self.liveTab,'Live')
+			self.settingTab = Setting()
+			self.tabWidget.addTab(self.settingTab,'Setting')
 			self.tabWidget.setCurrentIndex(self.tabWidget.count() - 1)
 		
 
