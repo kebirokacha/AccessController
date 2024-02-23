@@ -27,7 +27,7 @@ class Ui_PersonDetails(object):
         PersonDetails.resize(600, 500)
         PersonDetails.setMinimumSize(QSize(600, 500))
         PersonDetails.setMaximumSize(QSize(600, 500))
-        PersonDetails.setStyleSheet(u"QWidget#PersonDetails{\n"
+        PersonDetails.setStyleSheet(u"*{\n"
 "	background-color: rgb(33, 33, 33);\n"
 "}\n"
 "QPushButton{\n"
@@ -70,9 +70,9 @@ class Ui_PersonDetails(object):
 "	font-size: 20px; \n"
 "}\n"
 "\n"
-"QDateEdit::up-button, QDateEdit::down-"
-                        "button { \n"
-"	subcontrol-origin: border; \n"
+"QDateEdit::up-button, QDateEdit::down-button { \n"
+"	subco"
+                        "ntrol-origin: border; \n"
 "	subcontrol-position: right center; \n"
 "	width: 20px; \n"
 "	border: none; \n"
@@ -169,7 +169,7 @@ class Ui_PersonDetails(object):
 
         self.phoneNumberInput = QLineEdit(PersonDetails)
         self.phoneNumberInput.setObjectName(u"phoneNumberInput")
-        self.phoneNumberInput.setMaxLength(32767)
+        self.phoneNumberInput.setMaxLength(13)
         self.phoneNumberInput.setAlignment(Qt.AlignCenter)
 
         self.horizontalLayout_6.addWidget(self.phoneNumberInput)
@@ -273,7 +273,8 @@ class Ui_PersonDetails(object):
         self.birthdayLabel.setText(QCoreApplication.translate("PersonDetails", u"Birthday", None))
         self.birthdayInput.setDisplayFormat(QCoreApplication.translate("PersonDetails", u"d/M/yyyy", None))
         self.phoneNumberLabel.setText(QCoreApplication.translate("PersonDetails", u"Phone", None))
-        self.phoneNumberInput.setInputMask("")
+        self.phoneNumberInput.setInputMask(QCoreApplication.translate("PersonDetails", u"+999999999999", None))
+        self.phoneNumberInput.setText(QCoreApplication.translate("PersonDetails", u"+000000000000", None))
         self.phoneNumberInput.setPlaceholderText(QCoreApplication.translate("PersonDetails", u"+000000000000", None))
         self.emailLabel.setText(QCoreApplication.translate("PersonDetails", u"Email", None))
         self.emailInput.setInputMask("")

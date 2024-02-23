@@ -26,7 +26,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QWidget#PersonDetails{
+   <string notr="true">*{
 	background-color: rgb(33, 33, 33);
 }
 QPushButton{
@@ -203,10 +203,13 @@ QDateEdit::calendar-popup {
          <item>
           <widget class="QLineEdit" name="phoneNumberInput">
            <property name="inputMask">
-            <string/>
+            <string>+999999999999</string>
+           </property>
+           <property name="text">
+            <string>+000000000000</string>
            </property>
            <property name="maxLength">
-            <number>32767</number>
+            <number>13</number>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
