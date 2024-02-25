@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QApplication ,QMainWindow  
 from resources.ui.Main_ui import Ui_MainWindow
-from custom_widgets.camera.CameraWidget import CameraWidget
+from custom_widgets.camera.Camera import CameraWidget
 from custom_widgets.dataBase.DataBase import DataBaseWidget
 from custom_widgets.setting.Setting import Setting
 
