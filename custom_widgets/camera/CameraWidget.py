@@ -1,109 +1,112 @@
-import time
-
 import cv2 as cv
+from ultralytics import YOLO
+import cvzone
 import face_recognition
 from PySide6.QtCore import QThread, Signal, Slot
 from PySide6.QtGui import QImage, QPixmap
 from PySide6.QtWidgets import  QWidget
 from .Camera_ui import Ui_Camera
 from databasemanager import DataBaseManager
+import numpy as np
 
 class CameraWidget(Ui_Camera ,QWidget):
 
     def __init__(self):
         super(CameraWidget, self).__init__()
         self.setupUi(self)
+        self.database_manager = DataBaseManager()
+        self.known_embeddings = DataBaseManager().getEncodingArray()
+        self.names = DataBaseManager().getPersonNames()
+        self.model = YOLO('yolov8n-face.pt')
         self.th = Thread(self)
+        self.showLive1.stateChanged.connect(self.showlive)
+        self.FaceYolo.stateChanged.connect(self.showFaceDetect)
         self.th.update_frame.connect(self.setImage)
-        self.th.start()
+        
 
-    def closeEvent(self, event):
-        self.killThread()
-        event.accept()
-
-    
-
+    def showlive(self,state):
+        if state == 2:
+            self.th.start()
+        
+    def showFaceDetect(self,state):
+        if state == 2 :
+           self.th.frames.connect(self.faceDetect)
+        
+   
     @Slot()
     def setImage(self, image):
         self.cameraLabel_01.setPixmap(QPixmap.fromImage(image))
+    @Slot(QImage)
+    def faceDetect(self,image):
+            buffer = memoryview(image.bits()).cast("B")
+            frame = np.array(buffer).reshape((image.height(), image.width(), 3))
+            results = self.model.predict(frame)
+                
+            for info in results:
+                parameters = info.boxes
+                for box in parameters:
+                    #(left ,top, right, bottom)
+                    x1, y1, x2, y2 = box.xyxy[0]
+                    x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
+                    h, w = y2 - y1, x2 - x1
+                    cvzone.cornerRect(frame, [x1, y1, w, h], l=30,rt=0,t=1,colorC=(255,255,255))
 
-    @Slot()
-    def killThread(self):
-
-        self.th.status = False  # Set the status flag to stop the thread
-        self.th.quit()
-        self.th.wait()  # Wait for the thread to finish
-        self.th = None
 
 
+
+    
 class Thread(QThread):
-    update_frame = Signal(QImage)
-
+    update_frame= Signal(QImage)
+    frames =Signal(QImage)
     def __init__(self, parent=None):
-        QThread.__init__(self, parent)
-        self.status = True
-        database_manager = DataBaseManager()
-        self.known_embeddings = database_manager.getEncodingArray()
-        self.names = database_manager.getPersonNames()
-        self.capture = cv.VideoCapture(0)
-        self.capture.set(cv.CAP_PROP_FPS ,30)
-        self.counter = 0
-        self.skip_frames = 5  # skip each 5 frame
-
-        self.frame_counter = 0
-        self.start_time = time.time()
-
-        self.last_recognition_time = time.time()
+        QThread.__init__(self, parent) 
     def run(self):
-        while self.status:
+        self.capture = cv.VideoCapture(0)
+        while True:
             ret, frame = self.capture.read()
+           
             if not ret:
                 continue
-            self.counter += 1
-
-            # Calculate the elapsed time since the last face recognition
-            elapsed_time = time.time() - self.last_recognition_time
-            # Increment the frame counter
-            self.frame_counter += 1
-
-            # Calculate FPS
-            if time.time() - self.start_time >= 1:
-                fps = self.frame_counter / (time.time() - self.start_time)
-                print(f"FPS: {fps:.2f}")
-                self.frame_counter = 0
-                self.start_time = time.time()
-
-            if elapsed_time >= .5:
-                # Update the last recognition time to the current time
-                self.last_recognition_time = time.time()
-                small_frame = cv.resize(frame, (0, 0), fx=0.25, fy=0.25)
-                # Locate all faces in the frame
-                faces = face_recognition.face_locations(small_frame )
-                for face in faces:
-                    # x, y, w, h = face # use the face tuple directly
-                    top, right, bottom, left = [x * 4 for x in face]  # use the same format as face_recognition 
-                    # top, right, bottom, left = face   
-                    # Use face_recognition to get the face encoding
-                    unknown_encoding = face_recognition.face_encodings(frame, [(top, right, bottom, left)])[0]
-                    # Compare the unknown embedding with the known embeddings
-                    matches = face_recognition.compare_faces(self.known_embeddings,
-                                                            unknown_encoding)  # get a list of boolean values
-                    # indicating matches
-                    name = "Unknown"  # default name
-                    if True in matches:  # if there is at least one match
-                        match_index = matches.index(True)  # get the index of the first match
-                        name = self.names[match_index]  # get the name from the names list
-                    self.drawRectangle(frame, name, top, right, bottom, left)
-
-            # Update the frame with no rectangle
-            color_frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
-            height, width, channel = color_frame.shape
-            image = QImage(color_frame.data, width, height, QImage.Format_RGB888)
+            height, width,channel = frame.shape
+            image = QImage(frame.data, width, height, QImage.Format_RGB888)
             self.update_frame.emit(image)
+            self.frames.emit(image)
+                # results = self.model.predict(frame)
+                
+                # for info in results:
+                #     parameters = info.boxes
+                #     for box in parameters:
+                #         #(left ,top, right, bottom)
+                #         x1, y1, x2, y2 = box.xyxy[0]
+                #         x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
+                #         h, w = y2 - y1, x2 - x1
+                #         cvzone.cornerRect(frame, [x1, y1, w, h], l=30,rt=0,t=1,colorC=(255,255,255))
 
-    def drawRectangle(self, frame, name, top, right, bottom, left):
-        red, green = (0, 0, 255), (0, 255, 0)
-        rectangle_color = green if name != "Unknown" else red
+                        
+                        # Extract the face from the frame
+                        # face = frame[y1:y2, x1:x2]
 
-        # Draw a rectangle around the face
-        cv.rectangle(frame, (left, top), (right, bottom), rectangle_color, 2)
+                        # Create an encoding for the extracted face
+                        #(top, right, bottom, left)
+                        # face_encoding = face_recognition.face_encodings(frame ,[(y1, x2, y2 ,x1)])[0]
+
+                        # # Compare the face encoding with the known encodings
+                        # matches = face_recognition.compare_faces(self.known_embeddings, face_encoding)
+
+                        # name = "Unknown"
+
+                        # if True in matches:
+                        #     # print ('kebir okacha abdel illah ')
+                        #     first_match_index = matches.index(True)
+                        #     name = self.names[first_match_index]
+                        #     print('trueeeeeeeeeeeeee')
+                            
+                # height, width,channel = frame.shape
+                # image = QImage(frame.data, width, height, QImage.Format_RGB888)
+                # self.update_frame.emit(image)
+            
+                # self.frame2.emit(frame)
+      
+        
+
+

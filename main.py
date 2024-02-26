@@ -10,7 +10,6 @@ class MainPage (Ui_MainWindow ,QMainWindow):
 	playBackTab = None
 	settingTab = None
 	dataBaseTab = None
-	
 	def __init__(self):
 		super(MainPage ,self).__init__()
 		self.setupUi(self)
@@ -41,8 +40,8 @@ class MainPage (Ui_MainWindow ,QMainWindow):
 
 	def setSettingTab(self):
 		if self.settingTab is None:
-			self.liveTab = Setting()
-			self.tabWidget.addTab(self.liveTab,'Live')
+			self.settingTab = Setting()
+			self.tabWidget.addTab(self.settingTab,'Setting')
 			self.tabWidget.setCurrentIndex(self.tabWidget.count() - 1)
 		
 

@@ -3,12 +3,10 @@ import cvzone
 from ultralytics import YOLO
 import face_recognition
 from .Setting_ui import Ui_Form
-from PySide6.QtCore import QThread, Qt, Signal, Slot
-from PySide6.QtGui import QImage, QPixmap
+from PySide6.QtCore import QThread
 from PySide6.QtWidgets import  QWidget
 from databasemanager import DataBaseManager
-
-
+from custom_widgets.camera.CameraWidget import CameraWidget,Thread
 class Setting (Ui_Form,QWidget):
     def __init__(self):
         super(Setting,self).__init__()
@@ -16,17 +14,17 @@ class Setting (Ui_Form,QWidget):
         self.checkBox.stateChanged.connect(self.faceDetection)
         self.checkBox_2.stateChanged.connect(self.faceRecognition)
         self.checkBox_3.stateChanged.connect(self.tracking)
-        database_manager = DataBaseManager()
-        self.known_embeddings = database_manager.getEncodingArray()
-        self.names = database_manager.getPersonNames()
+    
     def faceDetection(self,state):
-        
-        # Slot function to handle checkbox state changes
-        if state == 2:  # 2 corresponds to checked state
+        if state == 2: 
             print("Checkbox is checked")
         else:
             print("Checkbox is unchecked")
-    def faceRecognition(self):
-        print("reco is clicked ")
+            # self.th.quit()
+
+    def faceRecognition(self,state):
+        if state == 2 :
+            print ("okacha kfkjfosk is tchekdk ")
+
     def tracking (self):
         print ("tracking is clicked ")
