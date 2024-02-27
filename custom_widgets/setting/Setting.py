@@ -2,12 +2,12 @@ import cv2 as cv
 import cvzone
 from ultralytics import YOLO
 import face_recognition
-from .Setting_ui import Ui_Form
+from .Setting_ui import Ui_Setting
 from PySide6.QtCore import QThread
 from PySide6.QtWidgets import  QWidget
 from databasemanager import DataBaseManager
-from custom_widgets.camera.CameraWidget import CameraWidget,Thread
-class Setting (Ui_Form,QWidget):
+
+class Setting (Ui_Setting,QWidget):
     def __init__(self):
         super(Setting,self).__init__()
         self.setupUi(self)

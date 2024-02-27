@@ -29,9 +29,8 @@ class RecognitionWorker(QThread):
                     #(left ,top, right, bottom)
                     x1, y1, x2, y2 = box.xyxy[0]
                     x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
-                    #Send the fram and face location to the recognition worker
-            face_encoding = face_recognition.face_encodings(fram ,[(y1, x2, y2 ,x1)])[0]
-            matches = face_recognition.compare_faces(self.knownEncodings, face_encoding)
+                face_encoding = face_recognition.face_encodings(fram ,[(y1, x2, y2 ,x1)])[0]
+                matches = face_recognition.compare_faces(self.knownEncodings, face_encoding)
             print(matches)
         # self.recognizedFace.emit(matches)
             
