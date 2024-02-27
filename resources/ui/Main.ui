@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>750</width>
+    <width>716</width>
     <height>661</height>
    </rect>
   </property>
@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QMainWindow{
+   <string notr="true">#MainWindow{
 	background-color: rgb(53, 53, 53);
 }
 QTabWidget::tab-bar {
@@ -33,6 +33,7 @@ QTabBar::tab {
 	border-top-left-radius:12;
 	border-top-right-radius:12;
   	padding: 10px;
+	color :rgb(189, 189, 189);
 	
  }
 
@@ -41,7 +42,7 @@ QTabBar::tab:selected {
 	text-decoration: none;
  }
 
-QTabWidget ::pane &gt; QWidget{
+QTabWidget::pane{
 	background-color: rgb(33, 33, 33);
 }
 QTabWidget::pane {
@@ -63,6 +64,8 @@ QTabWidget::pane {
     border-radius: 12px; 
     padding: 20px; 
 }
+
+
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -188,17 +191,6 @@ QTabWidget::pane {
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>750</width>
-     <height>26</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources>
   <include location="resources.qrc"/>

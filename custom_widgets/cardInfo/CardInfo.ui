@@ -6,27 +6,34 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>430</width>
+    <width>420</width>
     <height>280</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>430</width>
+    <width>420</width>
     <height>280</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>430</width>
-    <height>280</height>
+    <width>420</width>
+    <height>286</height>
    </size>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#cardInfoFrame{
+   <string notr="true">#CardInfo{
+	background-color:  rgb(33, 33, 33);
+	
+}
+QLabel{
+	color: rgb(189, 189, 189);
+}
+#cardInfoFrame{
 	border: 2px solid rgb(189, 189, 189);
 	border-radius:12px;
 
@@ -68,7 +75,10 @@
          </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout">
+         <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,3">
+          <property name="spacing">
+           <number>10</number>
+          </property>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
@@ -218,7 +228,6 @@
           <property name="font">
            <font>
             <family>Inter</family>
-            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -249,7 +258,6 @@
            <font>
             <family>Inter</family>
             <pointsize>10</pointsize>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>
@@ -274,7 +282,6 @@
            <font>
             <family>Inter</family>
             <pointsize>10</pointsize>
-            <weight>50</weight>
             <bold>false</bold>
            </font>
           </property>

@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'Main.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.1
+## Created by: Qt User Interface Compiler version 6.6.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -16,16 +16,15 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QMainWindow,
-    QMenuBar, QPushButton, QSizePolicy, QStatusBar,
-    QTabWidget, QWidget)
-import resources.ui.Main_ui
+    QPushButton, QSizePolicy, QTabWidget, QWidget)
+from . import resources_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(750, 661)
-        MainWindow.setStyleSheet(u"QMainWindow{\n"
+        MainWindow.resize(716, 661)
+        MainWindow.setStyleSheet(u"#MainWindow{\n"
 "	background-color: rgb(53, 53, 53);\n"
 "}\n"
 "QTabWidget::tab-bar {\n"
@@ -44,6 +43,7 @@ class Ui_MainWindow(object):
 "	border-top-left-radius:12;\n"
 "	border-top-right-radius:12;\n"
 "  	padding: 10px;\n"
+"	color :rgb(189, 189, 189);\n"
 "	\n"
 " }\n"
 "\n"
@@ -52,7 +52,7 @@ class Ui_MainWindow(object):
 "	text-decoration: none;\n"
 " }\n"
 "\n"
-"QTabWidget ::pane > QWidget{\n"
+"QTabWidget::pane{\n"
 "	background-color: rgb(33, 33, 33);\n"
 "}\n"
 "QTabWidget::pane {\n"
@@ -70,11 +70,13 @@ class Ui_MainWindow(object):
 "#mainTab QPushButton::hover{\n"
 "	background-color: rgb(0, 142, 246);\n"
 "	color: rgb(189, 189, 189);\n"
-"    border: 1px solid rgb(189, "
-                        "189, 189);\n"
+"    border"
+                        ": 1px solid rgb(189, 189, 189);\n"
 "    border-radius: 12px; \n"
 "    padding: 20px; \n"
 "}\n"
+"\n"
+"\n"
 "")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -144,13 +146,6 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 1)
 
         MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QMenuBar(MainWindow)
-        self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 750, 26))
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QStatusBar(MainWindow)
-        self.statusbar.setObjectName(u"statusbar")
-        MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
 

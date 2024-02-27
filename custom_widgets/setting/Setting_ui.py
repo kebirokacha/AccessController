@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'Setting.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.1
+## Created by: Qt User Interface Compiler version 6.6.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -19,22 +19,34 @@ from PySide6.QtWidgets import (QApplication, QCheckBox, QFrame, QGridLayout,
     QHBoxLayout, QLabel, QSizePolicy, QSpacerItem,
     QVBoxLayout, QWidget)
 
-class Ui_Form(object):
-    def setupUi(self, Form):
-        if not Form.objectName():
-            Form.setObjectName(u"Form")
-        Form.resize(800, 556)
-        self.gridLayout = QGridLayout(Form)
+class Ui_Setting(object):
+    def setupUi(self, Setting):
+        if not Setting.objectName():
+            Setting.setObjectName(u"Setting")
+        Setting.resize(800, 556)
+        Setting.setStyleSheet(u"#Setting{\n"
+"	background-color: rgb(43, 45, 53);\n"
+"	\n"
+"}\n"
+"#Setting #frame{\n"
+"	background-color: rgb(53, 53, 53);\n"
+"}\n"
+"\n"
+"#Setting QLabel {\n"
+"	color:rgb(189, 189, 189);\n"
+"\n"
+"}")
+        self.gridLayout = QGridLayout(Setting)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.horizontalSpacer = QSpacerItem(160, 20, QSizePolicy.Preferred, QSizePolicy.Minimum)
+        self.horizontalSpacer = QSpacerItem(160, 20, QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Minimum)
 
         self.gridLayout.addItem(self.horizontalSpacer, 1, 0, 1, 1)
 
-        self.verticalSpacer = QSpacerItem(20, 20, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.verticalSpacer = QSpacerItem(20, 20, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.gridLayout.addItem(self.verticalSpacer, 0, 1, 1, 1)
 
-        self.frame = QFrame(Form)
+        self.frame = QFrame(Setting)
         self.frame.setObjectName(u"frame")
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
@@ -51,6 +63,8 @@ class Ui_Form(object):
 
         self.checkBox = QCheckBox(self.frame)
         self.checkBox.setObjectName(u"checkBox")
+        self.checkBox.setMinimumSize(QSize(0, 0))
+        self.checkBox.setMaximumSize(QSize(20, 16777215))
 
         self.horizontalLayout.addWidget(self.checkBox)
 
@@ -68,6 +82,7 @@ class Ui_Form(object):
 
         self.checkBox_2 = QCheckBox(self.frame)
         self.checkBox_2.setObjectName(u"checkBox_2")
+        self.checkBox_2.setMaximumSize(QSize(20, 16777215))
 
         self.horizontalLayout_2.addWidget(self.checkBox_2)
 
@@ -85,6 +100,7 @@ class Ui_Form(object):
 
         self.checkBox_3 = QCheckBox(self.frame)
         self.checkBox_3.setObjectName(u"checkBox_3")
+        self.checkBox_3.setMaximumSize(QSize(20, 16777215))
 
         self.horizontalLayout_3.addWidget(self.checkBox_3)
 
@@ -96,27 +112,27 @@ class Ui_Form(object):
 
         self.gridLayout.addWidget(self.frame, 1, 1, 1, 1)
 
-        self.horizontalSpacer_2 = QSpacerItem(160, 20, QSizePolicy.Preferred, QSizePolicy.Minimum)
+        self.horizontalSpacer_2 = QSpacerItem(160, 20, QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Minimum)
 
         self.gridLayout.addItem(self.horizontalSpacer_2, 1, 2, 1, 1)
 
-        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.gridLayout.addItem(self.verticalSpacer_2, 2, 1, 1, 1)
 
 
-        self.retranslateUi(Form)
+        self.retranslateUi(Setting)
 
-        QMetaObject.connectSlotsByName(Form)
+        QMetaObject.connectSlotsByName(Setting)
     # setupUi
 
-    def retranslateUi(self, Form):
-        Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.label.setText(QCoreApplication.translate("Form", u"Face Detection", None))
+    def retranslateUi(self, Setting):
+        Setting.setWindowTitle(QCoreApplication.translate("Setting", u"Form", None))
+        self.label.setText(QCoreApplication.translate("Setting", u"Face Detection", None))
         self.checkBox.setText("")
-        self.label_2.setText(QCoreApplication.translate("Form", u"Face recognition", None))
+        self.label_2.setText(QCoreApplication.translate("Setting", u"Face recognition", None))
         self.checkBox_2.setText("")
-        self.label_3.setText(QCoreApplication.translate("Form", u"tracking", None))
+        self.label_3.setText(QCoreApplication.translate("Setting", u"tracking", None))
         self.checkBox_3.setText("")
     # retranslateUi
 

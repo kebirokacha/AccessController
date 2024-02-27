@@ -18,7 +18,7 @@ class DataBaseManager:
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     name TEXT NOT NULL UNIQUE,
                     birthday TEXT NOT NULL,
-                    phone INTEGER NOT NULL,
+                    phone TEXT NOT NULL,
                     email TEXT NOT NULL,
                     address TEXT NOT NULL,
                     encoding TEXT NOT NULL
@@ -32,7 +32,7 @@ class DataBaseManager:
 			encodingStr = ",".join(map(str, encoding))
 			self.connection.execute("""
 				INSERT INTO persons (name, birthday, phone, email, address, encoding) VALUES (?, ?, ?, ?, ?, ?);
-			""", (name, birthday, int(phone), email, address, encodingStr))
+			""", (name, birthday, phone, email, address, encodingStr))
 			self.connection.commit()
 			
 	def modifyPerson(self, id, name, birthday, phone, email, address, encoding):
@@ -41,14 +41,14 @@ class DataBaseManager:
 			encodingStr = ",".join(map(str, encoding))
 			self.connection.execute("""
 				UPDATE persons SET name = ?, birthday = ?, phone = ?, email = ?, address = ?, encoding = ? WHERE id = ?;
-			""", (name, birthday, int(phone), email, address, encodingStr, id))
+			""", (name, birthday, phone, email, address, encodingStr, id))
 			self.connection.commit()
 			
 	def modifyPersonWithoutEncoding(self, id, name, birthday, phone, email, address):
 		with self.connection:
 			self.connection.execute("""
 				UPDATE persons SET name = ?, birthday = ?, phone = ?, email = ?, address = ? WHERE id = ?;
-			""", (name, birthday, int(phone), email, address, id))
+			""", (name, birthday, phone, email, address, id))
 			self.connection.commit()
 
 	def deletePerson(self, personId):

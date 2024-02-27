@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>642</width>
+    <width>790</width>
     <height>525</height>
    </rect>
   </property>
@@ -14,36 +14,66 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#DataBase {
-	background-color: rgb(43, 45, 53);
+   <string notr="true">* {
+	background-color: rgb(33, 33, 33);
+}
+#DataBase QLabel ,QPushButton{
+color: rgb(189, 189, 189);
 }
 
-#cardInfoGrid QGridLayout{
-	border :10 px solid green;
-}
 
 #DataBase QPushButton{
 	border : 1px solid rgb(189, 189, 189);
 	border-radius: 12px;
 	padding: 15px;
-}
 
-#DataBase #addButton{
+}
+#DataBase #registerIdButton{
 	background-color: rgb(0, 142, 246);
-}
 
-#cardInfoGrid{
-	border: 2px solid red
-}</string>
+}
+#DataBase #batchRegisterButton{
+	border: 1px solid  rgb(0, 142, 246);
+}
+#DataBase #deleteButton{
+	border: 1px solid  red
+
+}
+#DataBase #deleteButton::hover{
+	
+	background-color: rgb(255, 0, 4);
+
+}
+#nameInput{
+	background-color:  rgb(33, 33, 33);
+	border: 1px solid rgb(204, 204, 204);
+    border-radius: 12px;
+    color: rgb(204, 204, 204);
+
+}
+</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0,0,0">
      <item>
       <widget class="QLabel" name="nameLabel">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>45</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="font">
         <font>
-         <weight>75</weight>
+         <family>Inter</family>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
@@ -51,50 +81,44 @@
         <string>Name</string>
        </property>
        <property name="alignment">
-        <set>Qt::AlignCenter</set>
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit">
+      <widget class="QLineEdit" name="nameInput">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>35</height>
+        </size>
+       </property>
        <property name="maximumSize">
         <size>
-         <width>160</width>
+         <width>170</width>
          <height>16777215</height>
         </size>
        </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="genderLabel">
        <property name="font">
         <font>
-         <weight>75</weight>
-         <bold>true</bold>
+         <family>Inter</family>
+         <pointsize>10</pointsize>
         </font>
        </property>
-       <property name="text">
-        <string>Gender</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="genderComboBox">
-       <item>
-        <property name="text">
-         <string>ALL</string>
-        </property>
-       </item>
       </widget>
      </item>
      <item>
       <widget class="QLabel" name="modelingLabel">
+       <property name="maximumSize">
+        <size>
+         <width>65</width>
+         <height>16777215</height>
+        </size>
+       </property>
        <property name="font">
         <font>
-         <weight>75</weight>
+         <family>Inter</family>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
@@ -108,6 +132,12 @@
      </item>
      <item>
       <widget class="QComboBox" name="modelingComboBox">
+       <property name="font">
+        <font>
+         <family>Inter</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
        <item>
         <property name="text">
          <string>ALL</string>
@@ -119,7 +149,8 @@
       <widget class="QPushButton" name="resetButton">
        <property name="font">
         <font>
-         <weight>75</weight>
+         <family>Inter</family>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
@@ -132,7 +163,8 @@
       <widget class="QPushButton" name="searchButton">
        <property name="font">
         <font>
-         <weight>75</weight>
+         <family>Inter</family>
+         <pointsize>10</pointsize>
          <bold>true</bold>
         </font>
        </property>
@@ -148,49 +180,11 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QPushButton" name="registerIdButton">
-         <property name="font">
-          <font>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Register ID</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="batchRegisterButton">
-         <property name="font">
-          <font>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Batch Register</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="modelingButton">
-         <property name="font">
-          <font>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Modeling</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QPushButton" name="deleteButton">
          <property name="font">
           <font>
-           <weight>75</weight>
+           <family>Inter</family>
+           <pointsize>10</pointsize>
            <bold>true</bold>
           </font>
          </property>
@@ -201,6 +195,12 @@
        </item>
        <item>
         <widget class="QCheckBox" name="checkBox">
+         <property name="font">
+          <font>
+           <family>Inter</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>ALL</string>
          </property>
@@ -220,6 +220,34 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="batchRegisterButton">
+       <property name="font">
+        <font>
+         <family>Inter</family>
+         <pointsize>10</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Batch Register</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="registerIdButton">
+       <property name="font">
+        <font>
+         <family>Inter</family>
+         <pointsize>10</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Register ID</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -245,18 +273,15 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>610</width>
-           <height>375</height>
+           <width>750</width>
+           <height>371</height>
           </rect>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0">
           <item>
            <layout class="QGridLayout" name="cardInfoGrid">
-            <property name="horizontalSpacing">
+            <property name="spacing">
              <number>6</number>
-            </property>
-            <property name="verticalSpacing">
-             <number>4</number>
             </property>
            </layout>
           </item>

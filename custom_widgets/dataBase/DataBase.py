@@ -1,8 +1,7 @@
-from PySide6.QtWidgets import QWidget 
-from PySide6.QtCore import Slot ,QDate 
+from PySide6.QtWidgets import QWidget ,QLabel
+from PySide6.QtCore import Slot ,Qt
 from .DataBase_ui import Ui_DataBase
 from databasemanager import DataBaseManager
-
 
 class DataBaseWidget(Ui_DataBase ,QWidget):
 	dataBaseManager = DataBaseManager()
@@ -19,8 +18,7 @@ class DataBaseWidget(Ui_DataBase ,QWidget):
 			from ..personDetails.PersonDetails import PersonDetailsWidget
 			self.PersonDetailsWidgetWindow = PersonDetailsWidget(self)
 			self.PersonDetailsWidgetWindow.show()
-			
-		
+
 	def populateTableWithPersonsInfo(self):
 		from ..cardInfo.CardInfo import CardInfo
 		# Get all persons' information from the database
@@ -31,28 +29,32 @@ class DataBaseWidget(Ui_DataBase ,QWidget):
 			widget = item.widget()
 			if widget:
 				widget.deleteLater()
-		
+
 		columnNum = 0
-		rowNum = 0
-		# Populate the cardInfoGrid with the data
-			
+		rowNum = 0	
 		for personInfo in personsInfo:
 			if columnNum == 3:
 				columnNum = 0
 				rowNum += 1
-			# Initialize the cardInfoWidget
 			cardInfo = CardInfo(self, personInfo)
-			# Add it to the cardInfoGrid
 			self.cardInfoGrid.addWidget(cardInfo, rowNum,  columnNum)
 			columnNum += 1
 
+		if len(personsInfo)!=0 and len(personsInfo)<=3:
+			columnNum = len(personsInfo)
+			rowNum = 0
+			for _ in range(columnNum ,6):
+				if columnNum == 3:
+					columnNum = 0
+					rowNum += 1
+				self.cardInfoGrid.addWidget(QWidget(), rowNum,  columnNum)
+				columnNum += 1
+		else:
+			label = QLabel("DataBase Empty")
+			label.setAlignment(Qt.AlignmentFlag.AlignCenter)		
+			self.cardInfoGrid.addWidget(label)
+
 	@Slot()
 	def receiveData (self):
-		print("receiveData Start")
-		print('before')
-		print(self.PersonDetailsWidgetWindow)
 		self.PersonDetailsWidgetWindow = None
-		print('after')
 		self.populateTableWithPersonsInfo()
-		print('receiveData END ')
-

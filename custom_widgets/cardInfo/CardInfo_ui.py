@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'CardInfo.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.1
+## Created by: Qt User Interface Compiler version 6.6.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -24,10 +24,17 @@ class Ui_CardInfo(object):
     def setupUi(self, CardInfo):
         if not CardInfo.objectName():
             CardInfo.setObjectName(u"CardInfo")
-        CardInfo.resize(430, 280)
-        CardInfo.setMinimumSize(QSize(430, 280))
-        CardInfo.setMaximumSize(QSize(430, 280))
-        CardInfo.setStyleSheet(u"#cardInfoFrame{\n"
+        CardInfo.resize(420, 280)
+        CardInfo.setMinimumSize(QSize(420, 280))
+        CardInfo.setMaximumSize(QSize(420, 286))
+        CardInfo.setStyleSheet(u"#CardInfo{\n"
+"	background-color:  rgb(33, 33, 33);\n"
+"	\n"
+"}\n"
+"QLabel{\n"
+"	color: rgb(189, 189, 189);\n"
+"}\n"
+"#cardInfoFrame{\n"
 "	border: 2px solid rgb(189, 189, 189);\n"
 "	border-radius:12px;\n"
 "\n"
@@ -55,6 +62,7 @@ class Ui_CardInfo(object):
         self.horizontalLayout_2.addWidget(self.imageLabel)
 
         self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setSpacing(10)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -129,6 +137,8 @@ class Ui_CardInfo(object):
 
         self.horizontalLayout.addLayout(self.verticalLayout_2)
 
+        self.horizontalLayout.setStretch(0, 1)
+        self.horizontalLayout.setStretch(1, 3)
 
         self.horizontalLayout_2.addLayout(self.horizontalLayout)
 
@@ -147,7 +157,7 @@ class Ui_CardInfo(object):
 
         self.horizontalLayout_3.addWidget(self.status)
 
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_3.addItem(self.horizontalSpacer)
 
