@@ -2,11 +2,12 @@ from PySide6.QtCore import QThread, Signal
 from PySide6.QtGui import QImage
 from databasemanager import DataBaseManager
 import cvzone
-import cv2 as cv
+import time
+import cv2
 
 class CameraWorker(QThread):
-	update_frame = Signal(QImage)
-	faceDetected = Signal(cv.Mat)
+	update_frame = Signal(cv2.Mat)
+	faceDetected = Signal(cv2.Mat)
 	status = True
 	
 
@@ -16,15 +17,14 @@ class CameraWorker(QThread):
 		
 	def run(self):
 		while self.status:
+			time.sleep(0.01)
 			ret, fram = self.capture.read()
 			if not ret:
 				continue
 			#Detecte Face
 			# Update the frame with no rectangle
-			color_frame = cv.cvtColor(fram, cv.COLOR_BGR2RGB)
-			height, width, channel = color_frame.shape
-			image = QImage(color_frame.data, width, height, QImage.Format_RGB888)
-			self.update_frame.emit(image)
+			
+			self.update_frame.emit(fram)
 
 	def killWorker(self):
 		self.status = False  # Set the status flag to stop the thread
