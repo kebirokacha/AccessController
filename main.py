@@ -10,7 +10,6 @@ class MainPage (Ui_MainWindow ,QMainWindow):
 	playBackTab = None
 	settingTab = None
 	dataBaseTab = None
-	
 	def __init__(self):
 		super(MainPage ,self).__init__()
 		self.setupUi(self)

@@ -1,8 +1,11 @@
-
-from PySide6.QtWidgets import  QWidget
+import cv2 as cv 
+import cvzone
+from ultralytics import YOLO
+import face_recognition
 from .Setting_ui import Ui_Setting
+from PySide6.QtCore import QThread
+from PySide6.QtWidgets import  QWidget
 from databasemanager import DataBaseManager
-
 
 class Setting (Ui_Setting,QWidget):
     def __init__(self):
@@ -11,14 +14,17 @@ class Setting (Ui_Setting,QWidget):
         self.checkBox.stateChanged.connect(self.faceDetection)
         self.checkBox_2.stateChanged.connect(self.faceRecognition)
         self.checkBox_3.stateChanged.connect(self.tracking)
+    
     def faceDetection(self,state):
-        
-        # Slot function to handle checkbox state changes
-        if state == 2:  # 2 corresponds to checked state
+        if state == 2: 
             print("Checkbox is checked")
         else:
             print("Checkbox is unchecked")
-    def faceRecognition(self):
-        print("reco is clicked ")
+            # self.th.quit()
+
+    def faceRecognition(self,state):
+        if state == 2 :
+            print ("okacha kfkjfosk is tchekdk ")
+
     def tracking (self):
         print ("tracking is clicked ")
