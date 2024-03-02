@@ -4,26 +4,25 @@ from ultralytics import YOLO
 import face_recognition
 import time
 import numpy as np
+from queue import Queue
 import cv2
 
 class RecognitionWorker(QThread):
-	recognizedFace = Signal(list) 
 	databaseManager = DataBaseManager()
 	knownEncodings = databaseManager.getEncodingArray()
 	model = YOLO('resources/yolov8n-face.pt')
 	status = True
 
-	def __init__(self ,capture ,parent=None):
-		QThread.__init__(self, parent)
-		self.capture = capture
+	def __init__(self ,queue:Queue ,parent=None):
+		QThread.__init__(self , parent)
+		self.queue = queue
 		images = [
-		cv2.imread('person_images/elmhadji.jpg') , 
-		cv2.imread('person_images/elmhadji1.jpg') ,
-		cv2.imread('person_images/elmhadji2.jpg') ,
-		cv2.imread('person_images/elmhadji3.jpg'),
-		cv2.imread('person_images/elmhadji4.jpg'),
-		cv2.imread('person_images/elmhadji5.jpg'),
-
+			cv2.imread('person_images/elmhadji.jpg') , 
+			cv2.imread('person_images/elmhadji1.jpg') ,
+			cv2.imread('person_images/elmhadji2.jpg') ,
+			cv2.imread('person_images/elmhadji3.jpg'),
+			cv2.imread('person_images/elmhadji4.jpg'),
+			cv2.imread('person_images/elmhadji5.jpg'),
 		]
 		self.encoding = []
 		for image in images:
@@ -33,27 +32,24 @@ class RecognitionWorker(QThread):
 					x1, y1, x2, y2 = box.xyxy[0]
 					x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
 					self.encoding.append(face_recognition.face_encodings(image ,[(y1, x2, y2 ,x1)])[0])
-		print(self.knownEncodings)
-		print(self.encoding)
-
+		
 	def run(self):
 		while self.status:
+			fram = self.queue.get()
+			if fram is not None:
+				timerStart = time.time()
+				results = self.model.predict(fram, verbose=False)
+				for index ,info in enumerate(results):
+					for box in info.boxes:
+						#(left ,top, right, bottom)
+						x1, y1, x2, y2 = box.xyxy[0]
+						x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
+						faceEncoding = face_recognition.face_encodings(fram ,[(y1, x2, y2 ,x1)])[0]
+						matches = face_recognition.compare_faces(self.encoding , faceEncoding)
+						print(f'The matches of face {index} are !:{matches}')
+				timerEnd= time.time()
+			print(f'time of execution is !: {timerEnd -timerStart}')
 			time.sleep(1)
-			ret, fram = self.capture.read()
-			if not ret:
-				continue
-			results = self.model.predict(fram, verbose=False)
-			for info in results:
-				for box in info.boxes:
-					#(left ,top, right, bottom)
-					x1, y1, x2, y2 = box.xyxy[0]
-					x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
-				faceEncoding = face_recognition.face_encodings(fram ,[(y1, x2, y2 ,x1)])[0]
-				matches = face_recognition.compare_faces(self.encoding , faceEncoding)
-				
-				
-					
-		
 
 	def killWorker(self):
 		self.status = False
