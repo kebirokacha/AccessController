@@ -3,6 +3,8 @@
     <file>../images/Person.jpg</file>
   </qresource>
   <qresource prefix="icons">
+    <file>../Icons/circle-plus.png</file>
+    <file>../Icons/rotate-right.png</file>
     <file>../Icons/trash.png</file>
     <file>../Icons/pencil.png</file>
   </qresource>
