@@ -1,55 +1,31 @@
 from PySide6.QtCore import QThread, Signal ,Slot ,QTimer
 from databasemanager import DataBaseManager
-from ultralytics import YOLO
-import face_recognition
 import time
 import numpy as np
-from queue import Queue
+from deepface import DeepFace
 import cv2
 
 class RecognitionWorker(QThread):
 	databaseManager = DataBaseManager()
 	knownEncodings = databaseManager.getEncodingArray()
-	model = YOLO('resources/yolov8n-face.pt')
 	status = True
 
-	def __init__(self ,queue:Queue ,parent=None):
+	def __init__(self ,parent=None):
 		QThread.__init__(self , parent)
-		self.queue = queue
-		images = [
-			cv2.imread('person_images/elmhadji.jpg') , 
-			cv2.imread('person_images/elmhadji1.jpg') ,
-			cv2.imread('person_images/elmhadji2.jpg') ,
-			cv2.imread('person_images/elmhadji3.jpg'),
-			cv2.imread('person_images/elmhadji4.jpg'),
-			cv2.imread('person_images/elmhadji5.jpg'),
-		]
-		self.encoding = []
-		for image in images:
-			results = self.model.predict(image ,verbose=False)
-			for info in results:
-				for box in info.boxes:
-					x1, y1, x2, y2 = box.xyxy[0]
-					x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
-					self.encoding.append(face_recognition.face_encodings(image ,[(y1, x2, y2 ,x1)])[0])
+
+	@Slot(cv2.Mat)
+	def faceRecognition(self ,fram):
+		print('faceRecognition function START')
+		try:
+			# Get embedding representation of the face using DeepFace
+			embedding = np.array(DeepFace.represent(fram, model_name='Facenet512', detector_backend='yolov8')[0]["embedding"])
+			# Compare the face with known encodings
+			# matches = self.compare_faces(self.knownEncodings, embedding)
+			# TODO: Handle the matches, e.g., emit a signal or update the UI
+		except Exception as e:
+			print(f'Face not found: {e}')
+		print('faceRecognition function END')
 		
-	def run(self):
-		while self.status:
-			fram = self.queue.get()
-			if fram is not None:
-				timerStart = time.time()
-				results = self.model.predict(fram, verbose=False)
-				for index ,info in enumerate(results):
-					for box in info.boxes:
-						#(left ,top, right, bottom)
-						x1, y1, x2, y2 = box.xyxy[0]
-						x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
-						faceEncoding = face_recognition.face_encodings(fram ,[(y1, x2, y2 ,x1)])[0]
-						matches = face_recognition.compare_faces(self.encoding , faceEncoding)
-						print(f'The matches of face {index} are !:{matches}')
-				timerEnd= time.time()
-			print(f'time of execution is !: {timerEnd -timerStart}')
-			time.sleep(1)
 
 	def killWorker(self):
 		self.status = False
