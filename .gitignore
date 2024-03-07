@@ -1,4 +1,5 @@
 **/__pycache__/
 **/person_pictures/
+**/.vscode/
 **/test/
 security_system.db
