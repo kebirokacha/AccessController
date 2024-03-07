@@ -2,7 +2,7 @@ from PySide6.QtWidgets import QWidget ,QDialog, QMessageBox
 from databasemanager import DataBaseManager
 from ..dataBase.DataBase import DataBaseWidget
 from .CardInfo_ui import Ui_CardInfo
-from PySide6.QtGui import QPixmap
+from PySide6.QtGui import QPixmap ,Qt
 import os
 
 class CardInfo (Ui_CardInfo ,QWidget):
@@ -27,11 +27,11 @@ class CardInfo (Ui_CardInfo ,QWidget):
 		self.deleteButton.clicked.connect(self.confirmDeletePerson)
 		self.loadPersonImage(self.personInfo['name'])
 	
-	def loadPersonImage(self, personName):
-		personImageFolder = "person_images"
-		sourcePath = os.path.join(personImageFolder, f"{personName}.jpg")
+	def loadPersonImage(self, personName:str):
+		personImageFolder = "person_pictures"
+		sourcePath = os.path.join(personImageFolder ,personName, f"0.jpg")
 		if os.path.exists(sourcePath):
-			self.imageLabel.setPixmap(QPixmap(sourcePath).scaled(170,  210))
+			self.imageLabel.setPixmap(QPixmap(sourcePath).scaled(170,  210 ,Qt.AspectRatioMode.KeepAspectRatio))
 
 	def showPersonDetailsWidget(self):
 			if self.dataBaseWidget.PersonDetailsWidgetWindow is None:
@@ -40,20 +40,10 @@ class CardInfo (Ui_CardInfo ,QWidget):
 				self.dataBaseWidget.PersonDetailsWidgetWindow.fillPersonInfo(self.personInfo)
 				self.dataBaseWidget.PersonDetailsWidgetWindow.show()
 
-	def deletePersonImage(self, personName):
-		# Define the source folder for person images
-		personImageFolder = "person_images"
-		# Construct the source file path
-		sourcePath = os.path.join(personImageFolder, f"{personName}.jpg")
-		# Check if the image file exists
-		if os.path.exists(sourcePath):
-			# Delete the image file
-			os.remove(sourcePath)
 
 	def confirmDeletePerson(self):
 		dialog = QDialog(self)
 		dialog.setWindowTitle("Confirm Deletion")
-		# dialog.setWindowModality(WindowModal)
 
 		message = QMessageBox(dialog)
 		message.setIcon(QMessageBox.Question)
@@ -63,6 +53,5 @@ class CardInfo (Ui_CardInfo ,QWidget):
 
 		result = message.exec_()
 		if result == QMessageBox.Yes:
-			self.deletePersonImage(self.personInfo['name'])
-			self.dataBaseManager.deletePerson(self.personInfo['id'])
+			self.dataBaseManager.deletePerson(self.personInfo['id'] ,self.personInfo['name'])
 			self.dataBaseWidget.populateTableWithPersonsInfo()
