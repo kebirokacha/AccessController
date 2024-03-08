@@ -1,28 +1,35 @@
-from PySide6.QtCore import Slot ,QThread
-from PySide6.QtGui import QPixmap
+from PySide6.QtCore import Slot ,QThread 
+from PySide6.QtGui import QPixmap, QImage
 from PySide6.QtWidgets import  QWidget
 from .CameraWorker import  CameraWorker
 from .RecognitionWorker import RecognitionWorker
 from .Camera_ui import Ui_Camera
-from queue import Queue
 import cv2
 
 class CameraWidget(Ui_Camera ,QWidget):
+    capture = cv2.VideoCapture(0)
     def __init__(self):
         super(CameraWidget, self).__init__()
         self.setupUi(self)
         self.cameraWorker = CameraWorker(self.capture)
-        self.cameraWorker.update_frame.connect(self.setImage)
+        self.cameraWorker.updateFrame.connect(self.setImage)
         self.recognitionWorker = RecognitionWorker(self.capture)
+        self.cameraWorker.start()  
+        self.cameraWorker.setPriority(QThread.Priority.HighestPriority)
+        self.FaceRecog.stateChanged.connect(self.checkbox_state_changed)
         # self.cameraWorker.faceDetected.connect(self.recognitionWorker.recognitionProcess)
         # self.recognitionWorker.recognizedFace.connect(self.handleRecognition)
-        self.cameraWorker.start()
-        self.recognitionWorker.start()
-        # self.cameraWorker.setPriority(QThread.Priority.HighestPriority)
-        # self.recognitionWorker.setPriority(QThread.Priority.LowPriority)
+    def checkbox_state_changed(self, state):
+            if state == 2:
+                self.recognitionWorker.start()
+                self.recognitionWorker.setPriority(QThread.Priority.LowPriority)        
+            else:
+                print("Checkbox is unchecked!")
+        
+        
 
     def closeEvent(self, event):
-        self.cameraWorker.killWorker()
+        self.cameraWorker.killWorker()    
         self.recognitionWorker.killWorker()
         event.accept()
 
@@ -32,6 +39,7 @@ class CameraWidget(Ui_Camera ,QWidget):
         height, width, channel = color_frame.shape
         image = QImage(color_frame.data, width, height, QImage.Format_RGB888)
         self.cameraLabel_01.setPixmap(QPixmap.fromImage(image))
+        self.cameraLabel_02.setPixmap(QPixmap.fromImage(image))
 
     # @Slot()
     # def killThread(self):
