@@ -1,45 +1,43 @@
-from PySide6.QtCore import QThread, Signal, QTimer
+from PySide6.QtCore import QThread, Signal ,QThreadPool 
 from PySide6.QtGui import QImage
-from databasemanager import DataBaseManager
 from .RecognitionWorker import RecognitionWorker
-import threading
-import time
-import numpy as np
 import cv2
 
 class CameraWorker(QThread):
     updateFrame = Signal(QImage)
     sendFram = Signal(cv2.Mat)
 
-    def __init__(self, capture: cv2.VideoCapture, parent=None):
+    def __init__(self, cameraId, parent=None):
         QThread.__init__(self, parent)
         self.status = True
-        self.capture = capture
-        self.counter = 0
+        self.cameraId = cameraId
         self.recognitionWorker = RecognitionWorker()
         self.sendFram.connect(self.recognitionWorker.faceRecognition)
-        self.timer = QTimer()
-        self.timer.timeout.connect(self.processFrame)
-        self.timer.start(1500) # Emit the frame every 1 second (1000 milliseconds)
+        self.recognitionWorker.start()
 
-    def processFrame(self):
-        ret, frame = self.capture.read()
-        if not ret:
-            return
-        self.sendFram.emit(frame) # Emit the frame to the RecognitionWorker
+        self.counter = 1
+        self.fps = 0
 
     def run(self):
+        cap = cv2.VideoCapture(self.cameraId)
+        self.fps = cap.get(cv2.CAP_PROP_FPS)
+
+        print(f"The FPS in the camera with ID {self.cameraId} are {self.fps}")
         while self.status:
-            color_frame = cv2.cvtColor(self.capture.read()[1], cv2.COLOR_BGR2RGB)
-            height, width, channel = color_frame.shape
-            image = QImage(color_frame.data, width, height, QImage.Format_RGB888)
-            self.updateFrame.emit(image)
-            # time.sleep(0.01)
+            ret, frame = cap.read()
+            if ret:
+                frameRgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                height ,width ,channel = frameRgb.shape
+                bytesPerLine = channel * width
+                qimage = QImage(frameRgb.data ,width ,height ,bytesPerLine ,QImage.Format.Format_RGB888)
+                self.updateFrame.emit(qimage)
+                if self.counter % 30 == 0:
+                    self.sendFram.emit(frame)
+                self.counter += 1
 
     def killWorker(self):
-        self.status = False
-        self.timer.stop()
         self.recognitionWorker.killWorker()
+        self.status = False
         self.quit()
         self.wait()
         self = None
