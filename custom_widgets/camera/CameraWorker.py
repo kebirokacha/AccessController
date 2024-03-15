@@ -1,6 +1,7 @@
 from PySide6.QtCore import QThread, Signal ,QThreadPool 
 from PySide6.QtGui import QImage
 from .RecognitionWorker import RecognitionWorker
+
 import cv2
 
 class CameraWorker(QThread):
@@ -10,21 +11,20 @@ class CameraWorker(QThread):
     def __init__(self, cameraId, parent=None):
         QThread.__init__(self, parent)
         self.status = True
+        self.cap = None
         self.cameraId = cameraId
         self.recognitionWorker = RecognitionWorker()
         self.sendFram.connect(self.recognitionWorker.faceRecognition)
-        self.recognitionWorker.start()
-
-        self.counter = 1
-        self.fps = 0
+        self.counter: int = 1
 
     def run(self):
-        cap = cv2.VideoCapture(self.cameraId)
-        self.fps = cap.get(cv2.CAP_PROP_FPS)
+        self.recognitionWorker.start()
+        self.cap = cv2.VideoCapture(self.cameraId)
+        fps = self.cap.get(cv2.CAP_PROP_FPS)
 
-        print(f"The FPS in the camera with ID {self.cameraId} are {self.fps}")
+        print(f"The FPS in the camera with ID {self.cameraId} are {fps}")
         while self.status:
-            ret, frame = cap.read()
+            ret, frame = self.cap.read()
             if ret:
                 frameRgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 height ,width ,channel = frameRgb.shape
@@ -33,11 +33,16 @@ class CameraWorker(QThread):
                 self.updateFrame.emit(qimage)
                 if self.counter % 30 == 0:
                     self.sendFram.emit(frame)
+                    self.counter = 0
                 self.counter += 1
+            
+            
 
     def killWorker(self):
-        self.recognitionWorker.killWorker()
         self.status = False
+        if self.cap is not None:
+            self.cap.release()
         self.quit()
         self.wait()
+        self.recognitionWorker.killWorker()
         self = None
