@@ -23,7 +23,7 @@ class Ui_Camera(object):
     def setupUi(self, Camera):
         if not Camera.objectName():
             Camera.setObjectName(u"Camera")
-        Camera.resize(790, 481)
+        Camera.resize(970, 674)
         self.gridLayout = QGridLayout(Camera)
         self.gridLayout.setObjectName(u"gridLayout")
         self.horizontalLayout = QHBoxLayout()

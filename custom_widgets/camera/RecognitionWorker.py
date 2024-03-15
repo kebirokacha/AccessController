@@ -55,8 +55,8 @@ class RecognitionWorker(QThread):
 		self.fram = fram
 		
 
-	def killWorker(self):
-		self.status = False
-		self.quit()
-		self.wait()
-		self = None
+    def killWorker(self):
+        self.status = False
+        self.quit()
+        self.wait()
+        self = None
