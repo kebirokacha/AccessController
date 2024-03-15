@@ -6,12 +6,12 @@ from deepface import DeepFace
 import cv2
 
 class RecognitionWorker(QThread):
-	databaseManager = DataBaseManager()
-	knownEncodings = databaseManager.getEncodingArray()
-	status = True
 
 	def __init__(self ,parent=None):
 		QThread.__init__(self , parent)
+		self.databaseManager = DataBaseManager()
+		self.knownEmbeddings = self.databaseManager.getEncodingArray()
+		self.status = True
 		self.fram = None
 
 
@@ -21,16 +21,34 @@ class RecognitionWorker(QThread):
 				print('faceRecognition function START')
 				start = time.time()
 				try:
-					# Get embedding representation of the face using DeepFace
-					embedding = np.array(DeepFace.represent(self.fram, model_name='Facenet512', detector_backend='yolov8')[0]["embedding"])
-					# Compare the face with known encodings
-					# matches = self.compare_faces(self.knownEncodings, embedding)
-					# TODO: Handle the matches, e.g., emit a signal or update the UI
+					results = DeepFace.represent(self.fram, model_name='Facenet512', detector_backend='yolov8')
+					for face in results:
+						# print(face)
+						embedding = np.array(face["embedding"])
+						self.checkEmbeddingMatch(self.knownEmbeddings ,embedding)
 				except Exception as e:
 					print(f'Face not found: {e}')
 				print(f"The required time for process is :{time.time() - start}")
 				print('faceRecognition function END')
 				self.fram = None
+				time.sleep(1)
+		
+
+	def checkEmbeddingMatch(self ,knownEmbeddings:dict ,unknownEmbedding:np.ndarray ,threshold:int=20):
+		matches = {}
+		for personId , embeddings in knownEmbeddings.items():
+			matchCounter = 0
+			for embedding in embeddings:
+				knownEmbedding = np.array(embedding)
+				distance_vector = np.square(unknownEmbedding - knownEmbedding)
+				distance = np.sqrt(distance_vector.sum())
+				if distance < 21:
+					matchCounter += 1
+			matches[personId] = (matchCounter/len(embeddings)) * 100
+		# print(f'matches : {matches}')
+		# print(f'max match is :{max(matches.values())}')
+		if max(matches.values())< 80:
+			print('who are you identify you self /"""" ')
 
 	@Slot(cv2.Mat)
 	def faceRecognition(self ,fram):
