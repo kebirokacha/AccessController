@@ -169,7 +169,7 @@ class DataBaseManager:
 			personId, embedding = row
 			if personId not in embeddingsByPersonId:
 				embeddingsByPersonId[personId] = []
-			embeddingsByPersonId[personId].append(embedding)
+			embeddingsByPersonId[personId].append(json.loads(embedding))
 		return embeddingsByPersonId
 
 	def getAllPersonsInfo(self) -> list:
