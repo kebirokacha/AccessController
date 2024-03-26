@@ -1,9 +1,10 @@
 from PySide6.QtWidgets import QWidget ,QLabel
-from PySide6.QtCore import Slot ,Qt
+from PySide6.QtCore import Slot ,Qt ,Signal
 from .DataBase_ui import Ui_DataBase
 from databasemanager import DataBaseManager
 
 class DataBaseWidget(Ui_DataBase ,QWidget):
+	updateInfo = Signal()
 	dataBaseManager = DataBaseManager()
 	PersonDetailsWidgetWindow = None
 	
@@ -11,15 +12,19 @@ class DataBaseWidget(Ui_DataBase ,QWidget):
 		super(DataBaseWidget ,self).__init__()
 		self.setupUi(self)
 		
-		self.registerIdButton.clicked.connect(self.showPersonDetailsWidget)
+		self.registerIdButton.clicked.connect(lambda : self.showPersonDetailsWidget())
 	
-	def showPersonDetailsWidget(self):
+	def showPersonDetailsWidget(self ,personInfo:dict = None):
 		if self.PersonDetailsWidgetWindow is None:
 			from ..personDetails.PersonDetails import PersonDetailsWidget
-			self.PersonDetailsWidgetWindow = PersonDetailsWidget(self)
+			self.PersonDetailsWidgetWindow = PersonDetailsWidget()
+			self.PersonDetailsWidgetWindow.sendInformation.connect(self.receiveData)
+			if personInfo is not None:
+				self.PersonDetailsWidgetWindow.fillPersonInfo(personInfo)
 			self.PersonDetailsWidgetWindow.show()
+		
 
-	def populateTableWithPersonsInfo(self):
+	def populateCardInfoGrid(self):
 		from ..cardInfo.CardInfo import CardInfo
 		# Get all persons' information from the database
 		personsInfo = self.dataBaseManager.getAllPersonsInfo()
@@ -36,7 +41,8 @@ class DataBaseWidget(Ui_DataBase ,QWidget):
 			if columnNum == 3:
 				columnNum = 0
 				rowNum += 1
-			cardInfo = CardInfo(self, personInfo)
+			cardInfo = CardInfo(personInfo)
+			cardInfo.personDetailsSignal.connect(lambda :self.showPersonDetailsWidget(personInfo))
 			self.cardInfoGrid.addWidget(cardInfo, rowNum,  columnNum)
 			columnNum += 1
 
@@ -57,4 +63,4 @@ class DataBaseWidget(Ui_DataBase ,QWidget):
 	@Slot()
 	def receiveData (self):
 		self.PersonDetailsWidgetWindow = None
-		self.populateTableWithPersonsInfo()
+		self.populateCardInfoGrid()

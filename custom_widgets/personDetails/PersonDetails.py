@@ -2,7 +2,6 @@ from PySide6.QtWidgets import QWidget ,QFileDialog ,QLabel
 from PySide6.QtCore import Signal ,QDate ,Qt
 from ..dialog.ErrorDialog import ErrorDialog
 from .PersonDetails_ui import Ui_PersonDetails
-from ..dataBase.DataBase import DataBaseWidget
 from databasemanager import DataBaseManager
 from PySide6.QtGui import QPixmap
 from deepface import DeepFace
@@ -17,7 +16,7 @@ class PersonDetailsWidget(Ui_PersonDetails, QWidget):
 	personInfo  = None  
 	MAXPICTURES = 6
 
-	def __init__(self, Widget: DataBaseWidget):
+	def __init__(self):
 		super(PersonDetailsWidget, self).__init__()
 		self.setupUi(self)
 
@@ -25,7 +24,7 @@ class PersonDetailsWidget(Ui_PersonDetails, QWidget):
 		self.selectPicturesButton.clicked.connect(self.selectPictures)
 		self.resetButton.clicked.connect(self.resetPictures)
 		self.cancelButton.clicked.connect(self.closePersonDetailsWidget)
-		self.sendInformation.connect(Widget.receiveData)
+
 		
 	def selectPictures(self):
 		filePaths = QFileDialog.getOpenFileNames(self ,caption='Select Person Pictures' ,dir="Pictures" ,filter='Images (*.png *.xpm *.jpg *.jpeg)')
@@ -52,7 +51,7 @@ class PersonDetailsWidget(Ui_PersonDetails, QWidget):
 		self.clearPictureInGrid()
 		self.picturesPaths = []
 
-	def displayPicturesInGrid(self ,picturesPaths):
+	def displayPicturesInGrid(self ,picturesPaths:list[str]):
 		# Clear the gridPictures layout before adding new images
 		self.clearPictureInGrid()
 		# Add the images to the gridPictures layout
@@ -70,7 +69,7 @@ class PersonDetailsWidget(Ui_PersonDetails, QWidget):
 			if widget:
 				widget.deleteLater()
 
-	def copyImageToPersonFolder(self, imagePath, personName):
+	def copyImageToPersonFolder(self, imagePath:str, personName:str):
 		personImageFolder = "person_images"
 		if not os.path.exists(personImageFolder):
 			os.makedirs(personImageFolder)
@@ -172,11 +171,11 @@ class PersonDetailsWidget(Ui_PersonDetails, QWidget):
 				print('face not detected !!!!!')
 		return embeddingsList
 		
-	def showErrorDialog(self ,title ,message):
+	def showErrorDialog(self ,title:str ,message:str):
 		dialog = ErrorDialog(title ,message, self)
 		dialog.exec()
 
-	def fillPersonInfo(self ,personInfo):
+	def fillPersonInfo(self ,personInfo:dict):
 		self.personInfo = personInfo
 		self.submitButton.setText("Modify")
 		self.nameInput.setText(personInfo['name'])
@@ -186,7 +185,7 @@ class PersonDetailsWidget(Ui_PersonDetails, QWidget):
 		self.adresseInput.setText(personInfo['address'])
 		self.loadPersonPictures(personInfo['name'])
 	
-	def loadPersonPictures(self, personName):
+	def loadPersonPictures(self, personName:str):
 		personImageFolder = os.path.join("person_pictures", personName)
 		if not os.path.exists(personImageFolder):
 			print(f"No images found for person: {personName}")

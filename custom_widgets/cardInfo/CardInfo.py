@@ -2,30 +2,31 @@ from PySide6.QtWidgets import QWidget ,QDialog, QMessageBox
 from databasemanager import DataBaseManager
 from ..dataBase.DataBase import DataBaseWidget
 from .CardInfo_ui import Ui_CardInfo
-from PySide6.QtGui import QPixmap ,Qt
+from PySide6.QtGui import QPixmap ,Qt 
+from PySide6.QtCore import Signal
 import os
 
 class CardInfo (Ui_CardInfo ,QWidget):
-	personInfo = None
-	dataBaseWidget = None
+	personDetailsSignal = Signal(dict)
+	updateCardInfoGrid = Signal()
 	dataBaseManager = DataBaseManager()
-	def __init__(self ,dataBaseWidget:DataBaseWidget ,personInfo):
+	def __init__(self ,personInfo:dict):
 		super(CardInfo ,self).__init__()
 		self.setupUi(self)
 		self.personInfo = personInfo
-		self.dataBaseWidget = dataBaseWidget
 		self.setupCardInfo()
 		
 	
 	def setupCardInfo(self):
-		self.nameInfo.setText(str(self.personInfo['name']))
-		self.birthdayInfo.setText(str(self.personInfo['birthday']))
-		self.phoneInfo.setText(str(self.personInfo['phone']))
-		self.emailInfo.setText(str(self.personInfo['email']))
-		self.addressInfo.setText(str(self.personInfo['address']))
-		self.editButton.clicked.connect(self.showPersonDetailsWidget)
-		self.deleteButton.clicked.connect(self.confirmDeletePerson)
-		self.loadPersonImage(self.personInfo['name'])
+		if self.personInfo is not None:
+			self.nameInfo.setText(str(self.personInfo['name']))
+			self.birthdayInfo.setText(str(self.personInfo['birthday']))
+			self.phoneInfo.setText(str(self.personInfo['phone']))
+			self.emailInfo.setText(str(self.personInfo['email']))
+			self.addressInfo.setText(str(self.personInfo['address']))
+			self.editButton.clicked.connect(self.showPersonDetailsWidget)
+			self.deleteButton.clicked.connect(self.confirmDeletePerson)
+			self.loadPersonImage(self.personInfo['name'])
 	
 	def loadPersonImage(self, personName:str):
 		personImageFolder = "person_pictures"
@@ -34,11 +35,7 @@ class CardInfo (Ui_CardInfo ,QWidget):
 			self.imageLabel.setPixmap(QPixmap(sourcePath).scaled(170,  210 ,Qt.AspectRatioMode.KeepAspectRatio))
 
 	def showPersonDetailsWidget(self):
-			if self.dataBaseWidget.PersonDetailsWidgetWindow is None:
-				from ..personDetails.PersonDetails import PersonDetailsWidget
-				self.dataBaseWidget.PersonDetailsWidgetWindow = PersonDetailsWidget(self.dataBaseWidget)
-				self.dataBaseWidget.PersonDetailsWidgetWindow.fillPersonInfo(self.personInfo)
-				self.dataBaseWidget.PersonDetailsWidgetWindow.show()
+			self.personDetailsSignal.emit(self.personInfo)
 
 
 	def confirmDeletePerson(self):
@@ -54,4 +51,4 @@ class CardInfo (Ui_CardInfo ,QWidget):
 		result = message.exec_()
 		if result == QMessageBox.Yes:
 			self.dataBaseManager.deletePerson(self.personInfo['id'] ,self.personInfo['name'])
-			self.dataBaseWidget.populateTableWithPersonsInfo()
+			self.updateCardInfoGrid.emit()
