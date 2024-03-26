@@ -15,98 +15,91 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QHBoxLayout,
-    QLabel, QPushButton, QSizePolicy, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFrame, QGridLayout,
+    QHBoxLayout, QLabel, QListView, QListWidget,
+    QListWidgetItem, QPushButton, QSizePolicy, QSpacerItem,
+    QVBoxLayout, QWidget)
 
 class Ui_Camera(object):
     def setupUi(self, Camera):
         if not Camera.objectName():
             Camera.setObjectName(u"Camera")
-        Camera.resize(970, 674)
-        self.gridLayout = QGridLayout(Camera)
-        self.gridLayout.setObjectName(u"gridLayout")
-        self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.frame_2 = QFrame(Camera)
-        self.frame_2.setObjectName(u"frame_2")
-        self.frame_2.setFrameShape(QFrame.StyledPanel)
-        self.frame_2.setFrameShadow(QFrame.Raised)
-        self.gridLayout_4 = QGridLayout(self.frame_2)
-        self.gridLayout_4.setObjectName(u"gridLayout_4")
-        self.verticalLayout = QVBoxLayout()
+        Camera.resize(975, 560)
+        Camera.setMinimumSize(QSize(975, 560))
+        Camera.setStyleSheet(u"")
+        self.horizontalLayout_2 = QHBoxLayout(Camera)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setContentsMargins(-1, 0, 0, -1)
+        self.sideBar = QFrame(Camera)
+        self.sideBar.setObjectName(u"sideBar")
+        self.sideBar.setFrameShape(QFrame.StyledPanel)
+        self.sideBar.setFrameShadow(QFrame.Raised)
+        self.verticalLayout = QVBoxLayout(self.sideBar)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.oneCamButton = QPushButton(self.frame_2)
-        self.oneCamButton.setObjectName(u"oneCamButton")
+        self.verticalLayout.setContentsMargins(0, 6, 0, 6)
+        self.label = QLabel(self.sideBar)
+        self.label.setObjectName(u"label")
+        self.label.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout.addWidget(self.oneCamButton)
+        self.verticalLayout.addWidget(self.label)
 
-        self.twoCamButton = QPushButton(self.frame_2)
-        self.twoCamButton.setObjectName(u"twoCamButton")
+        self.cameraListWidget = QListWidget(self.sideBar)
+        self.cameraListWidget.setObjectName(u"cameraListWidget")
+        self.cameraListWidget.setMinimumSize(QSize(260, 0))
+        self.cameraListWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.cameraListWidget.setResizeMode(QListView.Adjust)
+        self.cameraListWidget.setItemAlignment(Qt.AlignCenter|Qt.AlignHCenter|Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
 
-        self.verticalLayout.addWidget(self.twoCamButton)
-
-        self.fourCamButton = QPushButton(self.frame_2)
-        self.fourCamButton.setObjectName(u"fourCamButton")
-
-        self.verticalLayout.addWidget(self.fourCamButton)
-
-
-        self.gridLayout_4.addLayout(self.verticalLayout, 0, 0, 1, 1)
+        self.verticalLayout.addWidget(self.cameraListWidget)
 
 
-        self.horizontalLayout.addWidget(self.frame_2)
+        self.horizontalLayout_2.addWidget(self.sideBar)
 
         self.frame = QFrame(Camera)
         self.frame.setObjectName(u"frame")
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
-        self.gridLayout_3 = QGridLayout(self.frame)
-        self.gridLayout_3.setObjectName(u"gridLayout_3")
+        self.verticalLayout_2 = QVBoxLayout(self.frame)
+        self.verticalLayout_2.setSpacing(4)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.cameraGrid = QGridLayout()
+        self.cameraGrid.setSpacing(10)
         self.cameraGrid.setObjectName(u"cameraGrid")
-        self.label_2 = QLabel(self.frame)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setTextFormat(Qt.AutoText)
-        self.label_2.setScaledContents(False)
-        self.label_2.setAlignment(Qt.AlignCenter)
 
-        self.cameraGrid.addWidget(self.label_2, 0, 1, 1, 1)
+        self.verticalLayout_2.addLayout(self.cameraGrid)
 
-        self.label_1 = QLabel(self.frame)
-        self.label_1.setObjectName(u"label_1")
-        self.label_1.setTextFormat(Qt.AutoText)
-        self.label_1.setScaledContents(False)
-        self.label_1.setAlignment(Qt.AlignCenter)
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.cameraGrid.addWidget(self.label_1, 0, 0, 1, 1)
+        self.horizontalLayout.addItem(self.horizontalSpacer)
 
-        self.label_3 = QLabel(self.frame)
-        self.label_3.setObjectName(u"label_3")
-        self.label_3.setTextFormat(Qt.AutoText)
-        self.label_3.setScaledContents(False)
-        self.label_3.setAlignment(Qt.AlignCenter)
+        self.oneCamButton = QPushButton(self.frame)
+        self.oneCamButton.setObjectName(u"oneCamButton")
 
-        self.cameraGrid.addWidget(self.label_3, 1, 0, 1, 1)
+        self.horizontalLayout.addWidget(self.oneCamButton)
 
-        self.label_4 = QLabel(self.frame)
-        self.label_4.setObjectName(u"label_4")
-        self.label_4.setTextFormat(Qt.AutoText)
-        self.label_4.setScaledContents(False)
-        self.label_4.setAlignment(Qt.AlignCenter)
+        self.twoCamButton = QPushButton(self.frame)
+        self.twoCamButton.setObjectName(u"twoCamButton")
 
-        self.cameraGrid.addWidget(self.label_4, 1, 1, 1, 1)
+        self.horizontalLayout.addWidget(self.twoCamButton)
+
+        self.fourCamButton = QPushButton(self.frame)
+        self.fourCamButton.setObjectName(u"fourCamButton")
+
+        self.horizontalLayout.addWidget(self.fourCamButton)
 
 
-        self.gridLayout_3.addLayout(self.cameraGrid, 0, 0, 1, 1)
+        self.verticalLayout_2.addLayout(self.horizontalLayout)
 
+        self.verticalLayout_2.setStretch(0, 4)
+        self.verticalLayout_2.setStretch(1, 1)
 
-        self.horizontalLayout.addWidget(self.frame)
+        self.horizontalLayout_2.addWidget(self.frame)
 
-        self.horizontalLayout.setStretch(1, 1)
-
-        self.gridLayout.addLayout(self.horizontalLayout, 0, 0, 1, 1)
-
+        self.horizontalLayout_2.setStretch(0, 1)
+        self.horizontalLayout_2.setStretch(1, 3)
 
         self.retranslateUi(Camera)
 
@@ -115,12 +108,9 @@ class Ui_Camera(object):
 
     def retranslateUi(self, Camera):
         Camera.setWindowTitle(QCoreApplication.translate("Camera", u"Form", None))
+        self.label.setText(QCoreApplication.translate("Camera", u"Camera availables", None))
         self.oneCamButton.setText(QCoreApplication.translate("Camera", u"1 Camera", None))
         self.twoCamButton.setText(QCoreApplication.translate("Camera", u"2 Camera", None))
         self.fourCamButton.setText(QCoreApplication.translate("Camera", u"4 Camera", None))
-        self.label_2.setText(QCoreApplication.translate("Camera", u"Loading Camrera", None))
-        self.label_1.setText(QCoreApplication.translate("Camera", u"Loading Camrera", None))
-        self.label_3.setText(QCoreApplication.translate("Camera", u"Loading Camrera", None))
-        self.label_4.setText(QCoreApplication.translate("Camera", u"Loading Camrera", None))
     # retranslateUi
 
