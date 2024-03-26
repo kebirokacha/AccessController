@@ -172,7 +172,7 @@ class DataBaseManager:
 			embeddingsByPersonId[personId].append(json.loads(embedding))
 		return embeddingsByPersonId
 
-	def getAllPersonsInfo(self) -> list:
+	def getAllPersonsInfo(self) -> list[dict]:
 		with self.connection:
 			cursor = self.connection.execute("""
 				SELECT * FROM person;
