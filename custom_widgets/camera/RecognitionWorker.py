@@ -1,8 +1,8 @@
-from PySide6.QtCore import QThread, Signal ,Slot ,QTimer
+from PySide6.QtCore import QThread ,Slot 
 from databasemanager import DataBaseManager
-import time
-import numpy as np
 from deepface import DeepFace
+import numpy as np
+import time
 import cv2
 
 class RecognitionWorker(QThread):
@@ -18,8 +18,6 @@ class RecognitionWorker(QThread):
 	def run(self):
 		while self.status:
 			if self.fram is not None:
-				print('faceRecognition function START')
-				start = time.time()
 				try:
 					results = DeepFace.represent(self.fram, model_name='Facenet512', detector_backend='yolov8')
 					for face in results:
@@ -28,8 +26,6 @@ class RecognitionWorker(QThread):
 						self.checkEmbeddingMatch(self.knownEmbeddings ,embedding)
 				except Exception as e:
 					print(f'Face not found: {e}')
-				print(f"The required time for process is :{time.time() - start}")
-				print('faceRecognition function END')
 				self.fram = None
 				time.sleep(1)
 		
@@ -42,21 +38,19 @@ class RecognitionWorker(QThread):
 				knownEmbedding = np.array(embedding)
 				distance_vector = np.square(unknownEmbedding - knownEmbedding)
 				distance = np.sqrt(distance_vector.sum())
-				if distance < 21:
+				if distance < threshold:
 					matchCounter += 1
 			matches[personId] = (matchCounter/len(embeddings)) * 100
-		# print(f'matches : {matches}')
-		# print(f'max match is :{max(matches.values())}')
 		if max(matches.values())< 80:
+			#TODO:Implement the logique for saving the fram and sending alert for admin
 			print('who are you identify you self /"""" ')
 
 	@Slot(cv2.Mat)
-	def faceRecognition(self ,fram):
+	def setFram(self ,fram):
 		self.fram = fram
-		
 
-    def killWorker(self):
-        self.status = False
-        self.quit()
-        self.wait()
-        self = None
+	def killWorker(self):
+		self.status = False
+		self.quit()
+		self.wait()
+		self = None
