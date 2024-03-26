@@ -23,16 +23,13 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(716, 661)
+        MainWindow.resize(730, 453)
         MainWindow.setStyleSheet(u"#MainWindow{\n"
 "	background-color: rgb(53, 53, 53);\n"
 "}\n"
 "QTabWidget::tab-bar {\n"
 "	border: 30px solid rgb(0, 0, 255);\n"
 "	color: rgb(189, 189, 189);\n"
-"}\n"
-"QTabBar > #titleTab{\n"
-"	padding:20px;\n"
 "}\n"
 "\n"
 "QTabBar{\n"
@@ -70,11 +67,13 @@ class Ui_MainWindow(object):
 "#mainTab QPushButton::hover{\n"
 "	background-color: rgb(0, 142, 246);\n"
 "	color: rgb(189, 189, 189);\n"
-"    border"
-                        ": 1px solid rgb(189, 189, 189);\n"
-"    border-radius: 12px; \n"
+"    border: 1px solid rgb(189, 189, 189);\n"
+"    border-rad"
+                        "ius: 12px; \n"
 "    padding: 20px; \n"
 "}\n"
+"\n"
+"\n"
 "\n"
 "\n"
 "")
@@ -85,14 +84,17 @@ class Ui_MainWindow(object):
         self.tabWidget = QTabWidget(self.centralwidget)
         self.tabWidget.setObjectName(u"tabWidget")
         self.tabWidget.setTabletTracking(False)
+        self.tabWidget.setStyleSheet(u"")
         self.tabWidget.setTabShape(QTabWidget.Rounded)
         self.tabWidget.setIconSize(QSize(30, 30))
         self.tabWidget.setElideMode(Qt.ElideMiddle)
         self.tabWidget.setDocumentMode(False)
-        self.tabWidget.setTabsClosable(False)
+        self.tabWidget.setTabsClosable(True)
+        self.tabWidget.setMovable(True)
         self.tabWidget.setTabBarAutoHide(False)
         self.titleTab = QWidget()
         self.titleTab.setObjectName(u"titleTab")
+        self.titleTab.setStyleSheet(u"")
         self.tabWidget.addTab(self.titleTab, "")
         self.mainTab = QWidget()
         self.mainTab.setObjectName(u"mainTab")
@@ -109,14 +111,14 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.liveButton)
 
-        self.playBackButton = QPushButton(self.mainTab)
-        self.playBackButton.setObjectName(u"playBackButton")
+        self.recordsButton = QPushButton(self.mainTab)
+        self.recordsButton.setObjectName(u"recordsButton")
         icon1 = QIcon()
         icon1.addFile(u":/icons/Icons/Play-back.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.playBackButton.setIcon(icon1)
-        self.playBackButton.setIconSize(QSize(30, 30))
+        self.recordsButton.setIcon(icon1)
+        self.recordsButton.setIconSize(QSize(30, 30))
 
-        self.horizontalLayout.addWidget(self.playBackButton)
+        self.horizontalLayout.addWidget(self.recordsButton)
 
         self.dataBaseButton = QPushButton(self.mainTab)
         self.dataBaseButton.setObjectName(u"dataBaseButton")
@@ -159,7 +161,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.titleTab), QCoreApplication.translate("MainWindow", u"Access Controler", None))
         self.liveButton.setText(QCoreApplication.translate("MainWindow", u"  Live", None))
-        self.playBackButton.setText(QCoreApplication.translate("MainWindow", u"  PlayBack", None))
+        self.recordsButton.setText(QCoreApplication.translate("MainWindow", u"Records", None))
         self.dataBaseButton.setText(QCoreApplication.translate("MainWindow", u"  Data Base", None))
         self.settingbutton.setText(QCoreApplication.translate("MainWindow", u"parametre ", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.mainTab), QCoreApplication.translate("MainWindow", u"Main", None))
