@@ -52,7 +52,7 @@ class Records(Ui_Records ,QWidget):
 
 	def fillListWidget(self):
 		#FIXME: later you will get the path from setting or database
-		videoFolderPath = "records/videos"
+		videoFolderPath = "files_records/videos"
 		videoFiles = [f for f in os.listdir(videoFolderPath) if f.endswith(('.mp4', '.avi', '.mkv'))]
 
 		for videoFile in videoFiles:
