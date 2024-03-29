@@ -11,19 +11,20 @@ class MainPage (Ui_MainWindow ,QMainWindow):
 	def __init__(self):
 		super(MainPage ,self).__init__()
 		self.setupUi(self)
+		self.setting = Setting()
+		self.camera = CameraWidget(self.setting)
 		self.liveTab ,self.recordsTab ,self.dataBaseTab ,self.settingTab= None ,None ,None ,None
 		self.liveTabName ,self.recordsTabName ,self.dataBaseTabName ,self.settingTabName = 'Live' ,'records' ,'Data Base' ,'Setting'
 		self.liveTabIcon = QIcon(QPixmap('./resources/Icons/circle-dot.png'))
 		self.recordsTabIcon = QIcon(QPixmap('./resources/Icons/Play-back.png'))
 		self.settingTabIcon = QIcon(QPixmap('./resources/Icons/gear.png'))
 		self.dataBaseTabIcon = QIcon(QPixmap('./resources/Icons/Data-Base.png'))
-		#TODO: we need to lanch the cameras at startup to be able to recognize faces
 		self.tabWidget.setTabEnabled(0,False)
 		self.tabWidget.tabBar().setTabButton(0 ,QTabBar.ButtonPosition.RightSide ,None)
 		self.tabWidget.tabBar().setTabButton(1 ,QTabBar.ButtonPosition.RightSide ,None)
 		self.tabWidget.tabCloseRequested.connect(lambda index :self.closeTab(index))
 		self.liveButton.clicked.connect(self.setLiveTab)
-		self.recordsButton.clicked.connect(self.setrecordsTab)
+		self.recordsButton.clicked.connect(self.setRecordsTab)
 		self.dataBaseButton.clicked.connect(self.setDtataBaseTab)
 		self.settingbutton.clicked.connect(self.setSettingTab)
 
@@ -32,15 +33,19 @@ class MainPage (Ui_MainWindow ,QMainWindow):
 			self.liveTab.closeCamera()
 			self.liveTab.deleteLater()
 			self.liveTab = None
-		if self.recordsTab is not None and self.tabWidget.tabText(index) == self.recordsTabName:
+
+		elif self.recordsTab is not None and self.tabWidget.tabText(index) == self.recordsTabName:
 			self.recordsTab.deleteLater()
 			self.recordsTab = None
-		if self.dataBaseTab is not None and self.tabWidget.tabText(index) == self.dataBaseTabName:
+
+		elif self.dataBaseTab is not None and self.tabWidget.tabText(index) == self.dataBaseTabName:
 			self.dataBaseTab.deleteLater()
 			self.dataBaseTab = None
-		if self.settingTab is not None and self.tabWidget.tabText(index) == self.settingTabName:
+
+		elif self.settingTab is not None and self.tabWidget.tabText(index) == self.settingTabName:
 			self.settingTab.deleteLater()
 			self.settingTab = None
+
 		self.tabWidget.removeTab(index)
 
 	def closeEvent(self, event):
@@ -52,11 +57,11 @@ class MainPage (Ui_MainWindow ,QMainWindow):
 
 	def setLiveTab(self):
 		if self.liveTab is None:
-			self.liveTab = CameraWidget()
+			self.liveTab = self.camera
 			self.tabWidget.addTab(self.liveTab ,self.liveTabIcon ,self.liveTabName)
 			self.tabWidget.setCurrentIndex(self.tabWidget.count() - 1)
 
-	def setrecordsTab(self):
+	def setRecordsTab(self):
 		if self.recordsTab is None:
 			self.recordsTab = Records()
 			self.tabWidget.addTab(self.recordsTab ,self.recordsTabIcon ,self.recordsTabName)
@@ -71,7 +76,7 @@ class MainPage (Ui_MainWindow ,QMainWindow):
 
 	def setSettingTab(self):
 		if self.settingTab is None:
-			self.settingTab = Setting()
+			self.settingTab = self.setting
 			self.tabWidget.addTab(self.settingTab ,self.settingTabIcon ,self.settingTabName)
 			self.tabWidget.setCurrentIndex(self.tabWidget.count() - 1)
 
