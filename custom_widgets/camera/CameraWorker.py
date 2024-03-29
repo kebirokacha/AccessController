@@ -1,47 +1,47 @@
-from PySide6.QtCore import QThread, Signal 
+from PySide6.QtCore import QThread, Signal ,Slot
 from PySide6.QtGui import QImage
 from .RecognitionWorker import RecognitionWorker
 import cv2
 
 class CameraWorker(QThread):
 	updateFrame = Signal(QImage)
-	sendFram = Signal(cv2.Mat)
+	requestCapture = Signal(str)
+	refreshCapture = Signal(str)
 
-	def __init__(self, cameraId ,parent=None):
+	def __init__(self, captureId ,parent=None):
 		QThread.__init__(self, parent)
+		self.captureId = captureId
 		self.status = True
-		self.cap = None
-		self.cameraId = cameraId
-		# self.recognitionWorker = RecognitionWorker()
-		# self.sendFram.connect(self.recognitionWorker.setFram)
-		self.counter: int = 1
+		self.cap:cv2.VideoCapture = None
 
 	def run(self):
-		# self.recognitionWorker.start()
-		self.cap = cv2.VideoCapture(self.cameraId)
-		fps = self.cap.get(cv2.CAP_PROP_FPS)
-
-		print(f"The FPS in the camera with ID {self.cameraId} are {fps}")
+		self.requestCapture.emit(self.captureId)
+		counter = 0
 		while self.status:
-			ret, frame = self.cap.read()
-			if ret:
-				frameRgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-				height ,width ,channel = frameRgb.shape
-				bytesPerLine = channel * width
-				qimage = QImage(frameRgb.data ,width ,height ,bytesPerLine ,QImage.Format.Format_RGB888)
-				self.updateFrame.emit(qimage)
-				# if self.counter % 30 == 0:
-				# 	self.sendFram.emit(frame)
-				# 	self.counter = 0
-				# self.counter += 1
-			
-			
-
+			if self.cap is not None:
+				if counter == 0:
+						fps = self.cap.get(cv2.CAP_PROP_FPS)
+						print(f"The FPS in the camera with ID {self.captureId} are {fps} ")
+						print('Note yout are in the camera worker')
+						counter = 1
+				ret, frame = self.cap.read()
+				if ret:
+					frameRgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+					height ,width ,channel = frameRgb.shape
+					bytesPerLine = channel * width
+					qimage = QImage(frameRgb.data ,width ,height ,bytesPerLine ,QImage.Format.Format_RGB888)
+					self.updateFrame.emit(qimage)
+		
 	def killWorker(self):
 		self.status = False
+		# TODO:Send a signal to the setting to inform that worker has killed
 		if self.cap is not None:
-			self.cap.release()
-		self.quit()
+			self.refreshCapture.emit(self.captureId)
+		# if self.cap is not None:
+		# 	self.cap.release()
+		self.exit()
 		self.wait()
-		# self.recognitionWorker.killWorker()
-		self = None
+	
+	@Slot(cv2.VideoCapture)
+	def reciveCapture(self ,capture):
+		self.cap = capture
