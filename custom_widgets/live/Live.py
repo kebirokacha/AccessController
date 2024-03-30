@@ -4,14 +4,14 @@ from PySide6.QtMultimedia import QMediaDevices
 from PySide6.QtGui import Qt
 from ..customLabel.customLabel import CustomLabel
 from PySide6.QtCore import Slot
-from .Camera_ui import Ui_Camera
+from .Live_ui import Ui_Live
 from ..setting.Setting import Setting
 
-class CameraWidget(Ui_Camera ,QWidget):
+class Live(Ui_Live ,QWidget):
 
 	def __init__(self ,setting:Setting):
 		self.cameraLabels:list[CustomLabel] = []
-		super(CameraWidget, self).__init__()
+		super(Live, self).__init__()
 		self.setupUi(self)
 		self.setting = setting
 		self.setCameraList()
@@ -57,18 +57,39 @@ class CameraWidget(Ui_Camera ,QWidget):
 			self.cameraListWidget.addItem(itemList)
 			itemList.setSizeHint(cameraCardInfo.minimumSizeHint())
 			self.cameraListWidget.setItemWidget(itemList , cameraCardInfo)
+		#FIXME: Testing purpose (Remove Later)
+			
+		captureIP = 'http://192.168.1.3:4747/video'
+		cameraCardInfo = CameraCardInfo('My Phone' ,'http://192.168.1.3:4747/video')
+		itemList = QListWidgetItem(self.cameraListWidget)
+		self.cameraListWidget.addItem(itemList)
+		itemList.setSizeHint(cameraCardInfo.minimumSizeHint())
+		self.cameraListWidget.setItemWidget(itemList , cameraCardInfo)
 
-	def closeCamera(self):
+		captureIP = 'http://192.168.1.4:4747/video'
+		cameraCardInfo = CameraCardInfo('Mother Phone' ,'http://192.168.1.4:4747/video')
+		itemList = QListWidgetItem(self.cameraListWidget)
+		self.cameraListWidget.addItem(itemList)
+		itemList.setSizeHint(cameraCardInfo.minimumSizeHint())
+		self.cameraListWidget.setItemWidget(itemList , cameraCardInfo)
+
+		captureIP = 'http://192.168.1.2:4747/video'
+		cameraCardInfo = CameraCardInfo('Saadane Phone' ,captureIP)
+		itemList = QListWidgetItem(self.cameraListWidget)
+		self.cameraListWidget.addItem(itemList)
+		itemList.setSizeHint(cameraCardInfo.minimumSizeHint())
+		self.cameraListWidget.setItemWidget(itemList , cameraCardInfo)
+
+	def closeCameras(self):
 		for label in self.cameraLabels:
-			label.killWorker()
+			label.close()
 
 	@Slot(str)
 	def removeItem(self ,cameraName):
 		for i in range(self.cameraListWidget.count()):
 			item = self.cameraListWidget.item(i)
-			customLabel:CustomLabel = self.cameraListWidget.itemWidget(item)
-			print(f"item text is {customLabel.cameraNameLabel.text()} cameraName is {cameraName}")
-			if customLabel.cameraNameLabel.text() == cameraName: # Assuming the camera ID is the text of the item
+			cameraCardInfo:CameraCardInfo = self.cameraListWidget.itemWidget(item)
+			if cameraCardInfo.cameraNameLabel.text() == cameraName: # Assuming the camera ID is the text of the item
 				self.cameraListWidget.takeItem(i)
 				break
 	

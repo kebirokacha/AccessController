@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'Camera.ui'
+## Form generated from reading UI file 'Live.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.6.1
 ##
@@ -20,17 +20,17 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFrame, QGridLay
     QListWidgetItem, QPushButton, QSizePolicy, QSpacerItem,
     QVBoxLayout, QWidget)
 
-class Ui_Camera(object):
-    def setupUi(self, Camera):
-        if not Camera.objectName():
-            Camera.setObjectName(u"Camera")
-        Camera.resize(975, 560)
-        Camera.setMinimumSize(QSize(975, 560))
-        Camera.setStyleSheet(u"")
-        self.horizontalLayout_2 = QHBoxLayout(Camera)
+class Ui_Live(object):
+    def setupUi(self, Live):
+        if not Live.objectName():
+            Live.setObjectName(u"Live")
+        Live.resize(975, 560)
+        Live.setMinimumSize(QSize(975, 560))
+        Live.setStyleSheet(u"")
+        self.horizontalLayout_2 = QHBoxLayout(Live)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.horizontalLayout_2.setContentsMargins(-1, 0, 0, -1)
-        self.sideBar = QFrame(Camera)
+        self.sideBar = QFrame(Live)
         self.sideBar.setObjectName(u"sideBar")
         self.sideBar.setFrameShape(QFrame.StyledPanel)
         self.sideBar.setFrameShadow(QFrame.Raised)
@@ -55,7 +55,7 @@ class Ui_Camera(object):
 
         self.horizontalLayout_2.addWidget(self.sideBar)
 
-        self.frame = QFrame(Camera)
+        self.frame = QFrame(Live)
         self.frame.setObjectName(u"frame")
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
@@ -101,16 +101,16 @@ class Ui_Camera(object):
         self.horizontalLayout_2.setStretch(0, 1)
         self.horizontalLayout_2.setStretch(1, 3)
 
-        self.retranslateUi(Camera)
+        self.retranslateUi(Live)
 
-        QMetaObject.connectSlotsByName(Camera)
+        QMetaObject.connectSlotsByName(Live)
     # setupUi
 
-    def retranslateUi(self, Camera):
-        Camera.setWindowTitle(QCoreApplication.translate("Camera", u"Form", None))
-        self.label.setText(QCoreApplication.translate("Camera", u"Camera availables", None))
-        self.oneCamButton.setText(QCoreApplication.translate("Camera", u"1 Camera", None))
-        self.twoCamButton.setText(QCoreApplication.translate("Camera", u"2 Camera", None))
-        self.fourCamButton.setText(QCoreApplication.translate("Camera", u"4 Camera", None))
+    def retranslateUi(self, Live):
+        Live.setWindowTitle(QCoreApplication.translate("Live", u"Form", None))
+        self.label.setText(QCoreApplication.translate("Live", u"Camera availables", None))
+        self.oneCamButton.setText(QCoreApplication.translate("Live", u"1 Camera", None))
+        self.twoCamButton.setText(QCoreApplication.translate("Live", u"2 Camera", None))
+        self.fourCamButton.setText(QCoreApplication.translate("Live", u"4 Camera", None))
     # retranslateUi
 
