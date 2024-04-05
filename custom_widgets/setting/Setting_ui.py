@@ -15,7 +15,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QHeaderView,
+from PySide6.QtWidgets import (QApplication, QHBoxLayout, QHeaderView, QLabel,
     QPushButton, QSizePolicy, QSpacerItem, QTabWidget,
     QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
 
@@ -36,8 +36,8 @@ class Ui_Setting(object):
 "	color:rgb(189, 189, 189);\n"
 "\n"
 "}")
-        self.gridLayout = QGridLayout(Setting)
-        self.gridLayout.setObjectName(u"gridLayout")
+        self.verticalLayout_2 = QVBoxLayout(Setting)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.tabWidget = QTabWidget(Setting)
         self.tabWidget.setObjectName(u"tabWidget")
         self.tabWidget.setTabPosition(QTabWidget.West)
@@ -82,17 +82,46 @@ class Ui_Setting(object):
         self.tabWidget.addTab(self.faceRecognitionTab, "")
         self.recordsTab = QWidget()
         self.recordsTab.setObjectName(u"recordsTab")
+        self.verticalLayout_3 = QVBoxLayout(self.recordsTab)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.label = QLabel(self.recordsTab)
+        self.label.setObjectName(u"label")
+
+        self.horizontalLayout_2.addWidget(self.label)
+
+        self.path = QLabel(self.recordsTab)
+        self.path.setObjectName(u"path")
+        self.path.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_2.addWidget(self.path)
+
+        self.pushButton = QPushButton(self.recordsTab)
+        self.pushButton.setObjectName(u"pushButton")
+
+        self.horizontalLayout_2.addWidget(self.pushButton)
+
+        self.horizontalLayout_2.setStretch(1, 1)
+        self.horizontalLayout_2.setStretch(2, 1)
+
+        self.verticalLayout_3.addLayout(self.horizontalLayout_2)
+
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.verticalLayout_3.addItem(self.verticalSpacer)
+
         self.tabWidget.addTab(self.recordsTab, "")
         self.notificationTab = QWidget()
         self.notificationTab.setObjectName(u"notificationTab")
         self.tabWidget.addTab(self.notificationTab, "")
 
-        self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 1)
+        self.verticalLayout_2.addWidget(self.tabWidget)
 
 
         self.retranslateUi(Setting)
 
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(Setting)
@@ -106,6 +135,9 @@ class Ui_Setting(object):
         ___qtablewidgetitem1 = self.cameraTableWidget.horizontalHeaderItem(1)
         ___qtablewidgetitem1.setText(QCoreApplication.translate("Setting", u"Selected", None));
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.faceRecognitionTab), QCoreApplication.translate("Setting", u"Face Recognition", None))
+        self.label.setText(QCoreApplication.translate("Setting", u"Default Folder :", None))
+        self.path.setText(QCoreApplication.translate("Setting", u"Path", None))
+        self.pushButton.setText(QCoreApplication.translate("Setting", u"select folder", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.recordsTab), QCoreApplication.translate("Setting", u"Records", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.notificationTab), QCoreApplication.translate("Setting", u"Notification", None))
     # retranslateUi
