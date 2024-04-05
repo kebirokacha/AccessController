@@ -4,10 +4,12 @@ from ..dialog.ErrorDialog import ErrorDialog
 from .PersonDetails_ui import Ui_PersonDetails
 from databasemanager import DataBaseManager
 from PySide6.QtGui import QPixmap
-from deepface import DeepFace
+from deepface.DeepFace import represent
 import shutil
+import  numpy as np
 import os
 import re
+
 
 class PersonDetailsWidget(Ui_PersonDetails, QWidget):
 	sendInformation = Signal()
@@ -165,7 +167,7 @@ class PersonDetailsWidget(Ui_PersonDetails, QWidget):
 		embeddingsList = []
 		for picturePath in picturesPaths:
 			try:
-				embedding = DeepFace.represent(picturePath ,model_name='Facenet512' ,detector_backend='yolov8')[0]["embedding"]
+				embedding = represent(picturePath ,model_name='Facenet512' ,detector_backend='yolov8')[0]["embedding"]
 				embeddingsList.append(embedding)
 			except:
 				print('face not detected !!!!!')

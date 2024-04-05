@@ -1,8 +1,9 @@
-from PySide6.QtCore import Slot ,QThread 
+from PySide6.QtCore import Slot ,QThread
 from databasemanager import DataBaseManager
-from deepface import DeepFace
 import numpy as np
 import cv2 
+from deepface.DeepFace import represent
+
 
 class RecognitionThread(QThread):
 
@@ -18,7 +19,7 @@ class RecognitionThread(QThread):
 			if self.frame is None:
 				continue
 			try:
-				results = DeepFace.represent(self.frame, model_name='Facenet512', detector_backend='yolov8')
+				results = represent(self.frame, model_name='Facenet512' , detector_backend='yolov8')
 				for face in results:
 					embedding = np.array(face["embedding"])
 					self.checkEmbeddingMatch(self.knownEmbeddings ,embedding)
@@ -41,10 +42,10 @@ class RecognitionThread(QThread):
 
 	@Slot(cv2.Mat)
 	def setFrame(self ,frame:cv2.Mat):
+		print('setFrame complete')
 		self.frame = frame
 
 	def killThread(self):
 		self.status = False
-
 		self.quit()
 		self.wait()

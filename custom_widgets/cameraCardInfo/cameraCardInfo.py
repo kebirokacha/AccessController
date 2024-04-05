@@ -22,7 +22,7 @@ class CameraCardInfo(Ui_CameraRow ,QWidget):
 			return
 		drag = QDrag(self)
 		mime_data = QMimeData()
-		mime_data.setText(f"{self.cameraId},{self.cameraNameLabel.text()}") # Assuming camera ID is the text of the label
+		mime_data.setText(f"{self.cameraId},{self.cameraNameLabel.text()}")
 		drag.setMimeData(mime_data)
 		pixmap = QPixmap(self.size())
 		self.render(pixmap)
