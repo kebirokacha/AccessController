@@ -5,6 +5,11 @@ from custom_widgets.live.Live import Live
 from custom_widgets.records.records import Records
 from custom_widgets.dataBase.DataBase import DataBaseWidget
 from custom_widgets.setting.Setting import Setting
+import numpy as np
+from deepface.DeepFace import represent
+
+dummy_frame = np.zeros((480, 640, 3), dtype=np.uint8) # Example dummy frame
+_ = represent(dummy_frame, model_name='Facenet512', detector_backend='yolov8' ,enforce_detection=False)
 
 class MainPage (Ui_MainWindow ,QMainWindow):
 
@@ -12,7 +17,7 @@ class MainPage (Ui_MainWindow ,QMainWindow):
 		super(MainPage ,self).__init__()
 		self.setupUi(self)
 		self.setting = Setting()
-		self.camera = Live(self.setting)
+		self.live = Live(self.setting)
 		self.liveTab ,self.recordsTab ,self.dataBaseTab ,self.settingTab= None ,None ,None ,None
 		self.liveTabName ,self.recordsTabName ,self.dataBaseTabName ,self.settingTabName = 'Live' ,'records' ,'Data Base' ,'Setting'
 		self.liveTabIcon = QIcon(QPixmap('./resources/Icons/circle-dot.png'))
@@ -20,8 +25,9 @@ class MainPage (Ui_MainWindow ,QMainWindow):
 		self.settingTabIcon = QIcon(QPixmap('./resources/Icons/gear.png'))
 		self.dataBaseTabIcon = QIcon(QPixmap('./resources/Icons/Data-Base.png'))
 		self.tabWidget.setTabEnabled(0,False)
-		self.tabWidget.tabBar().setTabButton(0 ,QTabBar.ButtonPosition.RightSide ,None)
-		self.tabWidget.tabBar().setTabButton(1 ,QTabBar.ButtonPosition.RightSide ,None)
+		tabs = self.tabWidget.tabBar()
+		tabs.setTabButton(0 ,QTabBar.ButtonPosition.RightSide ,None)
+		tabs.setTabButton(1 ,QTabBar.ButtonPosition.RightSide ,None)
 		self.tabWidget.tabCloseRequested.connect(lambda index :self.closeTab(index))
 		self.liveButton.clicked.connect(self.setLiveTab)
 		self.recordsButton.clicked.connect(self.setRecordsTab)
@@ -46,15 +52,15 @@ class MainPage (Ui_MainWindow ,QMainWindow):
 		self.tabWidget.removeTab(index)
 
 	def closeEvent(self, event):
-		if self.liveTab is not None:
-			self.liveTab.closeCameras()
+		if self.setting is not None:
+			self.setting.killAllThreads()
 		if self.dataBaseTab is not None and self.dataBaseTab.PersonDetailsWidgetWindow is not None:
 			self.dataBaseTab.PersonDetailsWidgetWindow.close()
 		event.accept()
 
 	def setLiveTab(self):
 		if self.liveTab is None:
-			self.liveTab = self.camera
+			self.liveTab = self.live
 		elif self.liveTab.isHidden():
 			self.liveTab.show
 		self.tabWidget.addTab(self.liveTab ,self.liveTabIcon ,self.liveTabName)
