@@ -22,7 +22,8 @@ class Live(Ui_Live ,QWidget):
 
 	def setUI(self):
 		for _ in range(4):
-			customLabel  = CustomLabel('Loading' ,self.setting)
+			customLabel  = CustomLabel(self.setting)
+			customLabel.addItem.connect(self.addItem)
 			customLabel.removeItem.connect(self.removeItem)
 			customLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
 			self.cameraLabels.append(customLabel)
@@ -59,15 +60,15 @@ class Live(Ui_Live ,QWidget):
 			self.cameraListWidget.setItemWidget(itemList , cameraCardInfo)
 		#FIXME: Testing purpose (Remove Later)
 			
-		captureIP = 'http://192.168.1.3:4747/video'
-		cameraCardInfo = CameraCardInfo('My Phone' ,'http://192.168.1.3:4747/video')
+		captureIP = 'http://192.168.1.3:8080/video'
+		cameraCardInfo = CameraCardInfo('My Phone' ,captureIP)
 		itemList = QListWidgetItem(self.cameraListWidget)
 		self.cameraListWidget.addItem(itemList)
 		itemList.setSizeHint(cameraCardInfo.minimumSizeHint())
 		self.cameraListWidget.setItemWidget(itemList , cameraCardInfo)
 
 		captureIP = 'http://192.168.1.4:4747/video'
-		cameraCardInfo = CameraCardInfo('Mother Phone' ,'http://192.168.1.4:4747/video')
+		cameraCardInfo = CameraCardInfo('Mother Phone' ,captureIP)
 		itemList = QListWidgetItem(self.cameraListWidget)
 		self.cameraListWidget.addItem(itemList)
 		itemList.setSizeHint(cameraCardInfo.minimumSizeHint())
@@ -80,16 +81,35 @@ class Live(Ui_Live ,QWidget):
 		itemList.setSizeHint(cameraCardInfo.minimumSizeHint())
 		self.cameraListWidget.setItemWidget(itemList , cameraCardInfo)
 
-	def closeCameras(self):
-		for label in self.cameraLabels:
-			label.close()
+	@Slot(str ,str)
+	def addItem(self ,captureName:str ,captureId):
+		if not self.isCameraInList(captureName ,captureId):
+			cameraCardInfo = CameraCardInfo(captureName ,captureId)
+			itemList = QListWidgetItem(self.cameraListWidget)
+			self.cameraListWidget.addItem(itemList)
+			itemList.setSizeHint(cameraCardInfo.minimumSizeHint())
+			self.cameraListWidget.setItemWidget(itemList , cameraCardInfo)
 
-	@Slot(str)
-	def removeItem(self ,cameraName):
+	def isCameraInList(self ,captureName ,captureId) -> bool:
 		for i in range(self.cameraListWidget.count()):
 			item = self.cameraListWidget.item(i)
 			cameraCardInfo:CameraCardInfo = self.cameraListWidget.itemWidget(item)
-			if cameraCardInfo.cameraNameLabel.text() == cameraName: # Assuming the camera ID is the text of the item
+			if cameraCardInfo.cameraNameLabel.text() == captureName and cameraCardInfo.cameraId == captureId:
+				return True
+		return False
+	
+	def getCustomLabel(self ,captureId) -> CustomLabel:
+		for customLabel in self.cameraLabels:
+			if customLabel.captureId == captureId:
+				return customLabel
+		return None 
+	
+	@Slot(str)
+	def removeItem(self ,captureName):
+		for i in range(self.cameraListWidget.count()):
+			item = self.cameraListWidget.item(i)
+			cameraCardInfo:CameraCardInfo = self.cameraListWidget.itemWidget(item)
+			if cameraCardInfo.cameraNameLabel.text() == captureName:
 				self.cameraListWidget.takeItem(i)
 				break
 	
