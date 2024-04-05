@@ -1,7 +1,8 @@
 from PySide6.QtWidgets import QWidget ,QListWidgetItem
-from .records_ui import  Ui_Records
+from PySide6.QtCore import Slot
 from PySide6.QtMultimediaWidgets import QVideoWidget
 from PySide6.QtMultimedia import QMediaPlayer
+from .records_ui import  Ui_Records
 from ..videoCardInfo.videoCardInfo import VideoCardInfo
 import os
 
@@ -50,13 +51,16 @@ class Records(Ui_Records ,QWidget):
 		hours = minutes // 60
 		return f"{hours:02d}:{minutes % 60:02d}:{seconds % 60:02d}"
 
+	@Slot()
 	def fillListWidget(self):
 		#FIXME: later you will get the path from setting or database
+		self.listWidget.clear()
 		videoFolderPath = "files_records/videos"
 		videoFiles = [f for f in os.listdir(videoFolderPath) if f.endswith(('.mp4', '.avi', '.mkv'))]
 
 		for videoFile in videoFiles:
 			videoCardInfo = VideoCardInfo()
+			videoCardInfo.refreshVideoList.connect(self.fillListWidget)
 			videoCardInfo.setupCard({
 					"videoFolderPath":videoFolderPath,
 					"videoFile":videoFile,
