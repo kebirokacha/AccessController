@@ -15,10 +15,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractItemView, QAbstractSpinBox, QApplication, QComboBox,
-    QDateTimeEdit, QFrame, QGridLayout, QHBoxLayout,
-    QLabel, QListWidget, QListWidgetItem, QPushButton,
-    QRadioButton, QSizePolicy, QSlider, QSpacerItem,
+from PySide6.QtWidgets import (QAbstractItemView, QAbstractSpinBox, QApplication, QDateTimeEdit,
+    QFrame, QGridLayout, QHBoxLayout, QLabel,
+    QListWidget, QListWidgetItem, QPushButton, QRadioButton,
+    QSizePolicy, QSlider, QSpacerItem, QStackedWidget,
     QVBoxLayout, QWidget)
 from resources.ui import resources_rc
 
@@ -51,15 +51,16 @@ class Ui_Records(object):
         self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.radioButton = QRadioButton(self.leftSideBare)
-        self.radioButton.setObjectName(u"radioButton")
+        self.videoRadioButton = QRadioButton(self.leftSideBare)
+        self.videoRadioButton.setObjectName(u"videoRadioButton")
+        self.videoRadioButton.setChecked(True)
 
-        self.horizontalLayout_3.addWidget(self.radioButton)
+        self.horizontalLayout_3.addWidget(self.videoRadioButton)
 
-        self.radioButton_2 = QRadioButton(self.leftSideBare)
-        self.radioButton_2.setObjectName(u"radioButton_2")
+        self.pictureRadioButton = QRadioButton(self.leftSideBare)
+        self.pictureRadioButton.setObjectName(u"pictureRadioButton")
 
-        self.horizontalLayout_3.addWidget(self.radioButton_2)
+        self.horizontalLayout_3.addWidget(self.pictureRadioButton)
 
 
         self.verticalLayout_3.addLayout(self.horizontalLayout_3)
@@ -112,7 +113,14 @@ class Ui_Records(object):
         self.verticalLayout_2 = QVBoxLayout(self.frame)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.verticalLayout_2.setContentsMargins(6, 6, 6, 6)
-        self.videoWidgetFram = QFrame(self.frame)
+        self.stackedWidget = QStackedWidget(self.frame)
+        self.stackedWidget.setObjectName(u"stackedWidget")
+        self.stackedWidget.setFrameShadow(QFrame.Plain)
+        self.videoPlayerPage = QWidget()
+        self.videoPlayerPage.setObjectName(u"videoPlayerPage")
+        self.verticalLayout_4 = QVBoxLayout(self.videoPlayerPage)
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.videoWidgetFram = QFrame(self.videoPlayerPage)
         self.videoWidgetFram.setObjectName(u"videoWidgetFram")
         self.videoWidgetFram.setFrameShape(QFrame.StyledPanel)
         self.videoWidgetFram.setFrameShadow(QFrame.Raised)
@@ -127,16 +135,16 @@ class Ui_Records(object):
         self.gridLayout.addLayout(self.videoWidgetFramLayout, 0, 0, 1, 1)
 
 
-        self.verticalLayout_2.addWidget(self.videoWidgetFram)
+        self.verticalLayout_4.addWidget(self.videoWidgetFram)
 
         self.horizontalLayout_5 = QHBoxLayout()
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
-        self.currentTimeVideo = QLabel(self.frame)
+        self.currentTimeVideo = QLabel(self.videoPlayerPage)
         self.currentTimeVideo.setObjectName(u"currentTimeVideo")
 
         self.horizontalLayout_5.addWidget(self.currentTimeVideo)
 
-        self.slider = QSlider(self.frame)
+        self.slider = QSlider(self.videoPlayerPage)
         self.slider.setObjectName(u"slider")
         self.slider.setSingleStep(1)
         self.slider.setPageStep(20)
@@ -145,18 +153,18 @@ class Ui_Records(object):
 
         self.horizontalLayout_5.addWidget(self.slider)
 
-        self.totalTimeVideo = QLabel(self.frame)
+        self.totalTimeVideo = QLabel(self.videoPlayerPage)
         self.totalTimeVideo.setObjectName(u"totalTimeVideo")
 
         self.horizontalLayout_5.addWidget(self.totalTimeVideo)
 
         self.horizontalLayout_5.setStretch(1, 1)
 
-        self.verticalLayout_2.addLayout(self.horizontalLayout_5)
+        self.verticalLayout_4.addLayout(self.horizontalLayout_5)
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.playButton = QPushButton(self.frame)
+        self.playButton = QPushButton(self.videoPlayerPage)
         self.playButton.setObjectName(u"playButton")
         self.playButton.setMinimumSize(QSize(70, 40))
         self.playButton.setMaximumSize(QSize(120, 16777215))
@@ -166,7 +174,7 @@ class Ui_Records(object):
 
         self.horizontalLayout.addWidget(self.playButton)
 
-        self.stopButton = QPushButton(self.frame)
+        self.stopButton = QPushButton(self.videoPlayerPage)
         self.stopButton.setObjectName(u"stopButton")
         self.stopButton.setMinimumSize(QSize(70, 40))
         self.stopButton.setMaximumSize(QSize(120, 16777215))
@@ -177,9 +185,24 @@ class Ui_Records(object):
         self.horizontalLayout.addWidget(self.stopButton)
 
 
-        self.verticalLayout_2.addLayout(self.horizontalLayout)
+        self.verticalLayout_4.addLayout(self.horizontalLayout)
 
-        self.verticalLayout_2.setStretch(0, 1)
+        self.verticalLayout_4.setStretch(0, 1)
+        self.stackedWidget.addWidget(self.videoPlayerPage)
+        self.picutreViewerPage = QWidget()
+        self.picutreViewerPage.setObjectName(u"picutreViewerPage")
+        self.verticalLayout_5 = QVBoxLayout(self.picutreViewerPage)
+        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.pictureViewer = QLabel(self.picutreViewerPage)
+        self.pictureViewer.setObjectName(u"pictureViewer")
+        self.pictureViewer.setAlignment(Qt.AlignCenter)
+
+        self.verticalLayout_5.addWidget(self.pictureViewer)
+
+        self.stackedWidget.addWidget(self.picutreViewerPage)
+
+        self.verticalLayout_2.addWidget(self.stackedWidget)
+
 
         self.horizontalLayout_2.addWidget(self.frame)
 
@@ -205,13 +228,11 @@ class Ui_Records(object):
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
-        self.comboBox = QComboBox(self.rightSideBar)
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.setObjectName(u"comboBox")
+        self.title = QLabel(self.rightSideBar)
+        self.title.setObjectName(u"title")
+        self.title.setAlignment(Qt.AlignCenter)
 
-        self.verticalLayout.addWidget(self.comboBox)
+        self.verticalLayout.addWidget(self.title)
 
         self.listWidget = QListWidget(self.rightSideBar)
         self.listWidget.setObjectName(u"listWidget")
@@ -225,20 +246,23 @@ class Ui_Records(object):
 
         self.horizontalLayout_2.setStretch(0, 1)
         self.horizontalLayout_2.setStretch(1, 5)
-        QWidget.setTabOrder(self.radioButton, self.radioButton_2)
-        QWidget.setTabOrder(self.radioButton_2, self.dateTimeEdit)
+        QWidget.setTabOrder(self.videoRadioButton, self.pictureRadioButton)
+        QWidget.setTabOrder(self.pictureRadioButton, self.dateTimeEdit)
         QWidget.setTabOrder(self.dateTimeEdit, self.dateTimeEdit_2)
         QWidget.setTabOrder(self.dateTimeEdit_2, self.searchButton)
 
         self.retranslateUi(Records)
+
+        self.stackedWidget.setCurrentIndex(0)
+
 
         QMetaObject.connectSlotsByName(Records)
     # setupUi
 
     def retranslateUi(self, Records):
         Records.setWindowTitle(QCoreApplication.translate("Records", u"Form", None))
-        self.radioButton.setText(QCoreApplication.translate("Records", u"Videos", None))
-        self.radioButton_2.setText(QCoreApplication.translate("Records", u"Pictures", None))
+        self.videoRadioButton.setText(QCoreApplication.translate("Records", u"Videos", None))
+        self.pictureRadioButton.setText(QCoreApplication.translate("Records", u"Pictures", None))
         self.label.setText(QCoreApplication.translate("Records", u"Start Date", None))
         self.dateTimeEdit.setDisplayFormat(QCoreApplication.translate("Records", u"M/d/yyyy   h:mm AP", None))
         self.label_2.setText(QCoreApplication.translate("Records", u"End Date", None))
@@ -248,10 +272,8 @@ class Ui_Records(object):
         self.totalTimeVideo.setText(QCoreApplication.translate("Records", u"00:00:00", None))
         self.playButton.setText(QCoreApplication.translate("Records", u"Play/Pause", None))
         self.stopButton.setText(QCoreApplication.translate("Records", u"PushButton", None))
+        self.pictureViewer.setText(QCoreApplication.translate("Records", u"TextLabel", None))
         self.toggleSideBarButton.setText("")
-        self.comboBox.setItemText(0, QCoreApplication.translate("Records", u"All Record", None))
-        self.comboBox.setItemText(1, QCoreApplication.translate("Records", u"Videos", None))
-        self.comboBox.setItemText(2, QCoreApplication.translate("Records", u"Pictures", None))
-
+        self.title.setText(QCoreApplication.translate("Records", u"Title", None))
     # retranslateUi
 

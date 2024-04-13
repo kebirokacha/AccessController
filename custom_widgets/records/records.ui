@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1123</width>
-    <height>385</height>
+    <height>215</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -73,14 +73,17 @@ QPushButton {
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
-         <widget class="QRadioButton" name="radioButton">
+         <widget class="QRadioButton" name="videoRadioButton">
           <property name="text">
            <string>Videos</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QRadioButton" name="radioButton_2">
+         <widget class="QRadioButton" name="pictureRadioButton">
           <property name="text">
            <string>Pictures</string>
           </property>
@@ -177,7 +180,7 @@ QPushButton {
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0">
       <property name="leftMargin">
        <number>6</number>
       </property>
@@ -191,122 +194,150 @@ QPushButton {
        <number>6</number>
       </property>
       <item>
-       <widget class="QFrame" name="videoWidgetFram">
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
+       <widget class="QStackedWidget" name="stackedWidget">
         <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
+         <enum>QFrame::Plain</enum>
         </property>
-        <layout class="QGridLayout" name="gridLayout">
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
-         <property name="spacing">
-          <number>0</number>
-         </property>
-         <item row="0" column="0">
-          <layout class="QGridLayout" name="videoWidgetFramLayout">
-           <property name="spacing">
-            <number>0</number>
-           </property>
-          </layout>
-         </item>
-        </layout>
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="videoPlayerPage">
+         <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,0,0">
+          <item>
+           <widget class="QFrame" name="videoWidgetFram">
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QGridLayout" name="gridLayout">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <item row="0" column="0">
+              <layout class="QGridLayout" name="videoWidgetFramLayout">
+               <property name="spacing">
+                <number>0</number>
+               </property>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,1,0">
+            <item>
+             <widget class="QLabel" name="currentTimeVideo">
+              <property name="text">
+               <string>00:00:00</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSlider" name="slider">
+              <property name="singleStep">
+               <number>1</number>
+              </property>
+              <property name="pageStep">
+               <number>20</number>
+              </property>
+              <property name="tracking">
+               <bool>true</bool>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="totalTimeVideo">
+              <property name="text">
+               <string>00:00:00</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QPushButton" name="playButton">
+              <property name="minimumSize">
+               <size>
+                <width>70</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>120</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Play/Pause</string>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>:/icons/Icons/play.png</normaloff>:/icons/Icons/play.png</iconset>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="stopButton">
+              <property name="minimumSize">
+               <size>
+                <width>70</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>120</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>PushButton</string>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>:/icons/Icons/stop.png</normaloff>:/icons/Icons/stop.png</iconset>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="picutreViewerPage">
+         <layout class="QVBoxLayout" name="verticalLayout_5">
+          <item>
+           <widget class="QLabel" name="pictureViewer">
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,1,0">
-        <item>
-         <widget class="QLabel" name="currentTimeVideo">
-          <property name="text">
-           <string>00:00:00</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QSlider" name="slider">
-          <property name="singleStep">
-           <number>1</number>
-          </property>
-          <property name="pageStep">
-           <number>20</number>
-          </property>
-          <property name="tracking">
-           <bool>true</bool>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="totalTimeVideo">
-          <property name="text">
-           <string>00:00:00</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QPushButton" name="playButton">
-          <property name="minimumSize">
-           <size>
-            <width>70</width>
-            <height>40</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>120</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Play/Pause</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../../resources/ui/resources.qrc">
-            <normaloff>:/icons/Icons/play.png</normaloff>:/icons/Icons/play.png</iconset>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="stopButton">
-          <property name="minimumSize">
-           <size>
-            <width>70</width>
-            <height>40</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>120</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>PushButton</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../../resources/ui/resources.qrc">
-            <normaloff>:/icons/Icons/stop.png</normaloff>:/icons/Icons/stop.png</iconset>
-          </property>
-         </widget>
-        </item>
-       </layout>
       </item>
      </layout>
     </widget>
@@ -329,7 +360,7 @@ QPushButton {
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="../../resources/ui/resources.qrc">
+      <iconset>
        <normaloff>:/icons/Icons/angle-left.png</normaloff>:/icons/Icons/angle-left.png</iconset>
      </property>
     </widget>
@@ -377,22 +408,13 @@ QPushButton {
        <number>0</number>
       </property>
       <item>
-       <widget class="QComboBox" name="comboBox">
-        <item>
-         <property name="text">
-          <string>All Record</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Videos</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Pictures</string>
-         </property>
-        </item>
+       <widget class="QLabel" name="title">
+        <property name="text">
+         <string>Title</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
        </widget>
       </item>
       <item>
@@ -411,8 +433,8 @@ QPushButton {
   </layout>
  </widget>
  <tabstops>
-  <tabstop>radioButton</tabstop>
-  <tabstop>radioButton_2</tabstop>
+  <tabstop>videoRadioButton</tabstop>
+  <tabstop>pictureRadioButton</tabstop>
   <tabstop>dateTimeEdit</tabstop>
   <tabstop>dateTimeEdit_2</tabstop>
   <tabstop>searchButton</tabstop>
