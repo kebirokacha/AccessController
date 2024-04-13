@@ -77,6 +77,7 @@ class MainPage (Ui_MainWindow ,QMainWindow):
 		if self.dataBaseTab is None:
 			self.dataBaseTab = DataBaseWidget()
 			self.dataBaseTab.populateCardInfoGrid()
+			self.dataBaseTab.updateInfo.connect(self.setting.updateEmbedding)
 			self.tabWidget.addTab(self.dataBaseTab ,self.dataBaseTabIcon ,self.dataBaseTabName)
 			self.tabWidget.setCurrentIndex(self.tabWidget.count() - 1)
 
@@ -92,8 +93,6 @@ class MainPage (Ui_MainWindow ,QMainWindow):
 		print(f'tab changed {index}')
 		if self.tabWidget.tabText(index) == self.recordsTabName:
 			self.recordsTab.hideSideBar()
-			#FIXME check it later if ()
-			# self.recordsTab.fillListWidget()
 		if self.tabWidget.tabText(index) == self.dataBaseTabName: 
 			self.dataBaseTab.populateCardInfoGrid()	
 
