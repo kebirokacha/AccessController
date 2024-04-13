@@ -25,6 +25,7 @@ class MainPage (Ui_MainWindow ,QMainWindow):
 		self.settingTabIcon = QIcon(QPixmap('./resources/Icons/gear.png'))
 		self.dataBaseTabIcon = QIcon(QPixmap('./resources/Icons/Data-Base.png'))
 		self.tabWidget.setTabEnabled(0,False)
+		self.tabWidget.currentChanged.connect(self.onTabChange)
 		tabs = self.tabWidget.tabBar()
 		tabs.setTabButton(0 ,QTabBar.ButtonPosition.RightSide ,None)
 		tabs.setTabButton(1 ,QTabBar.ButtonPosition.RightSide ,None)
@@ -88,6 +89,11 @@ class MainPage (Ui_MainWindow ,QMainWindow):
 		self.tabWidget.setCurrentIndex(self.tabWidget.count() - 1)
 
 	def onTabChange(self ,index):
+		print(f'tab changed {index}')
+		if self.tabWidget.tabText(index) == self.recordsTabName:
+			self.recordsTab.hideSideBar()
+			#FIXME check it later if ()
+			# self.recordsTab.fillListWidget()
 		if self.tabWidget.tabText(index) == self.dataBaseTabName: 
 			self.dataBaseTab.populateCardInfoGrid()	
 

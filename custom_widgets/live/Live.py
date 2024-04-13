@@ -60,7 +60,7 @@ class Live(Ui_Live ,QWidget):
 			self.cameraListWidget.setItemWidget(itemList , cameraCardInfo)
 		#FIXME: Testing purpose (Remove Later)
 			
-		captureIP = 'http://192.168.1.3:8080/video'
+		captureIP = 'http://192.168.222.11:4747/video'
 		cameraCardInfo = CameraCardInfo('My Phone' ,captureIP)
 		itemList = QListWidgetItem(self.cameraListWidget)
 		self.cameraListWidget.addItem(itemList)
@@ -74,7 +74,7 @@ class Live(Ui_Live ,QWidget):
 		itemList.setSizeHint(cameraCardInfo.minimumSizeHint())
 		self.cameraListWidget.setItemWidget(itemList , cameraCardInfo)
 
-		captureIP = 'http://192.168.1.2:4747/video'
+		captureIP = 'http://192.168.42.129:4747/video'
 		cameraCardInfo = CameraCardInfo('Saadane Phone' ,captureIP)
 		itemList = QListWidgetItem(self.cameraListWidget)
 		self.cameraListWidget.addItem(itemList)
