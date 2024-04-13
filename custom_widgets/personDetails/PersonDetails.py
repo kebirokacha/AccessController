@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QWidget ,QFileDialog ,QLabel
-from PySide6.QtCore import Signal ,QDate ,Qt
+from PySide6.QtCore import Signal ,QDate ,Qt ,QStandardPaths
 from ..dialog.ErrorDialog import ErrorDialog
 from .PersonDetails_ui import Ui_PersonDetails
 from databasemanager import DataBaseManager
@@ -29,7 +29,12 @@ class PersonDetailsWidget(Ui_PersonDetails, QWidget):
 
 		
 	def selectPictures(self):
-		filePaths = QFileDialog.getOpenFileNames(self ,caption='Select Person Pictures' ,dir="Pictures" ,filter='Images (*.png *.xpm *.jpg *.jpeg)')
+		filePaths = QFileDialog.getOpenFileNames(
+												self ,
+												caption='Select Person Pictures' ,
+												dir=QStandardPaths.writableLocation(QStandardPaths.StandardLocation.PicturesLocation) ,
+												filter='Images (*.png *.xpm *.jpg *.jpeg)'
+										   )
 		if filePaths:
 			filePaths = filePaths[0]
 			print(f"the file directory is : {filePaths}")
