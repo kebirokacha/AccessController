@@ -1,16 +1,19 @@
-from PySide6.QtCore import Slot ,QThread
+from PySide6.QtCore import Slot ,QThread ,QDateTime
 from databasemanager import DataBaseManager
 import numpy as np
 import cv2 
 from deepface.DeepFace import represent
+import os
 
 
 class RecognitionThread(QThread):
 
-	def __init__(self ,parent=None):
+	def __init__(self ,captureName:str ,parent=None):
 		QThread.__init__(self ,parent)
-		self.databaseManager = DataBaseManager()
-		self.knownEmbeddings = self.databaseManager.getEncodingArray()
+		self.captureName = captureName
+		self.pictureFolderPath = None
+		self.initializeKnownEmbeddings()
+		self.initializeRecordsFolderPath()
 		self.status = True
 		self.frame = None
 
@@ -22,10 +25,19 @@ class RecognitionThread(QThread):
 				results = represent(self.frame, model_name='Facenet512' , detector_backend='yolov8')
 				for face in results:
 					embedding = np.array(face["embedding"])
-					self.checkEmbeddingMatch(self.knownEmbeddings ,embedding)
+					maxMatch = self.checkEmbeddingMatch(self.knownEmbeddings ,embedding)
+					print(maxMatch)
+					if maxMatch < 55 and self.pictureFolderPath is not None and self.frame is not None:
+						currentTime = QDateTime.currentDateTime().toString("dd_MM_yyyy_HH_mm_ss")
+						filename = f"{self.captureName}_{currentTime}.jpg"
+						filename = filename.replace(":", "_")
+						filename = os.path.join(self.pictureFolderPath ,filename)
+						cv2.imwrite(filename ,self.frame)
+						print('intruder detected file saved')
 			except Exception as e:
 				print(f'Face not found: {e}')
-			self.frame = None
+			finally:
+				self.frame = None
 
 	def checkEmbeddingMatch(self ,knownEmbeddings:dict ,unknownEmbedding:np.ndarray ,threshold:int=20):
 		matches = {}
@@ -38,7 +50,29 @@ class RecognitionThread(QThread):
 				if distance < threshold:
 					matchCounter += 1
 			matches[personId] = (matchCounter/len(embeddings)) * 100
-		print(f'matches are {matches}')
+		maxMatche = max(matches.values())
+		return maxMatche
+	
+	def initializeRecordsFolderPath(self):
+		if self.pictureFolderPath is None:
+			dataBaseManager = DataBaseManager()
+			recordsFolderPath = dataBaseManager.getRecordsFolderPath()
+			self.pictureFolderPath = os.path.join(recordsFolderPath ,'pictures')
+			if not os.path.isdir(self.pictureFolderPath):
+				os.mkdir(self.pictureFolderPath)
+
+
+	def updateRecordsFolderPath(self):
+		if self.pictureFolderPath is not None:
+			dataBaseManager = DataBaseManager()
+			recordsFolderPath = dataBaseManager.getRecordsFolderPath()
+			self.pictureFolderPath = os.path.join(recordsFolderPath ,'pictures')
+			if not os.path.isdir(self.pictureFolderPath):
+				os.mkdir(self.pictureFolderPath)
+
+	def initializeKnownEmbeddings(self):
+		self.dataBaseManager = DataBaseManager()
+		self.knownEmbeddings = self.dataBaseManager.getEncodingArray()
 
 	@Slot(cv2.Mat)
 	def setFrame(self ,frame:cv2.Mat):

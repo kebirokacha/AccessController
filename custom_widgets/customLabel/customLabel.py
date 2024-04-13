@@ -12,7 +12,7 @@ class CustomLabel(QLabel):
 	def __init__(self ,setting:Setting ,parent=None):
 		super(CustomLabel ,self).__init__(parent)
 		self.setting = setting
-		self.setting.checkThreads.connect(self.connectThread)
+		self.setting.connectThread.connect(self.connectThread)
 		self.startLiveSignal.connect(self.setting.startLive)
 		self.endLiveSignal.connect(self.setting.killThreads)
 		self.setText('Loading')
@@ -48,10 +48,7 @@ class CustomLabel(QLabel):
 			self.addItem.emit(self.captureName ,self.captureId)
 			self.captureId = None
 			self.captureName =None
-			print('hello')
-			self.setText('Loading')
-			self.repaint()
-			print('reset complet')
+		
 
 	def showContextMenu(self ,position):
 		menu = QMenu(self)
@@ -59,13 +56,19 @@ class CustomLabel(QLabel):
 		action.triggered.connect(self.close)
 		menu.addAction(action)
 		menu.exec(self.mapToGlobal(position))
+
+	@Slot()
+	def resetCustomLabel(self):
+		self.setText('Loading')
+		self.repaint()
 		
 	@Slot()
 	def connectThread(self):
 		captures = self.setting.framReaderThreads
 		if self.captureId is not None and self.captureId in captures:
-			print(f'capture id in the custom label {self.captureId}')
+			print(f'capture id in the custom label ha been connected  {self.captureId}')
 			captures[self.captureId].updateFrame.connect(self.setImageLabel)
+			captures[self.captureId].resetCustomLabel.connect(self.resetCustomLabel)
 
 	@Slot(QImage)
 	def setImageLabel(self, image:QImage):

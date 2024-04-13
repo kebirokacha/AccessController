@@ -15,9 +15,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QHeaderView, QLabel,
-    QPushButton, QSizePolicy, QSpacerItem, QTabWidget,
-    QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QHBoxLayout, QHeaderView,
+    QLabel, QLineEdit, QPushButton, QSizePolicy,
+    QSpacerItem, QTabWidget, QTableWidget, QTableWidgetItem,
+    QVBoxLayout, QWidget)
 
 class Ui_Setting(object):
     def setupUi(self, Setting):
@@ -93,14 +94,17 @@ class Ui_Setting(object):
 
         self.path = QLabel(self.recordsTab)
         self.path.setObjectName(u"path")
+        font = QFont()
+        font.setBold(True)
+        self.path.setFont(font)
         self.path.setAlignment(Qt.AlignCenter)
 
         self.horizontalLayout_2.addWidget(self.path)
 
-        self.pushButton = QPushButton(self.recordsTab)
-        self.pushButton.setObjectName(u"pushButton")
+        self.selectPathButton = QPushButton(self.recordsTab)
+        self.selectPathButton.setObjectName(u"selectPathButton")
 
-        self.horizontalLayout_2.addWidget(self.pushButton)
+        self.horizontalLayout_2.addWidget(self.selectPathButton)
 
         self.horizontalLayout_2.setStretch(1, 1)
         self.horizontalLayout_2.setStretch(2, 1)
@@ -114,6 +118,44 @@ class Ui_Setting(object):
         self.tabWidget.addTab(self.recordsTab, "")
         self.notificationTab = QWidget()
         self.notificationTab.setObjectName(u"notificationTab")
+        self.verticalLayout_4 = QVBoxLayout(self.notificationTab)
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.horizontalLayout_3 = QHBoxLayout()
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.label_2 = QLabel(self.notificationTab)
+        self.label_2.setObjectName(u"label_2")
+
+        self.horizontalLayout_3.addWidget(self.label_2)
+
+        self.lineEdit = QLineEdit(self.notificationTab)
+        self.lineEdit.setObjectName(u"lineEdit")
+
+        self.horizontalLayout_3.addWidget(self.lineEdit)
+
+        self.pushButton = QPushButton(self.notificationTab)
+        self.pushButton.setObjectName(u"pushButton")
+
+        self.horizontalLayout_3.addWidget(self.pushButton)
+
+        self.horizontalLayout_3.setStretch(1, 1)
+        self.horizontalLayout_3.setStretch(2, 1)
+
+        self.verticalLayout_4.addLayout(self.horizontalLayout_3)
+
+        self.checkBox = QCheckBox(self.notificationTab)
+        self.checkBox.setObjectName(u"checkBox")
+
+        self.verticalLayout_4.addWidget(self.checkBox)
+
+        self.checkBox_2 = QCheckBox(self.notificationTab)
+        self.checkBox_2.setObjectName(u"checkBox_2")
+
+        self.verticalLayout_4.addWidget(self.checkBox_2)
+
+        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.verticalLayout_4.addItem(self.verticalSpacer_2)
+
         self.tabWidget.addTab(self.notificationTab, "")
 
         self.verticalLayout_2.addWidget(self.tabWidget)
@@ -121,7 +163,7 @@ class Ui_Setting(object):
 
         self.retranslateUi(Setting)
 
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(2)
 
 
         QMetaObject.connectSlotsByName(Setting)
@@ -137,8 +179,13 @@ class Ui_Setting(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.faceRecognitionTab), QCoreApplication.translate("Setting", u"Face Recognition", None))
         self.label.setText(QCoreApplication.translate("Setting", u"Default Folder :", None))
         self.path.setText(QCoreApplication.translate("Setting", u"Path", None))
-        self.pushButton.setText(QCoreApplication.translate("Setting", u"select folder", None))
+        self.selectPathButton.setText(QCoreApplication.translate("Setting", u"select folder", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.recordsTab), QCoreApplication.translate("Setting", u"Records", None))
+        self.label_2.setText(QCoreApplication.translate("Setting", u"Email", None))
+        self.lineEdit.setPlaceholderText(QCoreApplication.translate("Setting", u"example@mail.com", None))
+        self.pushButton.setText(QCoreApplication.translate("Setting", u"Save", None))
+        self.checkBox.setText(QCoreApplication.translate("Setting", u"Daily Email", None))
+        self.checkBox_2.setText(QCoreApplication.translate("Setting", u"Live Email", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.notificationTab), QCoreApplication.translate("Setting", u"Notification", None))
     # retranslateUi
 
