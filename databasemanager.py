@@ -1,16 +1,26 @@
+from PySide6.QtCore import QStandardPaths
 import shutil
 import sqlite3
 import json
 import os
 
 class DataBaseManager:
-	def __init__(self ,databasePath:str = "security_system.db" ,personImagePath:str = "person_pictures"):
+	def __init__(self ,recordsFolderTxt:str = 'records_folder_path.txt' ,databasePath:str = "security_system.db" ,personImagePath:str = "person_pictures"):
+		# Check file text if existe if yes then read it if not then create it and write in it the default path of video folder
+		self.recordsFolder = None
+		self.recordsFolderTxt = recordsFolderTxt
+		if not os.path.isfile(recordsFolderTxt):
+			self.recordsFolder = QStandardPaths.writableLocation(QStandardPaths.StandardLocation.MoviesLocation)
+			with open(recordsFolderTxt ,'w') as file:
+				file.write(self.recordsFolder)
+		else:
+			with open(recordsFolderTxt ,'r') as file:
+				self.recordsFolder = file.read()
 		if not os.path.isfile(databasePath):
 			open(databasePath, "w").close()
 		if not os.path.exists(personImagePath):
 			os.mkdir(personImagePath)
 		self.personImagePath = personImagePath
-		# connect to the database file
 		self.connection = sqlite3.connect(databasePath)
 		self.initializeDatabase()
 
@@ -190,3 +200,17 @@ class DataBaseManager:
 				}
 				personsInfo.append(personDict)
 			return personsInfo
+		
+	def getRecordsFolderPath(self) -> str:
+		if self.recordsFolder is  not None:
+			return self.recordsFolder
+		
+	def setRecordsFolderPath(self ,newRecordsFolderPath:str):
+		self.recordsFolder = newRecordsFolderPath
+		if os.path.isfile(self.recordsFolderTxt):
+			with open(self.recordsFolderTxt ,'r') as file:
+				content  = file.read()
+			content = content.replace(content ,newRecordsFolderPath)
+			with open(self.recordsFolderTxt ,'w') as file:
+				file.write(content)
+			
