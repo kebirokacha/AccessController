@@ -122,35 +122,35 @@ class Ui_Setting(object):
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.label_2 = QLabel(self.notificationTab)
-        self.label_2.setObjectName(u"label_2")
+        self.emailLabel = QLabel(self.notificationTab)
+        self.emailLabel.setObjectName(u"emailLabel")
 
-        self.horizontalLayout_3.addWidget(self.label_2)
+        self.horizontalLayout_3.addWidget(self.emailLabel)
 
-        self.lineEdit = QLineEdit(self.notificationTab)
-        self.lineEdit.setObjectName(u"lineEdit")
+        self.emailInput = QLineEdit(self.notificationTab)
+        self.emailInput.setObjectName(u"emailInput")
 
-        self.horizontalLayout_3.addWidget(self.lineEdit)
+        self.horizontalLayout_3.addWidget(self.emailInput)
 
-        self.pushButton = QPushButton(self.notificationTab)
-        self.pushButton.setObjectName(u"pushButton")
+        self.saveEmailButton = QPushButton(self.notificationTab)
+        self.saveEmailButton.setObjectName(u"saveEmailButton")
 
-        self.horizontalLayout_3.addWidget(self.pushButton)
+        self.horizontalLayout_3.addWidget(self.saveEmailButton)
 
         self.horizontalLayout_3.setStretch(1, 1)
         self.horizontalLayout_3.setStretch(2, 1)
 
         self.verticalLayout_4.addLayout(self.horizontalLayout_3)
 
-        self.checkBox = QCheckBox(self.notificationTab)
-        self.checkBox.setObjectName(u"checkBox")
+        self.dailyEmailCheckBox = QCheckBox(self.notificationTab)
+        self.dailyEmailCheckBox.setObjectName(u"dailyEmailCheckBox")
 
-        self.verticalLayout_4.addWidget(self.checkBox)
+        self.verticalLayout_4.addWidget(self.dailyEmailCheckBox)
 
-        self.checkBox_2 = QCheckBox(self.notificationTab)
-        self.checkBox_2.setObjectName(u"checkBox_2")
+        self.liveEmailCheckBox = QCheckBox(self.notificationTab)
+        self.liveEmailCheckBox.setObjectName(u"liveEmailCheckBox")
 
-        self.verticalLayout_4.addWidget(self.checkBox_2)
+        self.verticalLayout_4.addWidget(self.liveEmailCheckBox)
 
         self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
@@ -160,6 +160,9 @@ class Ui_Setting(object):
 
         self.verticalLayout_2.addWidget(self.tabWidget)
 
+#if QT_CONFIG(shortcut)
+        self.emailLabel.setBuddy(self.emailInput)
+#endif // QT_CONFIG(shortcut)
 
         self.retranslateUi(Setting)
 
@@ -181,11 +184,11 @@ class Ui_Setting(object):
         self.path.setText(QCoreApplication.translate("Setting", u"Path", None))
         self.selectPathButton.setText(QCoreApplication.translate("Setting", u"select folder", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.recordsTab), QCoreApplication.translate("Setting", u"Records", None))
-        self.label_2.setText(QCoreApplication.translate("Setting", u"Email", None))
-        self.lineEdit.setPlaceholderText(QCoreApplication.translate("Setting", u"example@mail.com", None))
-        self.pushButton.setText(QCoreApplication.translate("Setting", u"Save", None))
-        self.checkBox.setText(QCoreApplication.translate("Setting", u"Daily Email", None))
-        self.checkBox_2.setText(QCoreApplication.translate("Setting", u"Live Email", None))
+        self.emailLabel.setText(QCoreApplication.translate("Setting", u"Email", None))
+        self.emailInput.setPlaceholderText(QCoreApplication.translate("Setting", u"example@mail.com", None))
+        self.saveEmailButton.setText(QCoreApplication.translate("Setting", u"Save", None))
+        self.dailyEmailCheckBox.setText(QCoreApplication.translate("Setting", u"Daily Email", None))
+        self.liveEmailCheckBox.setText(QCoreApplication.translate("Setting", u"Live Email", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.notificationTab), QCoreApplication.translate("Setting", u"Notification", None))
     # retranslateUi
 
