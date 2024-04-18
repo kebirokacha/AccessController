@@ -3,10 +3,10 @@ import shutil
 import sqlite3
 import json
 import os
+import numpy as np
 
 class DataBaseManager:
 	def __init__(self ,recordsFolderTxt:str = 'records_folder_path.txt' ,databasePath:str = "security_system.db" ,personImagePath:str = "person_pictures"):
-		# Check file text if existe if yes then read it if not then create it and write in it the default path of video folder
 		self.recordsFolder = None
 		self.recordsFolderTxt = recordsFolderTxt
 		if not os.path.isfile(recordsFolderTxt):
@@ -16,6 +16,7 @@ class DataBaseManager:
 		else:
 			with open(recordsFolderTxt ,'r') as file:
 				self.recordsFolder = file.read()
+
 		if not os.path.isfile(databasePath):
 			open(databasePath, "w").close()
 		if not os.path.exists(personImagePath):
@@ -26,6 +27,7 @@ class DataBaseManager:
 
 	def initializeDatabase(self)  -> None:
 		with self.connection:
+			#TODO create new table UnknownEmbedding
 			self.connection.execute("""
 					CREATE TABLE IF NOT EXISTS person (
 						id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -214,3 +216,8 @@ class DataBaseManager:
 			with open(self.recordsFolderTxt ,'w') as file:
 				file.write(content)
 			
+	#TODO implement  saveUnknownEmbedding function
+ 
+	def  saveUnknownEmbedding ( unknownEmbedding:np.ndarray) ->bool:
+		pass
+	
