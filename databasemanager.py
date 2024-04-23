@@ -27,7 +27,6 @@ class DataBaseManager:
 
 	def initializeDatabase(self)  -> None:
 		with self.connection:
-			#TODO create new table UnknownEmbedding
 			self.connection.execute("""
 					CREATE TABLE IF NOT EXISTS person (
 						id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -45,6 +44,14 @@ class DataBaseManager:
 						embedding TEXT NOT NULL,
 						personID INTEGER NOT NULL,
 						FOREIGN KEY(personID) REFERENCES person(id)
+					);
+				"""
+			)
+			self.connection.execute("""
+				CREATE TABLE IF NOT EXISTS unknownPerson(
+						id INTEGER PRIMARY KEY AUTOINCREMENT,
+						embedding TEXT NOT NULL UNIQUE,
+						name TEXT NOT NULL DEFAULT 'UNKNOWN'
 					);
 				"""
 			)
@@ -216,8 +223,46 @@ class DataBaseManager:
 			with open(self.recordsFolderTxt ,'w') as file:
 				file.write(content)
 			
-	#TODO implement  saveUnknownEmbedding function
- 
-	def  saveUnknownEmbedding ( unknownEmbedding:np.ndarray) ->bool:
-		pass
-	
+	def  saveUnknownEmbedding (self ,unknownEmbedding:np.ndarray ,threshold:int=20) ->bool:
+		"""
+		this function will save unknownEmbedding in the unknownEmbedding table in database
+		will check if the unknownEmbedding if exist in the database before
+		Args:
+			unknownEmbedding (np.ndarray):multi-dimensional vector embeddings 
+			threshold (int): value to determine how similar an unknown embedding must be to a known embedding for it to be considered a match
+		Returns:
+			saveResult (bool): a bool that will tell if we saved the unknownEmbedding into the database
+		"""
+		embeddingJson = json.dumps(unknownEmbedding.tolist())
+		with self.connection:
+			cursor = self.connection.execute("""
+						SELECT embedding FROM unknownPerson;
+					"""
+				)
+			rows = cursor.fetchall()
+		if len(rows) == 0:
+			with self.connection:
+				self.connection.execute("""
+						INSERT INTO unknownPerson (embedding) VALUES (?);
+						""", (embeddingJson,)
+					)
+				self.connection.commit()
+			return True
+		thereIsMatch = False
+		for row in rows:
+			savedEmbedding = row[0]
+			savedEmbedding = np.array(json.loads(savedEmbedding))
+			distance = np.linalg.norm(unknownEmbedding - savedEmbedding)
+			if distance < threshold:
+				thereIsMatch = True
+				break
+
+		if not thereIsMatch:
+			with self.connection:
+				self.connection.execute("""
+					INSERT INTO unknownPerson (embedding) VALUES (?);
+					""", (embeddingJson,))
+				self.connection.commit()
+			return True
+		else:
+			return False
