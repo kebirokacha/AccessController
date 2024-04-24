@@ -24,7 +24,7 @@ class Ui_Setting(object):
     def setupUi(self, Setting):
         if not Setting.objectName():
             Setting.setObjectName(u"Setting")
-        Setting.resize(800, 556)
+        Setting.resize(892, 556)
         Setting.setStyleSheet(u"#Setting{\n"
 "	background-color: rgb(43, 45, 53);\n"
 "	\n"
@@ -36,6 +36,10 @@ class Ui_Setting(object):
 "#Setting QLabel {\n"
 "	color:rgb(189, 189, 189);\n"
 "\n"
+"}\n"
+"QTabWidget{\n"
+"\n"
+"border-radius: 10px 0px 0px 40px; /* bottom-left, bottom-right, top-right, top-left */\n"
 "}")
         self.verticalLayout_2 = QVBoxLayout(Setting)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
@@ -166,7 +170,7 @@ class Ui_Setting(object):
 
         self.retranslateUi(Setting)
 
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(Setting)

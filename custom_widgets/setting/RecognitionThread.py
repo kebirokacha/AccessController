@@ -1,11 +1,12 @@
-from PySide6.QtCore import Slot ,QThread ,QDateTime
+from PySide6.QtCore import Slot ,QThread ,QDateTime,Signal
 from databasemanager import DataBaseManager
 import numpy as np
-import cv2 
+import cv2
 from deepface.DeepFace import represent
 import os
 
 class RecognitionThread(QThread):
+	signalEmail =Signal(bool)
 
 	def __init__(self ,captureName:str ,parent=None):
 		QThread.__init__(self ,parent)
@@ -30,7 +31,6 @@ class RecognitionThread(QThread):
 						filename = f"{self.captureName}_{currentTime}.jpg"
 						filename = filename.replace(":", "_")
 						filename = os.path.join(self.pictureFolderPath ,filename)
-						# save only when we find new face 
 						dataBaseManager = DataBaseManager()
 						isSaved = dataBaseManager.saveUnknownEmbedding(embedding)
 						if isSaved:
@@ -38,12 +38,13 @@ class RecognitionThread(QThread):
 							x, y, w, h = facial_area["x"]-20 ,facial_area["y"]-20 ,facial_area["w"]+20 ,facial_area["h"]+20
 							faceImage = self.frame[y:y+h, x:x+w]
 							cv2.imwrite(filename ,faceImage)
+							self.signalEmail.emit(True)
 			except Exception as e:
 				print(f'Face not found: {e}')
 			finally:
 				self.frame = None
 
-	def checkEmbeddingMatch(self ,knownEmbeddings:dict ,unknownEmbedding:np.ndarray ,threshold:int=20):
+	def checkEmbeddingMatch(self ,knownEmbeddings:dict ,unknownEmbedding:np.ndarray,threshold:int=20):
 		matches = {}
 		for personId , embeddings in knownEmbeddings.items():
 			matchCounter = 0
@@ -64,7 +65,6 @@ class RecognitionThread(QThread):
 			self.pictureFolderPath = os.path.join(recordsFolderPath ,'pictures')
 			if not os.path.isdir(self.pictureFolderPath):
 				os.mkdir(self.pictureFolderPath)
-
 
 	def updateRecordsFolderPath(self):
 		if self.pictureFolderPath is not None:
