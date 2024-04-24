@@ -3,8 +3,9 @@ from PySide6.QtMultimedia import QMediaDevices
 from PySide6.QtCore import Slot ,Signal ,QStandardPaths
 from .FrameReadingThread import FrameReadingThread
 from databasemanager import DataBaseManager
-from .RecognitionThread import RecognitionThread
 from .Setting_ui import Ui_Setting
+from .sendEmailClass import Emailsender
+
 
 class Setting (Ui_Setting,QWidget):
 	connectThread = Signal()
@@ -28,7 +29,7 @@ class Setting (Ui_Setting,QWidget):
 		# self.cameraTableWidget.setRowCount(len(captures))
 		self.cameraTableWidget.setColumnCount(3)
 		for row ,capture in enumerate(captures):
-			captureId  = capture.id().data().decode()
+			captureId  = row
 			name = capture.description()
 			self.cameraTableWidget.setItem(row ,0 ,QTableWidgetItem(captureId))
 			self.cameraTableWidget.setItem(row ,1 ,QTableWidgetItem(name))
@@ -39,29 +40,29 @@ class Setting (Ui_Setting,QWidget):
 			# self.cameraTableWidget.hideColumn(0)
 			
 		#FIXME: Testing purpose (Remove Later)
-		captureIP = 'http://192.168.1.3:8080/video'
-		self.cameraTableWidget.setItem(row+1 ,0 ,QTableWidgetItem('http://192.168.222.11:4747/video'))
-		self.cameraTableWidget.setItem(row+1 ,1 ,QTableWidgetItem('My Phone'))
-		checkbox = QCheckBox()
-		checkbox.setDisabled(True)
-		checkbox.stateChanged.connect(lambda state: self.toggleRecognition('http://192.168.222.11:4747/video' , state))
-		self.cameraTableWidget.setCellWidget(row+1 ,2 ,checkbox)
+		# captureIP = 'http://192.168.1.3:8080/video'
+		# self.cameraTableWidget.setItem(row+1 ,0 ,QTableWidgetItem('http://192.168.179.10:4747/video'))
+		# self.cameraTableWidget.setItem(row+1 ,1 ,QTableWidgetItem('My Phone'))
+		# checkbox = QCheckBox()
+		# checkbox.setDisabled(True)
+		# checkbox.stateChanged.connect(lambda state: self.toggleRecognition('http://192.168.179.10:4747/video' , state))
+		# self.cameraTableWidget.setCellWidget(row+1 ,2 ,checkbox)
 
-		captureIP = 'http://192.168.1.4:4747/video'
-		self.cameraTableWidget.setItem(row+2 ,0 ,QTableWidgetItem('http://192.168.1.4:4747/video'))
-		self.cameraTableWidget.setItem(row+2 ,1 ,QTableWidgetItem('Mother phone'))
-		checkbox = QCheckBox()
-		checkbox.setDisabled(True)
-		checkbox.stateChanged.connect(lambda state: self.toggleRecognition('http://192.168.1.4:4747/video' , state))
-		self.cameraTableWidget.setCellWidget(row+2 ,2 ,checkbox)
+		# captureIP = 'http://192.168.1.4:4747/video'
+		# self.cameraTableWidget.setItem(row+2 ,0 ,QTableWidgetItem('http://192.168.1.4:4747/video'))
+		# self.cameraTableWidget.setItem(row+2 ,1 ,QTableWidgetItem('Mother phone'))
+		# checkbox = QCheckBox()
+		# checkbox.setDisabled(True)
+		# checkbox.stateChanged.connect(lambda state: self.toggleRecognition('http://192.168.1.4:4747/video' , state))
+		# self.cameraTableWidget.setCellWidget(row+2 ,2 ,checkbox)
 
-		captureIP = 'http://192.168.1.2:4747/video'
-		self.cameraTableWidget.setItem(row+3 ,0 ,QTableWidgetItem('http://192.168.42.129:4747/video'))
-		self.cameraTableWidget.setItem(row+3 ,1 ,QTableWidgetItem('Saadane phone'))
-		checkbox = QCheckBox()
-		checkbox.setDisabled(True)
-		checkbox.stateChanged.connect(lambda state: self.toggleRecognition('http://192.168.42.129:4747/video' , state))
-		self.cameraTableWidget.setCellWidget(row+3 ,2 ,checkbox)
+		# captureIP = 'http://192.168.1.2:4747/video'
+		# self.cameraTableWidget.setItem(row+3 ,0 ,QTableWidgetItem('http://192.168.42.129:4747/video'))
+		# self.cameraTableWidget.setItem(row+3 ,1 ,QTableWidgetItem('Saadane phone'))
+		# checkbox = QCheckBox()
+		# checkbox.setDisabled(True)
+		# checkbox.stateChanged.connect(lambda state: self.toggleRecognition('http://192.168.42.129:4747/video' , state))
+		# self.cameraTableWidget.setCellWidget(row+3 ,2 ,checkbox)
   
 	def selectFolder(self):
 		folderPath = QFileDialog.getExistingDirectory(
@@ -109,7 +110,15 @@ class Setting (Ui_Setting,QWidget):
 				checkbox = self.cameraTableWidget.cellWidget(row, 2)
 				return checkbox
 		return None
+	
+	@Slot(bool)
+	def sendingEmail(self,find:bool):
+		if not find:
+			print ("the email is working ")
+			Emailsender()
+			
 
+		
 	def killAllThreads(self):
 		for framReadingThread in self.framReaderThreads.values():
 			framReadingThread.killThread()
@@ -118,6 +127,7 @@ class Setting (Ui_Setting,QWidget):
 	def startLive(self ,captureId ,captureName):
 		if captureId not in self.framReaderThreads:
 			frameReadingThread = FrameReadingThread(captureId ,captureName)
+			frameReadingThread.recognitionThread.signalEmail.connect(self.sendingEmail)
 			self.framReaderThreads[captureId] = frameReadingThread
 			self.connectThread.emit()
 			checkbox = self.getCheckboxForCaptureId(captureId)

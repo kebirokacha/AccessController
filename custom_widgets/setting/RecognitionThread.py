@@ -1,12 +1,14 @@
-from PySide6.QtCore import Slot ,QThread ,QDateTime
+from PySide6.QtCore import Slot ,QThread ,QDateTime,Signal
 from databasemanager import DataBaseManager
+# from .Setting import Setting
 import numpy as np
-import cv2 
+import cv2
 from deepface.DeepFace import represent
 import os
 
 
 class RecognitionThread(QThread):
+	signalEmail =Signal(bool)
 
 	def __init__(self ,captureName:str ,parent=None):
 		QThread.__init__(self ,parent)
@@ -14,6 +16,8 @@ class RecognitionThread(QThread):
 		self.pictureFolderPath = None
 		self.initializeKnownEmbeddings()
 		self.initializeRecordsFolderPath()
+		# self.settingemail = Setting()
+		# self.signalEmail.connect(self.settingemail.sendingEmail)
 		self.status = True
 		self.frame = None
 
@@ -33,13 +37,14 @@ class RecognitionThread(QThread):
 						filename = filename.replace(":", "_")
 						filename = os.path.join(self.pictureFolderPath ,filename)
 						cv2.imwrite(filename ,self.frame)
+						self.signalEmail.emit(True)
 						print('intruder detected file saved')
 			except Exception as e:
 				print(f'Face not found: {e}')
 			finally:
 				self.frame = None
 
-	def checkEmbeddingMatch(self ,knownEmbeddings:dict ,unknownEmbedding:np.ndarray ,threshold:int=20):
+	def checkEmbeddingMatch(self ,knownEmbeddings:dict ,unknownEmbedding:np.ndarray,threshold:int=20):
 		matches = {}
 		for personId , embeddings in knownEmbeddings.items():
 			matchCounter = 0
