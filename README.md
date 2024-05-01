@@ -1,15 +1,58 @@
-# Overview 
-This repository contain a python Application  tha are a System Access Controller it will use cameras to record video and recognize face and alert the user if there are an intruder , save the recorded videos 
+# Access Controller Python 
 
-# Running the Application
-To run the Application just navigate to the directory that contain the main.py  file and run the following command:
+An Access controller use AI to detect the unauthorized access and send alert message vai email it save records 
 
-```bash 
+## Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contact](#contact)
+- [Acknowledgments](#acknowledgments)
+
+## Installation
+
+### Prerequisites
+
+- Python 3.9+
+- Required Packages: `PySide6`, `opencv-python`, `ultralytics`, `deepface`, `numpy`, `tf-keras`
+
+### Installation Steps
+
+1. Clone the repository:
+
+```copy
+https://github.com/elmhadji/Master-Project 
+```
+
+2. Navigate to the project directory:
+
+```copy 
+cd Master-Project/
+```
+
+3. Install the required packages:
+
+``` bash
+pip install -r requirements.txt
+```
+
+## Usage
+
+
+### Getting Started
+
+To run the Application just navigate to the Master-Project and run the main.py file by the following command:
+
+``` bash 
 python main.py
 ```
 
-Please ensure that you have the necessary dependencies installed in your Python environment, including PySide6 ,open-cv  ,face_recognition. You can install PySide6 using pip:
+## Contact
 
-```bash
-pip install PySide6 opencv-python face-recognition
-```
+- If you have any question don't hesitate to send an email <br>
+	- El Mhadji Mohamed Abdelhake - Bahrib665@gmail.com <br>
+	- Kebir Okacha Abdelillah - okachakebir@gmail.com
+
+## Acknowledgments
+
+
+- Project inspired by [Project dahuasecurity](https://us.dahuasecurity.com/) we know that we can't replicate the perfect replicat but why don't we try at least 

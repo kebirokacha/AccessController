@@ -6,15 +6,17 @@ import os
 import numpy as np
 
 class DataBaseManager:
-	def __init__(self ,recordsFolderTxt:str = 'records_folder_path.txt' ,databasePath:str = "security_system.db" ,personImagePath:str = "person_pictures"):
+	def __init__(self, recordsFolderTxt: str = 'records_folder_path.txt', databasePath: str = "security_system.db",
+				 personImagePath: str = "person_pictures"):
+		# Check file text if existe if yes then read it if not then create it and write in it the default path of video folder
 		self.recordsFolder = None
 		self.recordsFolderTxt = recordsFolderTxt
 		if not os.path.isfile(recordsFolderTxt):
 			self.recordsFolder = QStandardPaths.writableLocation(QStandardPaths.StandardLocation.MoviesLocation)
-			with open(recordsFolderTxt ,'w') as file:
+			with open(recordsFolderTxt, 'w') as file:
 				file.write(self.recordsFolder)
 		else:
-			with open(recordsFolderTxt ,'r') as file:
+			with open(recordsFolderTxt, 'r') as file:
 				self.recordsFolder = file.read()
 
 		if not os.path.isfile(databasePath):
@@ -25,9 +27,10 @@ class DataBaseManager:
 		self.connection = sqlite3.connect(databasePath)
 		self.initializeDatabase()
 
-	def initializeDatabase(self)  -> None:
+	def initializeDatabase(self) -> None:
 		with self.connection:
-			self.connection.execute("""
+			self.connection.execute(
+				"""
 					CREATE TABLE IF NOT EXISTS person (
 						id INTEGER PRIMARY KEY AUTOINCREMENT,
 						name TEXT NOT NULL UNIQUE,
@@ -37,7 +40,7 @@ class DataBaseManager:
 						address TEXT NOT NULL
 					);
 				"""
-			)
+									)
 			self.connection.execute("""
 				CREATE TABLE IF NOT EXISTS faceEmbedding (
 						id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -46,7 +49,7 @@ class DataBaseManager:
 						FOREIGN KEY(personID) REFERENCES person(id)
 					);
 				"""
-			)
+				)
 			self.connection.execute("""
 				CREATE TABLE IF NOT EXISTS unknownPerson(
 						id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -55,20 +58,22 @@ class DataBaseManager:
 					);
 				"""
 			)
+
 			self.connection.commit()
 
-	def addPerson(self, name:str ,birthday:str ,phone:str ,email:str ,address:str ,embeddingsList:list[list] ,picturesPaths:list) -> None:
-		destinationPath = os.path.join(self.personImagePath ,name)
+	def addPerson(self, name: str, birthday: str, phone: str, email: str, address: str, embeddingsList: list[list],
+				  picturesPaths: list) -> None:
+		destinationPath = os.path.join(self.personImagePath, name)
 		if not os.path.exists(destinationPath):
 			os.mkdir(destinationPath)
-		for imageIndex ,picturePath in enumerate(picturesPaths):
-			pictureDestination = os.path.join(destinationPath,f"{imageIndex}.jpg")
+		for imageIndex, picturePath in enumerate(picturesPaths):
+			pictureDestination = os.path.join(destinationPath, f"{imageIndex}.jpg")
 			shutil.copy2(picturePath, pictureDestination)
 		with self.connection:
 			cursor = self.connection.execute("""
 					INSERT INTO person (name, birthday, phone, email, address) VALUES (?, ?, ?, ?, ?);
 					""", (name, birthday, phone, email, address)
-				)
+											 )
 			self.connection.commit()
 			personId = cursor.lastrowid
 			for embedding in embeddingsList:
@@ -76,40 +81,41 @@ class DataBaseManager:
 				self.connection.execute("""
 					INSERT INTO faceEmbedding (embedding, personID) VALUES (?, ?);
 					""", (embeddingJson, personId)
-				)
+										)
 			self.connection.commit()
 
-			
-	def modifyPerson(self, id:int ,newName:str ,oldName:str ,birthday:str ,phone:str ,email:str ,address:str ,embeddingsList:list[list] ,picturesPaths:list) -> None:
-		# Delete the folder with it's old name
-		oldPath = os.path.join(self.personImagePath ,oldName)
+	def modifyPerson(self, perssonId: int, newName: str, oldName: str, birthday: str, phone: str, email: str, address: str,
+					 embeddingsList: list[list], picturesPaths: list) -> None:
+		# Delete the folder with its old name
+		oldPath = os.path.join(self.personImagePath, oldName)
 		if os.path.exists(oldPath):
 			shutil.rmtree(oldPath)
-		destinationPath = os.path.join(self.personImagePath ,newName)
+		destinationPath = os.path.join(self.personImagePath, newName)
 		if not os.path.exists(destinationPath):
 			os.mkdir(destinationPath)
-		for imageIndex ,picturePath in enumerate(picturesPaths):
-			pictureDestination = os.path.join(destinationPath,f"{imageIndex}.jpg")
+		for imageIndex, picturePath in enumerate(picturesPaths):
+			pictureDestination = os.path.join(destinationPath, f"{imageIndex}.jpg")
 			shutil.copy2(picturePath, pictureDestination)
 		with self.connection:
 			self.connection.execute("""
 				UPDATE person SET name = ?, birthday = ?, phone = ?, email = ?, address = ? WHERE id = ?;
-				""", (newName, birthday, phone, email, address, id)
-			)
+				""", (newName, birthday, phone, email, address, perssonId)
+									)
 			self.connection.commit()
 			self.connection.execute("""
 				DELETE FROM faceEmbedding WHERE personID = ?;
-				""", (id,)
-			)
+				""", (perssonId,)
+									)
 			for embedding in embeddingsList:
 				embeddingJson = json.dumps(embedding)
 				self.connection.execute("""
 					INSERT INTO faceEmbedding (embedding, personID) VALUES (?, ?);
-					""", (embeddingJson, id)
-				)
+					""", (embeddingJson, perssonId)
+										)
 			self.connection.commit()
-			
-	def modifyPersonWithoutEmbedding(self ,id:int ,newName:str  ,oldName:str ,birthday:str ,phone:str ,email:str ,address:str) -> None:
+
+	def modifyPersonWithoutEmbedding(self, id: int, newName: str, oldName: str, birthday: str, phone: str, email: str,
+									 address: str) -> None:
 		# Modify the file name of the persone
 		if oldName != newName:
 			oldSourcePath = os.path.join(self.personImagePath, oldName)
@@ -120,59 +126,61 @@ class DataBaseManager:
 			self.connection.execute("""
 				UPDATE person SET name = ?, birthday = ?, phone = ?, email = ?, address = ? WHERE id = ?;
 				""", (newName, birthday, phone, email, address, id)
-			)
+									)
 			self.connection.commit()
 
-	def deletePerson(self, personId:int ,name:str) -> None:
-		destinationPath = os.path.join(self.personImagePath ,name)
+	def deletePerson(self, personId: int, name: str) -> None:
+		destinationPath = os.path.join(self.personImagePath, name)
 		if os.path.exists(destinationPath):
 			shutil.rmtree(destinationPath)
 		with self.connection:
 			self.connection.execute("""
 				DELETE FROM person WHERE id = ?;
-				""",(personId ,)
-			)
+				""", (personId,)
+									)
 			self.connection.commit()
 			self.connection.execute("""
 				DELETE FROM faceEmbedding WHERE personID = ?
-				""",(personId ,)
-			)
+				""", (personId,)
+									)
 			self.connection.commit()
 
-
-	def getPersonByName(self, name:str):
+	def getPersonByName(self, name: str):
 		with self.connection:
 			cursor = self.connection.execute("""
 				SELECT * FROM person WHERE name = ?;
 				""", (name,)
-			)
+											 )
 			row = cursor.fetchone()
 			if row:
-				return {'id': row[0], 'name': row[1], 'birthday': row[2], 'phone': row[3], 'email': row[4], 'address': row[5]}
+				return {'id': row[0], 'name': row[1], 'birthday': row[2], 'phone': row[3], 'email': row[4],
+						'address': row[5]}
 			else:
 				return None
-	
-	def getPersonByPhone(self, phone:str):
+
+	def getPersonByPhone(self, phone: str):
 		with self.connection:
 			cursor = self.connection.execute("""
 				SELECT * FROM person WHERE phone = ?;
 				""", (phone,)
-			)
+											 )
 			row = cursor.fetchone()
 			if row:
-				return {'id': row[0], 'name': row[1], 'birthday': row[2], 'phone': row[3], 'email': row[4], 'address': row[5]}
+				return {'id': row[0], 'name': row[1], 'birthday': row[2], 'phone': row[3], 'email': row[4],
+						'address': row[5]}
 			else:
 				return None
 
-	def getPersonByEmail(self, email:str):
+	def getPersonByEmail(self, email: str):
 		with self.connection:
 			cursor = self.connection.execute("""
 				SELECT * FROM person WHERE email = ?;
 				""", (email,)
-			)
+											 )
 			row = cursor.fetchone()
 			if row:
-				return {'id': row[0], 'name': row[1], 'birthday': row[2], 'phone': row[3], 'email': row[4], 'address': row[5]}
+				return {'id': row[0], 'name': row[1], 'birthday': row[2], 'phone': row[3], 'email': row[4],
+						'address': row[5]}
 			else:
 				return None
 
@@ -181,7 +189,7 @@ class DataBaseManager:
 			cursor = self.connection.execute("""
 				SELECT personID, embedding FROM faceEmbedding;
 				"""
-			)
+											 )
 		embeddingsByPersonId = {}
 		# Iterate through the rows and populate the dictionary
 		for row in cursor:
@@ -196,7 +204,7 @@ class DataBaseManager:
 			cursor = self.connection.execute("""
 				SELECT * FROM person;
 				"""
-			)
+											 )
 			personsInfo = []
 			for row in cursor:
 				personDict = {
@@ -209,20 +217,19 @@ class DataBaseManager:
 				}
 				personsInfo.append(personDict)
 			return personsInfo
-		
+
 	def getRecordsFolderPath(self) -> str:
-		if self.recordsFolder is  not None:
+		if self.recordsFolder is not None:
 			return self.recordsFolder
-		
-	def setRecordsFolderPath(self ,newRecordsFolderPath:str):
+
+	def setRecordsFolderPath(self, newRecordsFolderPath: str):
 		self.recordsFolder = newRecordsFolderPath
 		if os.path.isfile(self.recordsFolderTxt):
-			with open(self.recordsFolderTxt ,'r') as file:
-				content  = file.read()
-			content = content.replace(content ,newRecordsFolderPath)
-			with open(self.recordsFolderTxt ,'w') as file:
+			with open(self.recordsFolderTxt, 'r') as file:
+				content = file.read()
+			content = content.replace(content, newRecordsFolderPath)
+			with open(self.recordsFolderTxt, 'w') as file:
 				file.write(content)
-			
 	def  saveUnknownEmbedding (self ,unknownEmbedding:np.ndarray ,threshold:int=20) ->bool:
 		"""
 		this function will save unknownEmbedding in the unknownEmbedding table in database

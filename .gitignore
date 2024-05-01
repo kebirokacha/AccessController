@@ -1,7 +1,7 @@
 **/__pycache__/
 **/person_pictures/
 **/.vscode/
-**/test/
+**/.pytest_cache/
 security_system.db
 records_folder_path.txt
 savedEmail.txt

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>892</width>
+    <width>800</width>
     <height>556</height>
    </rect>
   </property>
@@ -25,26 +25,22 @@
 #Setting QLabel {
 	color:rgb(189, 189, 189);
 
-}
-QTabWidget{
-
-border-radius: 10px 0px 0px 40px; /* bottom-left, bottom-right, top-right, top-left */
 }</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="tabPosition">
-      <enum>QTabWidget::West</enum>
+      <enum>QTabWidget::TabPosition::West</enum>
      </property>
      <property name="tabShape">
-      <enum>QTabWidget::Rounded</enum>
+      <enum>QTabWidget::TabShape::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <property name="elideMode">
-      <enum>Qt::ElideMiddle</enum>
+      <enum>Qt::TextElideMode::ElideMiddle</enum>
      </property>
      <widget class="QWidget" name="faceRecognitionTab">
       <attribute name="title">
@@ -56,7 +52,7 @@ border-radius: 10px 0px 0px 40px; /* bottom-left, bottom-right, top-right, top-l
          <item>
           <spacer name="horizontalSpacer">
            <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+            <enum>Qt::Orientation::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -130,7 +126,6 @@ border-radius: 10px 0px 0px 40px; /* bottom-left, bottom-right, top-right, top-l
           <widget class="QLabel" name="path">
            <property name="font">
             <font>
-             <weight>75</weight>
              <bold>true</bold>
             </font>
            </property>
@@ -138,7 +133,7 @@ border-radius: 10px 0px 0px 40px; /* bottom-left, bottom-right, top-right, top-l
             <string>Path</string>
            </property>
            <property name="alignment">
-            <set>Qt::AlignCenter</set>
+            <set>Qt::AlignmentFlag::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -154,7 +149,7 @@ border-radius: 10px 0px 0px 40px; /* bottom-left, bottom-right, top-right, top-l
        <item>
         <spacer name="verticalSpacer">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -181,6 +176,9 @@ border-radius: 10px 0px 0px 40px; /* bottom-left, bottom-right, top-right, top-l
            <property name="buddy">
             <cstring>emailInput</cstring>
            </property>
+           <property name="buddy">
+            <cstring>emailInput</cstring>
+           </property>
           </widget>
          </item>
          <item>
@@ -200,13 +198,6 @@ border-radius: 10px 0px 0px 40px; /* bottom-left, bottom-right, top-right, top-l
         </layout>
        </item>
        <item>
-        <widget class="QCheckBox" name="dailyEmailCheckBox">
-         <property name="text">
-          <string>Daily Email</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QCheckBox" name="liveEmailCheckBox">
          <property name="text">
           <string>Live Email</string>
@@ -214,9 +205,16 @@ border-radius: 10px 0px 0px 40px; /* bottom-left, bottom-right, top-right, top-l
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="dailyEmailCheckBox">
+         <property name="text">
+          <string>Daily Email</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <spacer name="verticalSpacer_2">
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>

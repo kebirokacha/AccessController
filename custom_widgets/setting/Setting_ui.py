@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'Setting.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.1
+## Created by: Qt User Interface Compiler version 6.7.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -24,7 +24,7 @@ class Ui_Setting(object):
     def setupUi(self, Setting):
         if not Setting.objectName():
             Setting.setObjectName(u"Setting")
-        Setting.resize(892, 556)
+        Setting.resize(800, 556)
         Setting.setStyleSheet(u"#Setting{\n"
 "	background-color: rgb(43, 45, 53);\n"
 "	\n"
@@ -36,25 +36,21 @@ class Ui_Setting(object):
 "#Setting QLabel {\n"
 "	color:rgb(189, 189, 189);\n"
 "\n"
-"}\n"
-"QTabWidget{\n"
-"\n"
-"border-radius: 10px 0px 0px 40px; /* bottom-left, bottom-right, top-right, top-left */\n"
 "}")
         self.verticalLayout_2 = QVBoxLayout(Setting)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.tabWidget = QTabWidget(Setting)
         self.tabWidget.setObjectName(u"tabWidget")
-        self.tabWidget.setTabPosition(QTabWidget.West)
-        self.tabWidget.setTabShape(QTabWidget.Rounded)
-        self.tabWidget.setElideMode(Qt.ElideMiddle)
+        self.tabWidget.setTabPosition(QTabWidget.TabPosition.West)
+        self.tabWidget.setTabShape(QTabWidget.TabShape.Rounded)
+        self.tabWidget.setElideMode(Qt.TextElideMode.ElideMiddle)
         self.faceRecognitionTab = QWidget()
         self.faceRecognitionTab.setObjectName(u"faceRecognitionTab")
         self.verticalLayout = QVBoxLayout(self.faceRecognitionTab)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
@@ -101,7 +97,7 @@ class Ui_Setting(object):
         font = QFont()
         font.setBold(True)
         self.path.setFont(font)
-        self.path.setAlignment(Qt.AlignCenter)
+        self.path.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.horizontalLayout_2.addWidget(self.path)
 
@@ -115,7 +111,7 @@ class Ui_Setting(object):
 
         self.verticalLayout_3.addLayout(self.horizontalLayout_2)
 
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout_3.addItem(self.verticalSpacer)
 
@@ -146,17 +142,17 @@ class Ui_Setting(object):
 
         self.verticalLayout_4.addLayout(self.horizontalLayout_3)
 
-        self.dailyEmailCheckBox = QCheckBox(self.notificationTab)
-        self.dailyEmailCheckBox.setObjectName(u"dailyEmailCheckBox")
-
-        self.verticalLayout_4.addWidget(self.dailyEmailCheckBox)
-
         self.liveEmailCheckBox = QCheckBox(self.notificationTab)
         self.liveEmailCheckBox.setObjectName(u"liveEmailCheckBox")
 
         self.verticalLayout_4.addWidget(self.liveEmailCheckBox)
 
-        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.dailyEmailCheckBox = QCheckBox(self.notificationTab)
+        self.dailyEmailCheckBox.setObjectName(u"dailyEmailCheckBox")
+
+        self.verticalLayout_4.addWidget(self.dailyEmailCheckBox)
+
+        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout_4.addItem(self.verticalSpacer_2)
 
@@ -166,11 +162,12 @@ class Ui_Setting(object):
 
 #if QT_CONFIG(shortcut)
         self.emailLabel.setBuddy(self.emailInput)
+        self.emailLabel.setBuddy(self.emailInput)
 #endif // QT_CONFIG(shortcut)
 
         self.retranslateUi(Setting)
 
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(2)
 
 
         QMetaObject.connectSlotsByName(Setting)
@@ -191,8 +188,8 @@ class Ui_Setting(object):
         self.emailLabel.setText(QCoreApplication.translate("Setting", u"Email", None))
         self.emailInput.setPlaceholderText(QCoreApplication.translate("Setting", u"example@mail.com", None))
         self.saveEmailButton.setText(QCoreApplication.translate("Setting", u"Save", None))
-        self.dailyEmailCheckBox.setText(QCoreApplication.translate("Setting", u"Daily Email", None))
         self.liveEmailCheckBox.setText(QCoreApplication.translate("Setting", u"Live Email", None))
+        self.dailyEmailCheckBox.setText(QCoreApplication.translate("Setting", u"Daily Email", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.notificationTab), QCoreApplication.translate("Setting", u"Notification", None))
     # retranslateUi
 
