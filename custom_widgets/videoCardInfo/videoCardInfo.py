@@ -3,7 +3,6 @@ from PySide6.QtCore import Signal
 from PySide6.QtGui import Qt ,QAction
 from .VideoCardInfo_ui import Ui_VideoCardInfo
 from PySide6.QtMultimedia import QMediaPlayer
-from moviepy.editor import VideoFileClip
 import os
 import time
 

@@ -50,38 +50,36 @@ class Live(Ui_Live ,QWidget):
 
 	def setCameraList(self):
 		cameras = QMediaDevices.videoInputs()
-		for index ,camera in enumerate(cameras):
+		for camera in cameras:
 			name = camera.description()
-			print(index)
-			cameraCardInfo = CameraCardInfo(name ,index)
+			cameraCardInfo = CameraCardInfo(name ,camera.id().data().decode())
 			print(f"camera id are :{camera.id().data().decode()}")
 			itemList = QListWidgetItem(self.cameraListWidget)
 			self.cameraListWidget.addItem(itemList)
 			itemList.setSizeHint(cameraCardInfo.minimumSizeHint())
 			self.cameraListWidget.setItemWidget(itemList , cameraCardInfo)
 		#FIXME: Testing purpose (Remove Later)
-  
 			
-		# captureIP = 'http://192.168.179.10:4747/video'
-		# cameraCardInfo = CameraCardInfo('My Phone' ,captureIP)
-		# itemList = QListWidgetItem(self.cameraListWidget)
-		# self.cameraListWidget.addItem(itemList)
-		# itemList.setSizeHint(cameraCardInfo.minimumSizeHint())
-		# self.cameraListWidget.setItemWidget(itemList , cameraCardInfo)
+		captureIP = 'http://192.168.222.11:4747/video'
+		cameraCardInfo = CameraCardInfo('My Phone' ,captureIP)
+		itemList = QListWidgetItem(self.cameraListWidget)
+		self.cameraListWidget.addItem(itemList)
+		itemList.setSizeHint(cameraCardInfo.minimumSizeHint())
+		self.cameraListWidget.setItemWidget(itemList , cameraCardInfo)
 
-		# captureIP = 'http://192.168.1.4:4747/video'
-		# cameraCardInfo = CameraCardInfo('Mother Phone' ,captureIP)
-		# itemList = QListWidgetItem(self.cameraListWidget)
-		# self.cameraListWidget.addItem(itemList)
-		# itemList.setSizeHint(cameraCardInfo.minimumSizeHint())
-		# self.cameraListWidget.setItemWidget(itemList , cameraCardInfo)
+		captureIP = 'http://192.168.1.4:4747/video'
+		cameraCardInfo = CameraCardInfo('Mother Phone' ,captureIP)
+		itemList = QListWidgetItem(self.cameraListWidget)
+		self.cameraListWidget.addItem(itemList)
+		itemList.setSizeHint(cameraCardInfo.minimumSizeHint())
+		self.cameraListWidget.setItemWidget(itemList , cameraCardInfo)
 
-		# captureIP = 'http://192.168.42.129:4747/video'
-		# cameraCardInfo = CameraCardInfo('Saadane Phone' ,captureIP)
-		# itemList = QListWidgetItem(self.cameraListWidget)
-		# self.cameraListWidget.addItem(itemList)
-		# itemList.setSizeHint(cameraCardInfo.minimumSizeHint())
-		# self.cameraListWidget.setItemWidget(itemList , cameraCardInfo)
+		captureIP = 'http://192.168.42.129:4747/video'
+		cameraCardInfo = CameraCardInfo('Saadane Phone' ,captureIP)
+		itemList = QListWidgetItem(self.cameraListWidget)
+		self.cameraListWidget.addItem(itemList)
+		itemList.setSizeHint(cameraCardInfo.minimumSizeHint())
+		self.cameraListWidget.setItemWidget(itemList , cameraCardInfo)
 
 	@Slot(str ,str)
 	def addItem(self ,captureName:str ,captureId):
