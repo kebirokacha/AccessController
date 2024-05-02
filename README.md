@@ -20,7 +20,7 @@ An Access controller use AI to detect the unauthorized access and send alert mes
 1. Clone the repository:
 
 ```copy
-https://github.com/elmhadji/Master-Project 
+git clone https://github.com/elmhadji/Master-Project 
 ```
 
 2. Navigate to the project directory:
