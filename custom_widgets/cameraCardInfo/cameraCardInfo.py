@@ -4,10 +4,10 @@ from PySide6.QtCore import QMimeData, Qt
 from PySide6.QtGui import QDrag ,QPixmap
 
 class CameraCardInfo(Ui_CameraRow ,QWidget):
-	def __init__(self ,name:str ,cameraId):
+	def __init__(self ,name:str ,captureId:int):
 		super(Ui_CameraRow ,self).__init__()
 		self.setupUi(self)
-		self.cameraId = cameraId
+		self.captureId = captureId
 		self.cameraNameLabel.setText(name)
 		self.setAcceptDrops(False) # Disable dropping on this widget
 
@@ -21,10 +21,14 @@ class CameraCardInfo(Ui_CameraRow ,QWidget):
 		if (event.pos() - self.drag_start_position).manhattanLength() < QApplication.startDragDistance():
 			return
 		drag = QDrag(self)
-		mime_data = QMimeData()
-		mime_data.setText(f"{self.cameraId},{self.cameraNameLabel.text()}")
-		drag.setMimeData(mime_data)
+		mimeData = QMimeData()
+
+		mimeData.setData("captureId",f"{self.captureId}".encode())
+		mimeData.setData("captureName",f"{self.cameraNameLabel.text()}".encode())
+
 		pixmap = QPixmap(self.size())
 		self.render(pixmap)
 		drag.setPixmap(pixmap)
+		drag.setMimeData(mimeData)
 		drag.exec(Qt.MoveAction)
+		print('item draged')

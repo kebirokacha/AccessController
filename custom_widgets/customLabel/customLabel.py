@@ -4,50 +4,53 @@ from PySide6.QtGui import QPixmap , QImage ,QAction
 from ..setting.Setting import Setting
 
 class CustomLabel(QLabel):
-	startLiveSignal  = Signal(str ,str)
-	endLiveSignal  = Signal(str)
 	addItem = Signal(str ,str)
 	removeItem = Signal(str)
 
 	def __init__(self ,setting:Setting ,parent=None):
 		super(CustomLabel ,self).__init__(parent)
-		self.setting = setting
+		self.setting:Setting = setting
 		self.setting.connectThread.connect(self.connectThread)
-		self.startLiveSignal.connect(self.setting.startLive)
-		self.endLiveSignal.connect(self.setting.killThreads)
-		self.setText('Loading')
+		self.setPixmap(QPixmap('resources/images/blackImage.jpg'))
+		# self.setText('Loading')
 		self.setScaledContents(True)
 		self.setAcceptDrops(True)
-		self.captureId = None
-		self.captureName =None
+		self.captureId:int = None
+		self.captureName:str =None
 		self.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
 		self.customContextMenuRequested.connect(self.showContextMenu)
 
 	def dragEnterEvent(self, event):
-		if event.mimeData().hasText():
+		if event.mimeData().hasFormat("captureId") and event.mimeData().hasFormat("captureName"):
 			event.acceptProposedAction()
 
 	def dragMoveEvent(self, event):
-		if event.mimeData().hasText():
+		if event.mimeData().hasFormat("captureId") and event.mimeData().hasFormat("captureName"):
 			event.acceptProposedAction()
 
 	def dropEvent(self, event):
-		if event.mimeData().hasText():
-			info = event.mimeData().text()
-			info = info.split(',')
-			self.captureId , self.captureName = info[0] ,info[1]
-			self.startLiveSignal.emit(self.captureId ,self.captureName)
-			event.acceptProposedAction()
+		print('item droped!!!')
+		if event.mimeData().hasFormat("captureId") and event.mimeData().hasFormat("captureName"):
+			captureId = event.mimeData().data("captureId").data().decode()
+			self.captureId = int(captureId)
+			self.captureName = event.mimeData().data("captureName").data().decode()
+			self.setting.startLive(self.captureId ,self.captureName)
 			self.removeItem.emit(self.captureName)
 			self.setAcceptDrops(False)
+			event.acceptProposedAction()
 
 	def close(self):
 		if self.captureId is not None:
-			self.endLiveSignal.emit(self.captureId)
-			self.setAcceptDrops(True)
+			if self.captureId in self.setting.framReaderThreads:
+				self.setting.framReaderThreads[self.captureId].updateFrame.disconnect(self.setImageLabel)
+			self.setting.deleteFrameReadingThread(self.captureId)
 			self.addItem.emit(self.captureName ,self.captureId)
 			self.captureId = None
 			self.captureName =None
+			self.setAcceptDrops(True)
+			self.setPixmap(QPixmap('resources/images/blackImage.jpg'))
+
+
 		
 
 	def showContextMenu(self ,position):
@@ -56,11 +59,6 @@ class CustomLabel(QLabel):
 		action.triggered.connect(self.close)
 		menu.addAction(action)
 		menu.exec(self.mapToGlobal(position))
-
-	@Slot()
-	def resetCustomLabel(self):
-		self.setText('Loading')
-		self.repaint()
 		
 	@Slot()
 	def connectThread(self):
@@ -68,7 +66,6 @@ class CustomLabel(QLabel):
 		if self.captureId is not None and self.captureId in captures:
 			print(f'capture id in the custom label ha been connected  {self.captureId}')
 			captures[self.captureId].updateFrame.connect(self.setImageLabel)
-			captures[self.captureId].resetCustomLabel.connect(self.resetCustomLabel)
 
 	@Slot(QImage)
 	def setImageLabel(self, image:QImage):
