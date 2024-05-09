@@ -32,10 +32,10 @@
    <item>
     <widget class="QFrame" name="sideBar">
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::Shape::StyledPanel</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Shadow::Raised</enum>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <property name="leftMargin">
@@ -51,14 +51,29 @@
        <number>6</number>
       </property>
       <item>
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Camera availables</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Camera availables</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="refreshCapturesButton">
+          <property name="text">
+           <string>refresh</string>
+          </property>
+          <property name="icon">
+           <iconset resource="../../resources/ui/resources.qrc">
+            <normaloff>:/icons/Icons/arrows-rotate-solid.svg</normaloff>:/icons/Icons/arrows-rotate-solid.svg</iconset>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item>
        <widget class="QListWidget" name="cameraListWidget">
@@ -69,13 +84,13 @@
          </size>
         </property>
         <property name="editTriggers">
-         <set>QAbstractItemView::NoEditTriggers</set>
+         <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
         </property>
         <property name="resizeMode">
-         <enum>QListView::Adjust</enum>
+         <enum>QListView::ResizeMode::Adjust</enum>
         </property>
         <property name="itemAlignment">
-         <set>Qt::AlignCenter|Qt::AlignHCenter|Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         <set>Qt::AlignmentFlag::AlignCenter|Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
         </property>
        </widget>
       </item>
@@ -85,12 +100,12 @@
    <item>
     <widget class="QFrame" name="frame">
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::Shape::StyledPanel</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Shadow::Raised</enum>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="4,1">
+     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="4,0">
       <property name="spacing">
        <number>4</number>
       </property>
@@ -118,7 +133,7 @@
         <item>
          <spacer name="horizontalSpacer">
           <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+           <enum>Qt::Orientation::Horizontal</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
@@ -156,6 +171,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../resources/ui/resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

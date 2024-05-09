@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'Live.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.1
+## Created by: Qt User Interface Compiler version 6.7.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -19,6 +19,7 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFrame, QGridLay
     QHBoxLayout, QLabel, QListView, QListWidget,
     QListWidgetItem, QPushButton, QSizePolicy, QSpacerItem,
     QVBoxLayout, QWidget)
+from resources.ui import resources_rc
 
 class Ui_Live(object):
     def setupUi(self, Live):
@@ -32,23 +33,36 @@ class Ui_Live(object):
         self.horizontalLayout_2.setContentsMargins(-1, 0, 0, -1)
         self.sideBar = QFrame(Live)
         self.sideBar.setObjectName(u"sideBar")
-        self.sideBar.setFrameShape(QFrame.StyledPanel)
-        self.sideBar.setFrameShadow(QFrame.Raised)
+        self.sideBar.setFrameShape(QFrame.Shape.StyledPanel)
+        self.sideBar.setFrameShadow(QFrame.Shadow.Raised)
         self.verticalLayout = QVBoxLayout(self.sideBar)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 6, 0, 6)
+        self.horizontalLayout_3 = QHBoxLayout()
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.label = QLabel(self.sideBar)
         self.label.setObjectName(u"label")
-        self.label.setAlignment(Qt.AlignCenter)
+        self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout.addWidget(self.label)
+        self.horizontalLayout_3.addWidget(self.label)
+
+        self.refreshCapturesButton = QPushButton(self.sideBar)
+        self.refreshCapturesButton.setObjectName(u"refreshCapturesButton")
+        icon = QIcon()
+        icon.addFile(u":/icons/Icons/arrows-rotate-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.refreshCapturesButton.setIcon(icon)
+
+        self.horizontalLayout_3.addWidget(self.refreshCapturesButton)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_3)
 
         self.cameraListWidget = QListWidget(self.sideBar)
         self.cameraListWidget.setObjectName(u"cameraListWidget")
         self.cameraListWidget.setMinimumSize(QSize(260, 0))
-        self.cameraListWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.cameraListWidget.setResizeMode(QListView.Adjust)
-        self.cameraListWidget.setItemAlignment(Qt.AlignCenter|Qt.AlignHCenter|Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+        self.cameraListWidget.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        self.cameraListWidget.setResizeMode(QListView.ResizeMode.Adjust)
+        self.cameraListWidget.setItemAlignment(Qt.AlignmentFlag.AlignCenter|Qt.AlignmentFlag.AlignHCenter|Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
 
         self.verticalLayout.addWidget(self.cameraListWidget)
 
@@ -57,8 +71,8 @@ class Ui_Live(object):
 
         self.frame = QFrame(Live)
         self.frame.setObjectName(u"frame")
-        self.frame.setFrameShape(QFrame.StyledPanel)
-        self.frame.setFrameShadow(QFrame.Raised)
+        self.frame.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame.setFrameShadow(QFrame.Shadow.Raised)
         self.verticalLayout_2 = QVBoxLayout(self.frame)
         self.verticalLayout_2.setSpacing(4)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
@@ -71,7 +85,7 @@ class Ui_Live(object):
 
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout.addItem(self.horizontalSpacer)
 
@@ -94,7 +108,6 @@ class Ui_Live(object):
         self.verticalLayout_2.addLayout(self.horizontalLayout)
 
         self.verticalLayout_2.setStretch(0, 4)
-        self.verticalLayout_2.setStretch(1, 1)
 
         self.horizontalLayout_2.addWidget(self.frame)
 
@@ -109,6 +122,7 @@ class Ui_Live(object):
     def retranslateUi(self, Live):
         Live.setWindowTitle(QCoreApplication.translate("Live", u"Form", None))
         self.label.setText(QCoreApplication.translate("Live", u"Camera availables", None))
+        self.refreshCapturesButton.setText(QCoreApplication.translate("Live", u"refresh", None))
         self.oneCamButton.setText(QCoreApplication.translate("Live", u"1 Camera", None))
         self.twoCamButton.setText(QCoreApplication.translate("Live", u"2 Camera", None))
         self.fourCamButton.setText(QCoreApplication.translate("Live", u"4 Camera", None))
