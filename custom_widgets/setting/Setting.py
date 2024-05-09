@@ -26,7 +26,7 @@ class Setting(Ui_Setting, QWidget):
 		self.MAXRECOGNITIONWORKER = 2
 		self.savedEmailTxt = 'savedEmail.txt'
 		self.savedEmail = ''
-		self.framReaderThreads: dict[str, FrameReadingThread] = {}
+		self.framReaderThreads: dict[int, FrameReadingThread] = {}
 		self.initializeRecordsFolder()
 		self.loadCameras()
 		self.saveEmailButton.clicked.connect(self.saveEmail)
@@ -35,47 +35,22 @@ class Setting(Ui_Setting, QWidget):
 	def loadCameras(self):
 		self.cameraTableWidget.clear()
 		captures = QMediaDevices.videoInputs()
-		#FIXME: Testing purpose (Remove Later)
-		self.cameraTableWidget.setRowCount(len(captures) + 3)
-		# self.cameraTableWidget.setRowCount(len(captures))
+		self.cameraTableWidget.setRowCount(len(captures))
 		self.cameraTableWidget.setColumnCount(3)
 		for row, capture in enumerate(captures):
 			captureId = capture.id().data().decode()
 			name = capture.description()
-			self.cameraTableWidget.setItem(row, 0, QTableWidgetItem(captureId))
+			self.cameraTableWidget.setItem(row, 0, QTableWidgetItem(str(row)))
 			self.cameraTableWidget.setItem(row, 1, QTableWidgetItem(name))
 			checkbox = QCheckBox()
 			checkbox.setDisabled(True)
-			checkbox.stateChanged.connect(lambda state: self.toggleRecognition(captureId, state))
+			checkbox.stateChanged.connect(lambda state: self.toggleRecognition(row, state))
 			self.cameraTableWidget.setCellWidget(row, 2, checkbox)
 		else:
-			row = 0
-		#TODO uncoment this line when finish testing
+			#TODO: when there are co capture detected
+			pass
 		# self.cameraTableWidget.hideColumn(0)
-		#FIXME: Testing purpose (Remove Later)
-		captureIP = 'http://192.168.1.3:8080/video'
-		self.cameraTableWidget.setItem(row + 1, 0, QTableWidgetItem('http://192.168.179.10:4747/video'))
-		self.cameraTableWidget.setItem(row + 1, 1, QTableWidgetItem('My Phone'))
-		checkbox = QCheckBox()
-		checkbox.setDisabled(True)
-		checkbox.stateChanged.connect(lambda state: self.toggleRecognition('http://192.168.179.10:4747/video', state))
-		self.cameraTableWidget.setCellWidget(row + 1, 2, checkbox)
-
-		captureIP = 'http://192.168.1.4:4747/video'
-		self.cameraTableWidget.setItem(row + 2, 0, QTableWidgetItem('http://192.168.1.4:4747/video'))
-		self.cameraTableWidget.setItem(row + 2, 1, QTableWidgetItem('Mother phone'))
-		checkbox = QCheckBox()
-		checkbox.setDisabled(True)
-		checkbox.stateChanged.connect(lambda state: self.toggleRecognition('http://192.168.1.4:4747/video', state))
-		self.cameraTableWidget.setCellWidget(row + 2, 2, checkbox)
-
-		captureIP = 'http://192.168.1.2:4747/video'
-		self.cameraTableWidget.setItem(row + 3, 0, QTableWidgetItem('http://192.168.42.129:4747/video'))
-		self.cameraTableWidget.setItem(row + 3, 1, QTableWidgetItem('Saadane phone'))
-		checkbox = QCheckBox()
-		checkbox.setDisabled(True)
-		checkbox.stateChanged.connect(lambda state: self.toggleRecognition('http://192.168.42.129:4747/video', state))
-		self.cameraTableWidget.setCellWidget(row + 3, 2, checkbox)
+		
 
 	def saveEmail(self):
 		if self.emailInput.text() == "":
@@ -143,7 +118,7 @@ class Setting(Ui_Setting, QWidget):
 			elif totalCheckedBox <= self.MAXRECOGNITIONWORKER:
 				print('checked')
 				frameReadingThread.startRecognitionThread()
-		print(f'the framReaderThreads in Setting is {self.framReaderThreads}')
+			print(f'the framReaderThreads in Setting is {self.framReaderThreads}')
 
 	def getTotalCheckedBox(self) -> int:
 		totalChecked = 0
@@ -153,10 +128,10 @@ class Setting(Ui_Setting, QWidget):
 				totalChecked += 1
 		return totalChecked
 
-	def getCheckboxForCaptureId(self, captureId) -> QCheckBox:
+	def getCheckboxForCaptureId(self, captureId:int) -> QCheckBox|None:
 		for row in range(self.cameraTableWidget.rowCount()):
 			item = self.cameraTableWidget.item(row, 0)
-			if item and item.text() == captureId:
+			if item and item.text() == str(captureId):
 				checkbox = self.cameraTableWidget.cellWidget(row, 2)
 				return checkbox
 		return None
@@ -178,24 +153,26 @@ class Setting(Ui_Setting, QWidget):
 			else:
 				print("we face a problem in sending email!!")
 
-	@Slot(str, str)
-	def startLive(self, captureId, captureName):
+	def startLive(self, captureId:int, captureName:str):
+		captureId = int(captureId)
 		if captureId not in self.framReaderThreads:
-			frameReadingThread = FrameReadingThread(captureId, captureName)
+			frameReadingThread = FrameReadingThread(int(captureId), captureName)
 			frameReadingThread.recognitionThread.signalEmail.connect(self.sendingEmail)
 			self.framReaderThreads[captureId] = frameReadingThread
 			self.connectThread.emit()
 			checkbox = self.getCheckboxForCaptureId(captureId)
-			checkbox.setEnabled(True)
-			checkbox.setChecked(True)
-			frameReadingThread.start()
+			if checkbox is not None:
+				checkbox.setEnabled(True)
+				checkbox.setChecked(True)
+				frameReadingThread.start()
 
-	@Slot(str)
-	def killThreads(self, captureId):
+	def deleteFrameReadingThread(self, captureId:int):
+		captureId = int(captureId)
 		if captureId in self.framReaderThreads:
+			checkbox = self.getCheckboxForCaptureId(captureId)
+			if checkbox is not None:
+				checkbox.setChecked(False)
+				checkbox.setDisabled(True)
 			self.framReaderThreads[captureId].killThread()
 			del self.framReaderThreads[captureId]
-			checkbox = self.getCheckboxForCaptureId(captureId)
-			checkbox.setChecked(False)
-			checkbox.setDisabled(True)
-			print('framReaderThread was killed in setting')
+			print(f'framReaderThread with id {captureId} was killed in setting')

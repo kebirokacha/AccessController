@@ -16,6 +16,7 @@ class Live(Ui_Live ,QWidget):
 		self.setting = setting
 		self.setCameraList()
 		self.setUI()
+		self.refreshCapturesButton.clicked.connect(self.refreshCaptureList)
 		self.oneCamButton.clicked.connect(self.oneCam)
 		self.twoCamButton.clicked.connect(self.twoCam)
 		self.fourCamButton.clicked.connect(self.fourCam)
@@ -50,47 +51,30 @@ class Live(Ui_Live ,QWidget):
 
 	def setCameraList(self):
 		cameras = QMediaDevices.videoInputs()
-		for camera in cameras:
+		for index ,camera in enumerate(cameras):
+			captureid = camera.id().data().decode() 
 			name = camera.description()
-			cameraCardInfo = CameraCardInfo(name ,camera.id().data().decode())
-			print(f"camera id are :{camera.id().data().decode()}")
+			cameraCardInfo = CameraCardInfo(name ,index)
+			print(f"camera id are :{index}")
 			itemList = QListWidgetItem(self.cameraListWidget)
 			self.cameraListWidget.addItem(itemList)
 			itemList.setSizeHint(cameraCardInfo.minimumSizeHint())
 			self.cameraListWidget.setItemWidget(itemList , cameraCardInfo)
-		#FIXME: Testing purpose (Remove Later)
-			
-		captureIP = 'http://192.168.222.11:4747/video'
-		cameraCardInfo = CameraCardInfo('My Phone' ,captureIP)
-		itemList = QListWidgetItem(self.cameraListWidget)
-		self.cameraListWidget.addItem(itemList)
-		itemList.setSizeHint(cameraCardInfo.minimumSizeHint())
-		self.cameraListWidget.setItemWidget(itemList , cameraCardInfo)
+		else:
+			#TODO: when there are no capture detected
+			pass
 
-		captureIP = 'http://192.168.1.4:4747/video'
-		cameraCardInfo = CameraCardInfo('Mother Phone' ,captureIP)
-		itemList = QListWidgetItem(self.cameraListWidget)
-		self.cameraListWidget.addItem(itemList)
-		itemList.setSizeHint(cameraCardInfo.minimumSizeHint())
-		self.cameraListWidget.setItemWidget(itemList , cameraCardInfo)
-
-		captureIP = 'http://192.168.42.129:4747/video'
-		cameraCardInfo = CameraCardInfo('Saadane Phone' ,captureIP)
-		itemList = QListWidgetItem(self.cameraListWidget)
-		self.cameraListWidget.addItem(itemList)
-		itemList.setSizeHint(cameraCardInfo.minimumSizeHint())
-		self.cameraListWidget.setItemWidget(itemList , cameraCardInfo)
-
-	@Slot(str ,str)
-	def addItem(self ,captureName:str ,captureId):
+	@Slot(str ,int)
+	def addItem(self ,captureName:str ,captureId:int):
+		captureId = int()
 		if not self.isCameraInList(captureName ,captureId):
 			cameraCardInfo = CameraCardInfo(captureName ,captureId)
 			itemList = QListWidgetItem(self.cameraListWidget)
-			self.cameraListWidget.addItem(itemList)
+			self.cameraListWidget.insertItem(0 ,itemList)
 			itemList.setSizeHint(cameraCardInfo.minimumSizeHint())
 			self.cameraListWidget.setItemWidget(itemList , cameraCardInfo)
 
-	def isCameraInList(self ,captureName ,captureId) -> bool:
+	def isCameraInList(self ,captureName:str ,captureId:int) -> bool:
 		for i in range(self.cameraListWidget.count()):
 			item = self.cameraListWidget.item(i)
 			cameraCardInfo:CameraCardInfo = self.cameraListWidget.itemWidget(item)
@@ -105,7 +89,7 @@ class Live(Ui_Live ,QWidget):
 		return None 
 	
 	@Slot(str)
-	def removeItem(self ,captureName):
+	def removeItem(self ,captureName:str):
 		for i in range(self.cameraListWidget.count()):
 			item = self.cameraListWidget.item(i)
 			cameraCardInfo:CameraCardInfo = self.cameraListWidget.itemWidget(item)
@@ -113,3 +97,18 @@ class Live(Ui_Live ,QWidget):
 				self.cameraListWidget.takeItem(i)
 				break
 	
+	def refreshCaptureList(self):
+		cameras = QMediaDevices.videoInputs()
+		busyCameras = self.setting.framReaderThreads.keys()
+		availableCameras:dict[int ,str] = {}
+		for index ,camera in enumerate(cameras):
+			if index not in busyCameras and index not in availableCameras:
+				availableCameras[index] = camera.description()
+		self.cameraListWidget.clear()
+		for captureId, captureName in availableCameras.items():
+			cameraCardInfo = CameraCardInfo(captureName ,captureId)
+			itemList = QListWidgetItem(self.cameraListWidget)
+			self.cameraListWidget.addItem(itemList)
+			itemList.setSizeHint(cameraCardInfo.minimumSizeHint())
+			self.cameraListWidget.setItemWidget(itemList , cameraCardInfo)
+		
