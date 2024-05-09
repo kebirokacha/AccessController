@@ -1,6 +1,7 @@
 <RCC>
   <qresource prefix="icons">
     <file>../Icons/video-green.png</file>
+    <file>../Icons/arrows-rotate-solid.svg</file>
     <file>../Icons/stop.png</file>
     <file>../Icons/play.png</file>
     <file>../Icons/angle-right.png</file>
