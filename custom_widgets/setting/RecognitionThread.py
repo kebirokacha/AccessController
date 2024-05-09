@@ -5,7 +5,6 @@ import numpy as np
 import cv2
 import os
 
-
 class RecognitionThread(QThread):
     signalEmail = Signal()
 
@@ -89,7 +88,7 @@ class RecognitionThread(QThread):
         self.frame = frame
 
     def killThread(self):
-        self.frame = None
         self.status = False
+        self.frame = None
         self.quit()
         self.wait()

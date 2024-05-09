@@ -15,7 +15,7 @@ class FrameReadingThread(QThread):
 		self.capture = cv2.VideoCapture(captureId)
 		#FIXME  check it later to see what it does 
 		# self.capture.set(cv2.CAP_PROP_BUFFERSIZE, 1024)
-		self.captureName = captureName
+		self.captureName = str(captureName)
 		self.videoWriter = None
 		self.status = True
 		self.recognitionThread = RecognitionThread(captureName)
@@ -76,15 +76,10 @@ class FrameReadingThread(QThread):
 
 	def killThread(self):
 		self.status = False
-		if self.recognitionThread is not None and self.recognitionThread.isRunning():
-			self.recognitionThread.killThread()
-			print('recognition Thread complet')
-
 		self.capture.release()
 		if self.videoWriter is not None:
 			self.videoWriter.release()
 		self.quit()
 		self.wait()
 		print('frame reading thread complet')
-		self.resetCustomLabel.emit()
-		print('custome Label resete complete')
+
