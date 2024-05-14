@@ -97,7 +97,7 @@ class MainPage(Ui_MainWindow, QMainWindow):
 
 if __name__ == "__main__":
     import sys
-    # TODO
+    # TODO: add loading screen here
     dummy_frame = np.zeros((480, 640, 3), dtype=np.uint8)  # Example dummy frame
     _ = represent(dummy_frame, model_name='Facenet512', detector_backend='yolov8', enforce_detection=False)
     app = QApplication(sys.argv)
