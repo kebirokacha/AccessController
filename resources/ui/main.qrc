@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>../Icons/database-solid.svg</file>
+    <file>../Icons/film-solid.svg</file>
+    <file>../Icons/house-solid.svg</file>
+    <file>../Icons/gear-solid.svg</file>
+    <file>../Icons/circle-dot-regular.svg</file>
+  </qresource>
+</RCC>
