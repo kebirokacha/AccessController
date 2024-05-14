@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'PersonDetails.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.1
+## Created by: Qt User Interface Compiler version 6.7.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -19,7 +19,7 @@ from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QDateEdit, QDateT
     QFormLayout, QFrame, QGridLayout, QHBoxLayout,
     QLabel, QLineEdit, QPushButton, QSizePolicy,
     QSpacerItem, QVBoxLayout, QWidget)
-from resources.qrcs import addPerson_rc
+from . import personDetails_rc
 
 class Ui_PersonDetails(object):
     def setupUi(self, PersonDetails):
@@ -28,7 +28,7 @@ class Ui_PersonDetails(object):
         PersonDetails.resize(1000, 590)
         PersonDetails.setMinimumSize(QSize(1000, 590))
         PersonDetails.setMaximumSize(QSize(1000, 590))
-        PersonDetails.setStyleSheet(u"*{\n"
+        PersonDetails.setStyleSheet(u"#PersonDetails{\n"
 "	background-color: rgb(33, 33, 33);\n"
 "}\n"
 "QPushButton{\n"
@@ -37,9 +37,15 @@ class Ui_PersonDetails(object):
 "	color: rgb(255, 255, 255);\n"
 "	height:50px;\n"
 "	font-size:20px\n"
+"\n"
 "}\n"
-"QPushButton#submitButton{\n"
+"#PersonDetails QPushButton:hover{\n"
 "	background-color: rgb(28, 113, 216);\n"
+"\n"
+"}\n"
+"QPushButton#cancelButton:hover{\n"
+"	background-color: rgb(255, 0, 0);\n"
+"\n"
 "}\n"
 "QLineEdit{\n"
 "	background-color: rgb(33, 33, 33);\n"
@@ -66,15 +72,15 @@ class Ui_PersonDetails(object):
 "	background-color: rgb(33, 33, 33);\n"
 "	border: 2px solid rgb(189, 189, 189); \n"
 "	border-radius: 12px; \n"
-"	color: rgb(255, 255, 255); \n"
+"	color: rgb(255, 255, 255"
+                        "); \n"
 "	height: 50px; \n"
 "	font-size: 20px; \n"
 "}\n"
 "\n"
 "\n"
 "QDateEdit::calendar-popup { \n"
-"	border: 2px soli"
-                        "d rgb(189, 189, 189); \n"
+"	border: 2px solid rgb(189, 189, 189); \n"
 "	border-radius: 12px; \n"
 "}\n"
 "")
@@ -86,8 +92,8 @@ class Ui_PersonDetails(object):
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.frame = QFrame(PersonDetails)
         self.frame.setObjectName(u"frame")
-        self.frame.setFrameShape(QFrame.StyledPanel)
-        self.frame.setFrameShadow(QFrame.Raised)
+        self.frame.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_3 = QGridLayout(self.frame)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.gridLayout_3.setContentsMargins(0, -1, -1, -1)
@@ -101,7 +107,7 @@ class Ui_PersonDetails(object):
 
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_3.addItem(self.horizontalSpacer)
 
@@ -111,7 +117,7 @@ class Ui_PersonDetails(object):
         self.resetButton.setObjectName(u"resetButton")
         self.resetButton.setMinimumSize(QSize(60, 0))
         icon = QIcon()
-        icon.addFile(u":/icons/Icons/rotate-right.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/icons/resources/Icons/rotate-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.resetButton.setIcon(icon)
 
         self.horizontalLayout_2.addWidget(self.resetButton)
@@ -120,7 +126,7 @@ class Ui_PersonDetails(object):
         self.selectPicturesButton.setObjectName(u"selectPicturesButton")
         self.selectPicturesButton.setMinimumSize(QSize(60, 0))
         icon1 = QIcon()
-        icon1.addFile(u":/icons/Icons/circle-plus.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon1.addFile(u":/icons/resources/Icons/circle-plus-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.selectPicturesButton.setIcon(icon1)
 
         self.horizontalLayout_2.addWidget(self.selectPicturesButton)
@@ -139,6 +145,9 @@ class Ui_PersonDetails(object):
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.formLayout = QFormLayout()
         self.formLayout.setObjectName(u"formLayout")
+        self.formLayout.setFieldGrowthPolicy(QFormLayout.FieldGrowthPolicy.AllNonFixedFieldsGrow)
+        self.formLayout.setLabelAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
+        self.formLayout.setFormAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignTop)
         self.nameLabel = QLabel(PersonDetails)
         self.nameLabel.setObjectName(u"nameLabel")
 
@@ -147,13 +156,13 @@ class Ui_PersonDetails(object):
         self.nameInput = QLineEdit(PersonDetails)
         self.nameInput.setObjectName(u"nameInput")
         self.nameInput.setMaxLength(35)
-        self.nameInput.setAlignment(Qt.AlignCenter)
+        self.nameInput.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.formLayout.setWidget(0, QFormLayout.FieldRole, self.nameInput)
 
         self.birthdayLabel = QLabel(PersonDetails)
         self.birthdayLabel.setObjectName(u"birthdayLabel")
-        self.birthdayLabel.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+        self.birthdayLabel.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
 
         self.formLayout.setWidget(1, QFormLayout.LabelRole, self.birthdayLabel)
 
@@ -161,9 +170,9 @@ class Ui_PersonDetails(object):
         self.birthdayInput.setObjectName(u"birthdayInput")
         self.birthdayInput.setWrapping(False)
         self.birthdayInput.setFrame(True)
-        self.birthdayInput.setAlignment(Qt.AlignCenter)
-        self.birthdayInput.setButtonSymbols(QAbstractSpinBox.NoButtons)
-        self.birthdayInput.setCurrentSection(QDateTimeEdit.DaySection)
+        self.birthdayInput.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.birthdayInput.setButtonSymbols(QAbstractSpinBox.ButtonSymbols.NoButtons)
+        self.birthdayInput.setCurrentSection(QDateTimeEdit.Section.DaySection)
 
         self.formLayout.setWidget(1, QFormLayout.FieldRole, self.birthdayInput)
 
@@ -175,7 +184,7 @@ class Ui_PersonDetails(object):
         self.phoneNumberInput = QLineEdit(PersonDetails)
         self.phoneNumberInput.setObjectName(u"phoneNumberInput")
         self.phoneNumberInput.setMaxLength(13)
-        self.phoneNumberInput.setAlignment(Qt.AlignCenter)
+        self.phoneNumberInput.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.formLayout.setWidget(2, QFormLayout.FieldRole, self.phoneNumberInput)
 
@@ -187,7 +196,7 @@ class Ui_PersonDetails(object):
         self.emailInput = QLineEdit(PersonDetails)
         self.emailInput.setObjectName(u"emailInput")
         self.emailInput.setMaxLength(250)
-        self.emailInput.setAlignment(Qt.AlignCenter)
+        self.emailInput.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.formLayout.setWidget(3, QFormLayout.FieldRole, self.emailInput)
 
@@ -199,7 +208,7 @@ class Ui_PersonDetails(object):
         self.adresseInput = QLineEdit(PersonDetails)
         self.adresseInput.setObjectName(u"adresseInput")
         self.adresseInput.setMaxLength(250)
-        self.adresseInput.setAlignment(Qt.AlignCenter)
+        self.adresseInput.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.formLayout.setWidget(4, QFormLayout.FieldRole, self.adresseInput)
 
@@ -248,18 +257,18 @@ class Ui_PersonDetails(object):
         PersonDetails.setWindowTitle(QCoreApplication.translate("PersonDetails", u"Form", None))
         self.resetButton.setText("")
         self.selectPicturesButton.setText("")
-        self.nameLabel.setText(QCoreApplication.translate("PersonDetails", u"Name", None))
+        self.nameLabel.setText(QCoreApplication.translate("PersonDetails", u"&Name", None))
         self.nameInput.setPlaceholderText(QCoreApplication.translate("PersonDetails", u"Name", None))
-        self.birthdayLabel.setText(QCoreApplication.translate("PersonDetails", u"Birthday", None))
+        self.birthdayLabel.setText(QCoreApplication.translate("PersonDetails", u"&Birthday", None))
         self.birthdayInput.setDisplayFormat(QCoreApplication.translate("PersonDetails", u"d/M/yyyy", None))
         self.phoneNumberLabel.setText(QCoreApplication.translate("PersonDetails", u"Phone", None))
         self.phoneNumberInput.setInputMask(QCoreApplication.translate("PersonDetails", u"+999999999999", None))
         self.phoneNumberInput.setText(QCoreApplication.translate("PersonDetails", u"+000000000000", None))
         self.phoneNumberInput.setPlaceholderText(QCoreApplication.translate("PersonDetails", u"+000000000000", None))
-        self.emailLabel.setText(QCoreApplication.translate("PersonDetails", u"Email", None))
+        self.emailLabel.setText(QCoreApplication.translate("PersonDetails", u"Ema&il", None))
         self.emailInput.setInputMask("")
         self.emailInput.setPlaceholderText(QCoreApplication.translate("PersonDetails", u"Email", None))
-        self.adresseLabel.setText(QCoreApplication.translate("PersonDetails", u"Adresse", None))
+        self.adresseLabel.setText(QCoreApplication.translate("PersonDetails", u"&Adresse", None))
         self.adresseInput.setPlaceholderText(QCoreApplication.translate("PersonDetails", u"Adresse", None))
         self.cancelButton.setText(QCoreApplication.translate("PersonDetails", u"Cancel", None))
         self.submitButton.setText(QCoreApplication.translate("PersonDetails", u"Submit", None))

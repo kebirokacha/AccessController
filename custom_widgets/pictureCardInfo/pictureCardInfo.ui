@@ -32,13 +32,13 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../../resources/qrcs/addPerson.qrc">:/images/images/Person.jpg</pixmap>
+      <pixmap resource="pictureCardInfo.qrc">:/image/resources/images/Person.jpg</pixmap>
      </property>
      <property name="scaledContents">
       <bool>true</bool>
      </property>
      <property name="alignment">
-      <set>Qt::AlignCenter</set>
+      <set>Qt::AlignmentFlag::AlignCenter</set>
      </property>
     </widget>
    </item>
@@ -55,7 +55,6 @@
           <font>
            <family>Inter</family>
            <pointsize>10</pointsize>
-           <weight>50</weight>
            <bold>false</bold>
           </font>
          </property>
@@ -70,7 +69,6 @@
           <font>
            <family>Inter</family>
            <pointsize>10</pointsize>
-           <weight>50</weight>
            <bold>false</bold>
           </font>
          </property>
@@ -85,7 +83,6 @@
           <font>
            <family>Inter</family>
            <pointsize>10</pointsize>
-           <weight>50</weight>
            <bold>false</bold>
           </font>
          </property>
@@ -104,7 +101,6 @@
           <font>
            <family>Inter</family>
            <pointsize>10</pointsize>
-           <weight>50</weight>
            <bold>false</bold>
           </font>
          </property>
@@ -119,7 +115,6 @@
           <font>
            <family>Inter</family>
            <pointsize>10</pointsize>
-           <weight>50</weight>
            <bold>false</bold>
           </font>
          </property>
@@ -134,7 +129,6 @@
           <font>
            <family>Inter</family>
            <pointsize>10</pointsize>
-           <weight>50</weight>
            <bold>false</bold>
           </font>
          </property>
@@ -150,7 +144,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../../resources/qrcs/addPerson.qrc"/>
+  <include location="pictureCardInfo.qrc"/>
  </resources>
  <connections/>
 </ui>

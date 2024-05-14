@@ -53,6 +53,7 @@ class VideoCardInfo(Ui_VideoCardInfo ,QWidget):
 			if reply == QMessageBox.Yes:
 				try:
 					os.remove(self.videoFilePath)
+					#TODO: Modify the signal to update the viewers in the records widget
 					self.refreshVideoList.emit()
 					print(f'Video {self.videoFilePath} deleted successfully.')
 				except Exception as e:

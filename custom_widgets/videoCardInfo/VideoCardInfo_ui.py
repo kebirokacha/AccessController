@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'VideoCardInfo.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.1
+## Created by: Qt User Interface Compiler version 6.7.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -18,7 +18,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
     QPushButton, QSizePolicy, QSpacerItem, QVBoxLayout,
     QWidget)
-from resources.ui import resources_rc
+from . import videoCardInfo_rc
 
 class Ui_VideoCardInfo(object):
     def setupUi(self, VideoCardInfo):
@@ -41,13 +41,13 @@ class Ui_VideoCardInfo(object):
         self.videoIcon = QPushButton(VideoCardInfo)
         self.videoIcon.setObjectName(u"videoIcon")
         icon = QIcon()
-        icon.addFile(u":/icons/Icons/video-green.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/icons/resources/Icons/video-solid-green.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.videoIcon.setIcon(icon)
         self.videoIcon.setIconSize(QSize(20, 20))
 
         self.verticalLayout.addWidget(self.videoIcon)
 
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout.addItem(self.verticalSpacer)
 
@@ -129,8 +129,8 @@ class Ui_VideoCardInfo(object):
 
         self.line = QFrame(VideoCardInfo)
         self.line.setObjectName(u"line")
-        self.line.setFrameShape(QFrame.HLine)
-        self.line.setFrameShadow(QFrame.Sunken)
+        self.line.setFrameShape(QFrame.Shape.HLine)
+        self.line.setFrameShadow(QFrame.Shadow.Sunken)
 
         self.verticalLayout_4.addWidget(self.line)
 

@@ -19,7 +19,7 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QFrame, QGridLay
     QHBoxLayout, QLabel, QListView, QListWidget,
     QListWidgetItem, QPushButton, QSizePolicy, QSpacerItem,
     QVBoxLayout, QWidget)
-from resources.ui import resources_rc
+from . import live_rc
 
 class Ui_Live(object):
     def setupUi(self, Live):
@@ -27,17 +27,55 @@ class Ui_Live(object):
             Live.setObjectName(u"Live")
         Live.resize(975, 560)
         Live.setMinimumSize(QSize(975, 560))
-        Live.setStyleSheet(u"")
+        Live.setStyleSheet(u"#Live{\n"
+"	background-color: rgb(33, 33, 33);\n"
+"}\n"
+"#Live QLabel{\n"
+"	\n"
+"	color: rgb(189, 189, 189);\n"
+"}\n"
+"#Live > QFrame{\n"
+"	/*background-color:  rgb(43, 45, 53);*/\n"
+"	border: 1px solid rgb(189, 189, 189);\n"
+"}\n"
+"\n"
+"#cameraListWidget{\n"
+"	background-color:  rgb(33, 33, 33);\n"
+"	color: rgb(189, 189, 189);\n"
+"	border: 1px solid rgb(189, 189, 189);\n"
+"}\n"
+"#cameraListWidget::item:selected{\n"
+"	background-color: rgb(78, 114, 171);\n"
+"\n"
+"}\n"
+"#cameraListWidget::item:hover{\n"
+"	background-color: rgb(86, 125, 188);\n"
+"\n"
+"}\n"
+"#Live  QPushButton{\n"
+"	background-color: rgb(43, 45, 53);\n"
+"	color: rgb(189, 189, 189);\n"
+"    border: 1px solid rgb(189, 189, 189);\n"
+"    border-radius: 12px; \n"
+"    padding: 10px; \n"
+"}\n"
+"\n"
+"#Live QPushButton::hover{\n"
+"	background-color: rgb(0, 142, 246);\n"
+"   \n"
+"}\n"
+"")
         self.horizontalLayout_2 = QHBoxLayout(Live)
+        self.horizontalLayout_2.setSpacing(5)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.horizontalLayout_2.setContentsMargins(-1, 0, 0, -1)
+        self.horizontalLayout_2.setContentsMargins(5, 5, 5, 5)
         self.sideBar = QFrame(Live)
         self.sideBar.setObjectName(u"sideBar")
-        self.sideBar.setFrameShape(QFrame.Shape.StyledPanel)
         self.sideBar.setFrameShadow(QFrame.Shadow.Raised)
+        self.sideBar.setLineWidth(0)
         self.verticalLayout = QVBoxLayout(self.sideBar)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalLayout.setContentsMargins(0, 6, 0, 6)
+        self.verticalLayout.setContentsMargins(5, 6, 5, 6)
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.label = QLabel(self.sideBar)
@@ -49,7 +87,7 @@ class Ui_Live(object):
         self.refreshCapturesButton = QPushButton(self.sideBar)
         self.refreshCapturesButton.setObjectName(u"refreshCapturesButton")
         icon = QIcon()
-        icon.addFile(u":/icons/Icons/arrows-rotate-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/live_resources/resources/Icons/rotate-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.refreshCapturesButton.setIcon(icon)
 
         self.horizontalLayout_3.addWidget(self.refreshCapturesButton)
@@ -71,19 +109,20 @@ class Ui_Live(object):
 
         self.frame = QFrame(Live)
         self.frame.setObjectName(u"frame")
-        self.frame.setFrameShape(QFrame.Shape.StyledPanel)
-        self.frame.setFrameShadow(QFrame.Shadow.Raised)
+        self.frame.setFrameShadow(QFrame.Shadow.Plain)
+        self.frame.setLineWidth(1)
         self.verticalLayout_2 = QVBoxLayout(self.frame)
         self.verticalLayout_2.setSpacing(4)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_2.setContentsMargins(5, 5, 5, 5)
         self.cameraGrid = QGridLayout()
-        self.cameraGrid.setSpacing(10)
+        self.cameraGrid.setSpacing(5)
         self.cameraGrid.setObjectName(u"cameraGrid")
 
         self.verticalLayout_2.addLayout(self.cameraGrid)
 
         self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setSpacing(5)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 

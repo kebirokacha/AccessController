@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'pictureCardInfo.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.1
+## Created by: Qt User Interface Compiler version 6.7.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -17,7 +17,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLabel, QSizePolicy,
     QVBoxLayout, QWidget)
-from resources.qrcs import addPerson_rc
+from . import pictureCardInfo_rc
 
 class Ui_PictureCardInfo(object):
     def setupUi(self, PictureCardInfo):
@@ -30,9 +30,9 @@ class Ui_PictureCardInfo(object):
         self.pictureLabel = QLabel(PictureCardInfo)
         self.pictureLabel.setObjectName(u"pictureLabel")
         self.pictureLabel.setMaximumSize(QSize(16777215, 167))
-        self.pictureLabel.setPixmap(QPixmap(u":/images/images/Person.jpg"))
+        self.pictureLabel.setPixmap(QPixmap(u":/image/resources/images/Person.jpg"))
         self.pictureLabel.setScaledContents(True)
-        self.pictureLabel.setAlignment(Qt.AlignCenter)
+        self.pictureLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.horizontalLayout_2.addWidget(self.pictureLabel)
 

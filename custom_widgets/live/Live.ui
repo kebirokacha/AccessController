@@ -20,32 +20,78 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">#Live{
+	background-color: rgb(33, 33, 33);
+}
+#Live QLabel{
+	
+	color: rgb(189, 189, 189);
+}
+#Live &gt; QFrame{
+	/*background-color:  rgb(43, 45, 53);*/
+	border: 1px solid rgb(189, 189, 189);
+}
+
+#cameraListWidget{
+	background-color:  rgb(33, 33, 33);
+	color: rgb(189, 189, 189);
+	border: 1px solid rgb(189, 189, 189);
+}
+#cameraListWidget::item:selected{
+	background-color: rgb(78, 114, 171);
+
+}
+#cameraListWidget::item:hover{
+	background-color: rgb(86, 125, 188);
+
+}
+#Live  QPushButton{
+	background-color: rgb(43, 45, 53);
+	color: rgb(189, 189, 189);
+    border: 1px solid rgb(189, 189, 189);
+    border-radius: 12px; 
+    padding: 10px; 
+}
+
+#Live QPushButton::hover{
+	background-color: rgb(0, 142, 246);
+   
+}
+</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,3">
+   <property name="spacing">
+    <number>5</number>
+   </property>
+   <property name="leftMargin">
+    <number>5</number>
+   </property>
    <property name="topMargin">
-    <number>0</number>
+    <number>5</number>
    </property>
    <property name="rightMargin">
-    <number>0</number>
+    <number>5</number>
+   </property>
+   <property name="bottomMargin">
+    <number>5</number>
    </property>
    <item>
     <widget class="QFrame" name="sideBar">
-     <property name="frameShape">
-      <enum>QFrame::Shape::StyledPanel</enum>
-     </property>
      <property name="frameShadow">
       <enum>QFrame::Shadow::Raised</enum>
      </property>
+     <property name="lineWidth">
+      <number>0</number>
+     </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <property name="leftMargin">
-       <number>0</number>
+       <number>5</number>
       </property>
       <property name="topMargin">
        <number>6</number>
       </property>
       <property name="rightMargin">
-       <number>0</number>
+       <number>5</number>
       </property>
       <property name="bottomMargin">
        <number>6</number>
@@ -68,8 +114,8 @@
            <string>refresh</string>
           </property>
           <property name="icon">
-           <iconset resource="../../resources/ui/resources.qrc">
-            <normaloff>:/icons/Icons/arrows-rotate-solid.svg</normaloff>:/icons/Icons/arrows-rotate-solid.svg</iconset>
+           <iconset resource="live.qrc">
+            <normaloff>:/live_resources/resources/Icons/rotate-solid.svg</normaloff>:/live_resources/resources/Icons/rotate-solid.svg</iconset>
           </property>
          </widget>
         </item>
@@ -99,37 +145,40 @@
    </item>
    <item>
     <widget class="QFrame" name="frame">
-     <property name="frameShape">
-      <enum>QFrame::Shape::StyledPanel</enum>
-     </property>
      <property name="frameShadow">
-      <enum>QFrame::Shadow::Raised</enum>
+      <enum>QFrame::Shadow::Plain</enum>
+     </property>
+     <property name="lineWidth">
+      <number>1</number>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="4,0">
       <property name="spacing">
        <number>4</number>
       </property>
       <property name="leftMargin">
-       <number>0</number>
+       <number>5</number>
       </property>
       <property name="topMargin">
-       <number>0</number>
+       <number>5</number>
       </property>
       <property name="rightMargin">
-       <number>0</number>
+       <number>5</number>
       </property>
       <property name="bottomMargin">
-       <number>0</number>
+       <number>5</number>
       </property>
       <item>
        <layout class="QGridLayout" name="cameraGrid">
         <property name="spacing">
-         <number>10</number>
+         <number>5</number>
         </property>
        </layout>
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
+        <property name="spacing">
+         <number>5</number>
+        </property>
         <item>
          <spacer name="horizontalSpacer">
           <property name="orientation">
@@ -172,7 +221,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../../resources/ui/resources.qrc"/>
+  <include location="live.qrc"/>
  </resources>
  <connections/>
 </ui>

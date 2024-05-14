@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>CameraRow</class>
- <widget class="QWidget" name="CameraRow">
+ <class>CameraCardInfo</class>
+ <widget class="QWidget" name="CameraCardInfo">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>147</width>
+    <width>130</width>
     <height>40</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>0</width>
+    <width>130</width>
     <height>40</height>
    </size>
   </property>
@@ -26,14 +26,28 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#CameraRow {
+   <string notr="true">#CameraCardInfo {
 	border:2px solid #EDECEC;
-	border-radius:12px
+	border-radius:12px;
 }
 
+#CameraCardInfo:hover {
+	background-color: rgb(86, 125, 188);
+
+}
+#cameraNameLabel{
+	background-color: None;
+}
 #cameraIcon {
 	border:None;
+	background-color: None;
+
 }
+#cameraIcon::hover {
+	background-color: rgb(86, 125, 188);
+
+}
+
 
 </string>
   </property>
@@ -50,8 +64,8 @@
       <string/>
      </property>
      <property name="icon">
-      <iconset resource="../../resources/ui/resources.qrc">
-       <normaloff>:/icons/Icons/video.png</normaloff>:/icons/Icons/video.png</iconset>
+      <iconset resource="cameraCardInfo.qrc">
+       <normaloff>:/resources/resources/Icons/video-solid.svg</normaloff>:/resources/resources/Icons/video-solid.svg</iconset>
      </property>
     </widget>
    </item>
@@ -61,7 +75,6 @@
       <font>
        <family>Inter</family>
        <pointsize>10</pointsize>
-       <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
@@ -73,7 +86,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../../resources/ui/resources.qrc"/>
+  <include location="cameraCardInfo.qrc"/>
  </resources>
  <connections/>
 </ui>

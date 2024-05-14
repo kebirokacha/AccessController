@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'CardInfo.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.2
+## Created by: Qt User Interface Compiler version 6.7.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -18,7 +18,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QHBoxLayout,
     QLabel, QPushButton, QSizePolicy, QSpacerItem,
     QVBoxLayout, QWidget)
-from resources.qrcs import addPerson_rc
+from . import CardInfo_rc
 
 class Ui_CardInfo(object):
     def setupUi(self, CardInfo):
@@ -47,8 +47,8 @@ class Ui_CardInfo(object):
         self.gridLayout.setObjectName(u"gridLayout")
         self.cardInfoFrame = QFrame(CardInfo)
         self.cardInfoFrame.setObjectName(u"cardInfoFrame")
-        self.cardInfoFrame.setFrameShape(QFrame.StyledPanel)
-        self.cardInfoFrame.setFrameShadow(QFrame.Raised)
+        self.cardInfoFrame.setFrameShape(QFrame.Shape.StyledPanel)
+        self.cardInfoFrame.setFrameShadow(QFrame.Shadow.Raised)
         self.verticalLayout_3 = QVBoxLayout(self.cardInfoFrame)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.horizontalLayout_2 = QHBoxLayout()
@@ -56,8 +56,8 @@ class Ui_CardInfo(object):
         self.imageLabel = QLabel(self.cardInfoFrame)
         self.imageLabel.setObjectName(u"imageLabel")
         self.imageLabel.setMaximumSize(QSize(170, 210))
-        self.imageLabel.setPixmap(QPixmap(u":/images/images/Person.jpg"))
-        self.imageLabel.setAlignment(Qt.AlignCenter)
+        self.imageLabel.setPixmap(QPixmap(u":/image/resources/images/Person.jpg"))
+        self.imageLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.horizontalLayout_2.addWidget(self.imageLabel)
 
@@ -153,7 +153,7 @@ class Ui_CardInfo(object):
         font1.setFamilies([u"Inter"])
         font1.setBold(True)
         self.status.setFont(font1)
-        self.status.setAlignment(Qt.AlignCenter)
+        self.status.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.horizontalLayout_3.addWidget(self.status)
 
@@ -169,7 +169,7 @@ class Ui_CardInfo(object):
         font2.setBold(False)
         self.editButton.setFont(font2)
         icon = QIcon()
-        icon.addFile(u":/icons/Icons/pencil.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon.addFile(u":/icon/resources/Icons/pen-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.editButton.setIcon(icon)
         self.editButton.setIconSize(QSize(16, 16))
 
@@ -179,7 +179,7 @@ class Ui_CardInfo(object):
         self.deleteButton.setObjectName(u"deleteButton")
         self.deleteButton.setFont(font2)
         icon1 = QIcon()
-        icon1.addFile(u":/icons/Icons/trash.png", QSize(), QIcon.Normal, QIcon.Off)
+        icon1.addFile(u":/icon/resources/Icons/trash-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.deleteButton.setIcon(icon1)
         self.deleteButton.setIconSize(QSize(16, 16))
 

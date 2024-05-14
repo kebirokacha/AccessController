@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>../../resources/Icons/video-solid-green.svg</file>
+  </qresource>
+</RCC>

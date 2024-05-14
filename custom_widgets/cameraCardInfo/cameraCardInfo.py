@@ -1,11 +1,11 @@
-from .cameraCardInfo_ui import Ui_CameraRow
+from .cameraCardInfo_ui import Ui_CameraCardInfo
 from PySide6.QtWidgets import QWidget ,QApplication 
 from PySide6.QtCore import QMimeData, Qt
 from PySide6.QtGui import QDrag ,QPixmap
 
-class CameraCardInfo(Ui_CameraRow ,QWidget):
+class CameraCardInfo(Ui_CameraCardInfo ,QWidget):
 	def __init__(self ,name:str ,captureId:int):
-		super(Ui_CameraRow ,self).__init__()
+		super(Ui_CameraCardInfo ,self).__init__()
 		self.setupUi(self)
 		self.captureId = captureId
 		self.cameraNameLabel.setText(name)
@@ -20,6 +20,7 @@ class CameraCardInfo(Ui_CameraRow ,QWidget):
 			return
 		if (event.pos() - self.drag_start_position).manhattanLength() < QApplication.startDragDistance():
 			return
+		
 		drag = QDrag(self)
 		mimeData = QMimeData()
 

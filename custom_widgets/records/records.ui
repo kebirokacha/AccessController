@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1123</width>
-    <height>215</height>
+    <height>446</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -20,62 +20,137 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"> #searchButton {
+   <string notr="true">#Records{
+	background-color: rgb(33, 33, 33);
+
+}
+#Records QLabel{
+	color: rgb(189, 189, 189);
+
+}
+#Records &gt;QFrame {
+	border: 1px solid rgb(189, 189, 189);
+}
+ #searchButton {
 	background-color: rgb(0, 176, 251);
 	border : None;
-	border-radius:12px
+	border-radius:10px;
+	padding:10px;
 }
-QPushButton {
-	border: 1px solid rgb(255, 255, 255);
-	border-radius:12px;
-}</string>
+#frame QPushButton {
+	background-color: rgb(43, 45, 53);
+	color: rgb(189, 189, 189);
+    border: 1px solid rgb(189, 189, 189);
+    border-radius: 12px; 
+    padding: 10px; 
+
+}
+#frame QPushButton::hover {
+	background-color: rgb(0, 142, 246);
+
+}
+
+QRadioButton{
+	color: rgb(189, 189, 189);
+
+}
+
+#toggleSideBarButton{
+	background-color: rgb(43, 45, 53);
+	color: rgb(189, 189, 189);
+    border: 1px solid rgb(189, 189, 189);
+    border-radius: 12px; 
+
+}
+
+#listWidget{
+	background-color:  rgb(33, 33, 33);
+	color: rgb(189, 189, 189);
+	border: 1px solid rgb(189, 189, 189);
+}
+#listWidget::item:selected{
+	background-color: rgb(78, 114, 171);
+
+}
+#listWidget::item:hover{
+	background-color: rgb(86, 125, 188);
+
+}
+
+/* Generated automatical with phind (don't care to understand what's it do becaus it look cool)*/
+
+QDateTimeEdit {
+        background-color: rgb(43, 45, 53);
+        color: rgb(189, 189, 189);
+        border: 1px solid rgb(189, 189, 189);
+        border-radius: 12px;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    QDateTimeEdit::drop-down {
+		 image: url(:/resources/resources/Icons/angle-down-solid.svg);
+       	subcontrol-origin: padding;
+        subcontrol-position: top right;
+        width: 25px;
+        border-left-width: 1px;
+        border-left-color: rgb(189, 189, 189);
+        border-left-style: solid;
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
+        icon-size: 16px, 16px;
+        padding: 5px;
+    }
+
+ QDateTimeEdit::hover {
+        border: 1px solid rgb(0, 142, 246);
+    }
+
+</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,5,0,0">
+  <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,5,0,7">
    <property name="spacing">
-    <number>0</number>
+    <number>3</number>
    </property>
    <property name="leftMargin">
-    <number>0</number>
+    <number>5</number>
    </property>
    <property name="topMargin">
-    <number>0</number>
+    <number>5</number>
    </property>
    <property name="rightMargin">
-    <number>0</number>
+    <number>5</number>
    </property>
    <property name="bottomMargin">
-    <number>0</number>
+    <number>5</number>
    </property>
    <item>
     <widget class="QFrame" name="leftSideBare">
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Shadow::Raised</enum>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <property name="spacing">
-       <number>0</number>
+       <number>3</number>
       </property>
       <property name="leftMargin">
-       <number>0</number>
+       <number>3</number>
       </property>
       <property name="topMargin">
-       <number>0</number>
+       <number>3</number>
       </property>
       <property name="rightMargin">
-       <number>0</number>
+       <number>3</number>
       </property>
       <property name="bottomMargin">
-       <number>0</number>
+       <number>3</number>
       </property>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
          <widget class="QRadioButton" name="videoRadioButton">
           <property name="text">
-           <string>Videos</string>
+           <string>V&amp;ideos</string>
           </property>
           <property name="checked">
            <bool>true</bool>
@@ -85,26 +160,26 @@ QPushButton {
         <item>
          <widget class="QRadioButton" name="pictureRadioButton">
           <property name="text">
-           <string>Pictures</string>
+           <string>Pic&amp;tures</string>
           </property>
          </widget>
         </item>
        </layout>
       </item>
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="startDateLabel">
         <property name="text">
          <string>Start Date</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QDateTimeEdit" name="dateTimeEdit">
+       <widget class="QDateTimeEdit" name="startDateInput">
         <property name="alignment">
-         <set>Qt::AlignCenter</set>
+         <set>Qt::AlignmentFlag::AlignCenter</set>
         </property>
         <property name="buttonSymbols">
-         <enum>QAbstractSpinBox::NoButtons</enum>
+         <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
         </property>
         <property name="accelerated">
          <bool>true</bool>
@@ -121,19 +196,19 @@ QPushButton {
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="endDateLabel">
         <property name="text">
          <string>End Date</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QDateTimeEdit" name="dateTimeEdit_2">
+       <widget class="QDateTimeEdit" name="endDateInput">
         <property name="alignment">
-         <set>Qt::AlignCenter</set>
+         <set>Qt::AlignmentFlag::AlignCenter</set>
         </property>
         <property name="buttonSymbols">
-         <enum>QAbstractSpinBox::NoButtons</enum>
+         <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
         </property>
         <property name="displayFormat">
          <string>M/d/yyyy   h:mm AP</string>
@@ -146,7 +221,7 @@ QPushButton {
       <item>
        <spacer name="verticalSpacer_2">
         <property name="orientation">
-         <enum>Qt::Vertical</enum>
+         <enum>Qt::Orientation::Vertical</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -167,6 +242,10 @@ QPushButton {
         <property name="text">
          <string>Search</string>
         </property>
+        <property name="icon">
+         <iconset resource="records.qrc">
+          <normaloff>:/resources/resources/Icons/magnifying-glass-solid.svg</normaloff>:/resources/resources/Icons/magnifying-glass-solid.svg</iconset>
+        </property>
        </widget>
       </item>
      </layout>
@@ -174,11 +253,8 @@ QPushButton {
    </item>
    <item>
     <widget class="QFrame" name="frame">
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Shadow::Raised</enum>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0">
       <property name="leftMargin">
@@ -196,20 +272,20 @@ QPushButton {
       <item>
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="frameShadow">
-         <enum>QFrame::Plain</enum>
+         <enum>QFrame::Shadow::Plain</enum>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="videoPlayerPage">
          <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,0,0">
           <item>
            <widget class="QFrame" name="videoWidgetFram">
             <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
+             <enum>QFrame::Shape::StyledPanel</enum>
             </property>
             <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
+             <enum>QFrame::Shadow::Raised</enum>
             </property>
             <layout class="QGridLayout" name="gridLayout">
              <property name="leftMargin">
@@ -258,7 +334,7 @@ QPushButton {
                <bool>true</bool>
               </property>
               <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+               <enum>Qt::Orientation::Horizontal</enum>
               </property>
              </widget>
             </item>
@@ -273,6 +349,9 @@ QPushButton {
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout">
+            <property name="spacing">
+             <number>5</number>
+            </property>
             <item>
              <widget class="QPushButton" name="playButton">
               <property name="minimumSize">
@@ -291,8 +370,8 @@ QPushButton {
                <string>Play/Pause</string>
               </property>
               <property name="icon">
-               <iconset>
-                <normaloff>:/icons/Icons/play.png</normaloff>:/icons/Icons/play.png</iconset>
+               <iconset resource="records.qrc">
+                <normaloff>:/resources/resources/Icons/play-solid.svg</normaloff>:/resources/resources/Icons/play-solid.svg</iconset>
               </property>
              </widget>
             </item>
@@ -311,11 +390,11 @@ QPushButton {
                </size>
               </property>
               <property name="text">
-               <string>PushButton</string>
+               <string>Stop</string>
               </property>
               <property name="icon">
-               <iconset>
-                <normaloff>:/icons/Icons/stop.png</normaloff>:/icons/Icons/stop.png</iconset>
+               <iconset resource="records.qrc">
+                <normaloff>:/resources/resources/Icons/stop-solid.svg</normaloff>:/resources/resources/Icons/stop-solid.svg</iconset>
               </property>
              </widget>
             </item>
@@ -330,8 +409,11 @@ QPushButton {
             <property name="text">
              <string>TextLabel</string>
             </property>
+            <property name="scaledContents">
+             <bool>true</bool>
+            </property>
             <property name="alignment">
-             <set>Qt::AlignCenter</set>
+             <set>Qt::AlignmentFlag::AlignCenter</set>
             </property>
            </widget>
           </item>
@@ -360,8 +442,8 @@ QPushButton {
       <string/>
      </property>
      <property name="icon">
-      <iconset>
-       <normaloff>:/icons/Icons/angle-left.png</normaloff>:/icons/Icons/angle-left.png</iconset>
+      <iconset resource="records.qrc">
+       <normaloff>:/resources/resources/Icons/angle-left-solid.svg</normaloff>:/resources/resources/Icons/angle-left-solid.svg</iconset>
      </property>
     </widget>
    </item>
@@ -382,11 +464,8 @@ QPushButton {
        <height>16777215</height>
       </size>
      </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Shadow::Raised</enum>
      </property>
      <property name="toggled" stdset="0">
       <bool>true</bool>
@@ -408,12 +487,19 @@ QPushButton {
        <number>0</number>
       </property>
       <item>
-       <widget class="QLabel" name="title">
+       <widget class="QLabel" name="titleLabel">
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+          <italic>false</italic>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
          <string>Title</string>
         </property>
         <property name="alignment">
-         <set>Qt::AlignCenter</set>
+         <set>Qt::AlignmentFlag::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -423,7 +509,7 @@ QPushButton {
          <bool>true</bool>
         </property>
         <property name="editTriggers">
-         <set>QAbstractItemView::DoubleClicked</set>
+         <set>QAbstractItemView::EditTrigger::DoubleClicked</set>
         </property>
        </widget>
       </item>
@@ -435,12 +521,12 @@ QPushButton {
  <tabstops>
   <tabstop>videoRadioButton</tabstop>
   <tabstop>pictureRadioButton</tabstop>
-  <tabstop>dateTimeEdit</tabstop>
-  <tabstop>dateTimeEdit_2</tabstop>
+  <tabstop>startDateInput</tabstop>
+  <tabstop>endDateInput</tabstop>
   <tabstop>searchButton</tabstop>
  </tabstops>
  <resources>
-  <include location="../../resources/ui/resources.qrc"/>
+  <include location="records.qrc"/>
  </resources>
  <connections/>
 </ui>
