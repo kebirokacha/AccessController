@@ -14,19 +14,21 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#MainWindow{
+   <string notr="true">#MainWindow ,#centralwidget{
 	background-color: rgb(53, 53, 53);
+
 }
-QTabWidget::tab-bar {
+#MainWindow #tabWidget::tab-bar {
 	border: 30px solid rgb(0, 0, 255);
 	color: rgb(189, 189, 189);
+
 }
 
-QTabBar{
+#MainWindow  QTabBar{
 	background-color: rgb(53, 53, 53);
 	
 }
-QTabBar::tab { 
+#MainWindow  QTabBar::tab { 
 	border-top-left-radius:12;
 	border-top-right-radius:12;
   	padding: 10px;
@@ -34,16 +36,15 @@ QTabBar::tab {
 	
  }
 
-QTabBar::tab:selected {
+#MainWindow  QTabBar::tab:selected {
 	background-color: rgb(0, 142, 246);
 	text-decoration: none;
+
  }
 
-QTabWidget::pane{
-	background-color: rgb(33, 33, 33);
-}
-QTabWidget::pane {
- 	border-top:2px solid rgb(0, 142, 246) ;
+#MainWindow  #tabWidget::pane{
+	border-top:2px solid rgb(0, 142, 246) ;
+
 }
 
 #mainTab QPushButton{
@@ -52,6 +53,7 @@ QTabWidget::pane {
     border: 1px solid rgb(189, 189, 189);
     border-radius: 12px; 
     padding: 20px; 
+
 }
 
 #mainTab QPushButton::hover{
@@ -60,6 +62,7 @@ QTabWidget::pane {
     border: 1px solid rgb(189, 189, 189);
     border-radius: 12px; 
     padding: 20px; 
+
 }
 
 
