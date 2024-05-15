@@ -275,7 +275,7 @@ QDateTimeEdit {
          <enum>QFrame::Shadow::Plain</enum>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="videoPlayerPage">
          <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,0,0">

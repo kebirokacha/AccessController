@@ -341,7 +341,7 @@ class Ui_Records(object):
 
         self.retranslateUi(Records)
 
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(Records)
