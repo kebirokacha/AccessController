@@ -13,7 +13,7 @@ class Records(Ui_Records ,QWidget):
 	def __init__(self):
 		super(Records ,self).__init__()
 		self.setupUi(self)
-		self.rightSideBar.hide()
+		self.toggleSideBarButton.setChecked(True)
 		self.initializeVideoPlayer()
 		self.fillListWidgetWithVideos()
 		self.toggleSideBarButton.clicked.connect(self.toggleSideBar)
@@ -117,24 +117,10 @@ class Records(Ui_Records ,QWidget):
 
 
 	def toggleSideBar(self):
-		toggled = self.rightSideBar.property('toggled')
 		if self.videoRadioButton.isChecked():
 			self.fillListWidgetWithVideos()
 		elif self.pictureRadioButton.isChecked():
 			self.fillListWidgetWithPictures()
-		if not toggled:
-			self.showSideBar()
-		else:
-			self.hideSideBar()
-
-	def hideSideBar(self):
-		self.rightSideBar.setProperty('toggled' ,False)
-		self.rightSideBar.hide()
-
-	def showSideBar(self):
-		self.rightSideBar.setProperty('toggled' ,True)
-		self.rightSideBar.show()
-		
 		
 	def itemSelected(self ,item:QListWidgetItem):
 		itemWidget = self.listWidget.itemWidget(item)

@@ -26,7 +26,7 @@ class Ui_Records(object):
     def setupUi(self, Records):
         if not Records.objectName():
             Records.setObjectName(u"Records")
-        Records.resize(1123, 446)
+        Records.resize(999, 446)
         Records.setMinimumSize(QSize(0, 0))
         Records.setStyleSheet(u"#Records{\n"
 "	background-color: rgb(33, 33, 33);\n"
@@ -38,14 +38,9 @@ class Ui_Records(object):
 "}\n"
 "#Records >QFrame {\n"
 "	border: 1px solid rgb(189, 189, 189);\n"
+"\n"
 "}\n"
-" #searchButton {\n"
-"	background-color: rgb(0, 176, 251);\n"
-"	border : None;\n"
-"	border-radius:10px;\n"
-"	padding:10px;\n"
-"}\n"
-"#frame QPushButton {\n"
+"QPushButton {\n"
 "	background-color: rgb(43, 45, 53);\n"
 "	color: rgb(189, 189, 189);\n"
 "    border: 1px solid rgb(189, 189, 189);\n"
@@ -53,11 +48,29 @@ class Ui_Records(object):
 "    padding: 10px; \n"
 "\n"
 "}\n"
-"#frame QPushButton::hover {\n"
+"QPushButton::hover {\n"
 "	background-color: rgb(0, 142, 246);\n"
 "\n"
 "}\n"
 "\n"
+" #searchButton {\n"
+"	border : 1px solid rgb(189, 189, 189);\n"
+"	border-radius: 10px;\n"
+"	color: rgb(189, 189, 189);\n"
+"	padding: 15px;\n"
+"\n"
+"}\n"
+"#searchButton:hover{\n"
+"	background-color: rgb(0, 142, 246);\n"
+"\n"
+"}\n"
+"#stopButton:hover{\n"
+"	background-color: rgb(255, 0, 4);\n"
+"}\n"
+"#DataBase #deleteButton{\n"
+"	border: 1px solid  red\n"
+"\n"
+"}\n"
 "QRadioButton{\n"
 "	color: rgb(189, 189, 189);\n"
 "\n"
@@ -66,7 +79,8 @@ class Ui_Records(object):
 "#toggleSideBarButton{\n"
 "	background-color: rgb(43, 45, 53);\n"
 "	color: rgb(189, 189, 189);\n"
-"    border: 1px solid rgb(189, 189, 189);\n"
+"    b"
+                        "order: 1px solid rgb(189, 189, 189);\n"
 "    border-radius: 12px; \n"
 "\n"
 "}\n"
@@ -76,8 +90,7 @@ class Ui_Records(object):
 "	color: rgb(189, 189, 189);\n"
 "	border: 1px solid rgb(189, 189, 189);\n"
 "}\n"
-""
-                        "#listWidget::item:selected{\n"
+"#listWidget::item:selected{\n"
 "	background-color: rgb(78, 114, 171);\n"
 "\n"
 "}\n"
@@ -103,31 +116,86 @@ class Ui_Records(object):
 "        subcontrol-position: top right;\n"
 "        width: 25px;\n"
 "        border-left-width: 1px;\n"
-"        border-left-color: rgb(189, 189, 189);\n"
+"        bor"
+                        "der-left-color: rgb(189, 189, 189);\n"
 "        border-left-style: solid;\n"
 "        border-top-right-radius: 12px;\n"
 "        border-bottom-right-radius: 12px;\n"
 "        icon-size: 16px, 16px;\n"
 "        padding: 5px;\n"
-""
-                        "    }\n"
+"    }\n"
 "\n"
 " QDateTimeEdit::hover {\n"
 "        border: 1px solid rgb(0, 142, 246);\n"
 "    }\n"
 "\n"
+"\n"
+"/*the style of the  is generated mostly by chatgpt (3.5 version) */\n"
+"QScrollBar:vertical {\n"
+"	background: #333333;\n"
+"	width: 15px;\n"
+"	margin: 15px 0 15px 0;\n"
+"\n"
+"}\n"
+"QScrollBar::handle:vertical {\n"
+"  	background: #666666;\n"
+"	min-height: 30px;\n"
+"\n"
+"}\n"
+"QScrollBar::sub-line:vertical {\n"
+"	background: #444444;\n"
+"	height: 15px;\n"
+"	border-image: url(:/resources/resources/Icons/angle-up-solid.svg);\n"
+"	subcontrol-position: top;\n"
+"	subcontrol-origin: margin;\n"
+"\n"
+"}\n"
+"QScrollBar::add-line:vertical {	\n"
+"	background: #444444;\n"
+"	height: 15px;\n"
+"	subcontrol-position: bottom;\n"
+"	subcontrol-origin: margin;\n"
+"	border-image: url(:/resources/res"
+                        "ources/Icons/angle-down-solid.svg);\n"
+"\n"
+"}\n"
+"QScrollBar:horizontal{\n"
+"	background: #333333;\n"
+"	height: 15px;\n"
+"	margin: 0px 15px 0px 15px;\n"
+"}\n"
+"QScrollBar::handle:horizontal{\n"
+"	background: #666666;\n"
+"	min-width: 30px;\n"
+"}\n"
+"\n"
+"QScrollBar::add-line:horizontal{\n"
+"	background: #444444;\n"
+"	height: 15px;\n"
+"	border-image: url(:/resources/resources/Icons/angle-right-solid.svg);\n"
+"	width: 15px;\n"
+"	subcontrol-position: right;\n"
+"	subcontrol-origin: margin;\n"
+"}\n"
+"QScrollBar::sub-line:horizontal{\n"
+"	background: #444444;\n"
+"	height: 15px;\n"
+"	border-image: url(:/resources/resources/Icons/angle-left-solid.svg);\n"
+"	width: 15px;\n"
+"	subcontrol-position: left;\n"
+"	subcontrol-origin: margin;\n"
+"}\n"
+"\n"
 "")
         self.horizontalLayout_2 = QHBoxLayout(Records)
         self.horizontalLayout_2.setSpacing(3)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.horizontalLayout_2.setContentsMargins(5, 5, 5, 5)
+        self.horizontalLayout_2.setContentsMargins(5, 5, 3, 5)
         self.leftSideBare = QFrame(Records)
         self.leftSideBare.setObjectName(u"leftSideBare")
         self.leftSideBare.setFrameShadow(QFrame.Shadow.Raised)
         self.verticalLayout_3 = QVBoxLayout(self.leftSideBare)
-        self.verticalLayout_3.setSpacing(3)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.verticalLayout_3.setContentsMargins(3, 3, 3, 3)
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.videoRadioButton = QRadioButton(self.leftSideBare)
@@ -144,46 +212,60 @@ class Ui_Records(object):
 
         self.verticalLayout_3.addLayout(self.horizontalLayout_3)
 
+        self.horizontalLayout_4 = QHBoxLayout()
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.startDateLabel = QLabel(self.leftSideBare)
         self.startDateLabel.setObjectName(u"startDateLabel")
 
-        self.verticalLayout_3.addWidget(self.startDateLabel)
+        self.horizontalLayout_4.addWidget(self.startDateLabel)
 
         self.startDateInput = QDateTimeEdit(self.leftSideBare)
         self.startDateInput.setObjectName(u"startDateInput")
-        self.startDateInput.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.startDateInput.setMinimumSize(QSize(195, 0))
+        self.startDateInput.setFrame(True)
+        self.startDateInput.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
         self.startDateInput.setButtonSymbols(QAbstractSpinBox.ButtonSymbols.NoButtons)
         self.startDateInput.setAccelerated(True)
         self.startDateInput.setProperty("showGroupSeparator", True)
         self.startDateInput.setCalendarPopup(True)
 
-        self.verticalLayout_3.addWidget(self.startDateInput)
+        self.horizontalLayout_4.addWidget(self.startDateInput)
 
+
+        self.verticalLayout_3.addLayout(self.horizontalLayout_4)
+
+        self.horizontalLayout_6 = QHBoxLayout()
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.endDateLabel = QLabel(self.leftSideBare)
         self.endDateLabel.setObjectName(u"endDateLabel")
 
-        self.verticalLayout_3.addWidget(self.endDateLabel)
+        self.horizontalLayout_6.addWidget(self.endDateLabel)
 
         self.endDateInput = QDateTimeEdit(self.leftSideBare)
         self.endDateInput.setObjectName(u"endDateInput")
-        self.endDateInput.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.endDateInput.setMinimumSize(QSize(195, 0))
+        self.endDateInput.setFrame(True)
+        self.endDateInput.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
         self.endDateInput.setButtonSymbols(QAbstractSpinBox.ButtonSymbols.NoButtons)
         self.endDateInput.setCalendarPopup(True)
 
-        self.verticalLayout_3.addWidget(self.endDateInput)
+        self.horizontalLayout_6.addWidget(self.endDateInput)
 
-        self.verticalSpacer_2 = QSpacerItem(20, 348, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
-        self.verticalLayout_3.addItem(self.verticalSpacer_2)
+        self.verticalLayout_3.addLayout(self.horizontalLayout_6)
 
         self.searchButton = QPushButton(self.leftSideBare)
         self.searchButton.setObjectName(u"searchButton")
-        self.searchButton.setMinimumSize(QSize(0, 40))
+        self.searchButton.setMinimumSize(QSize(0, 50))
         icon = QIcon()
         icon.addFile(u":/resources/resources/Icons/magnifying-glass-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.searchButton.setIcon(icon)
 
         self.verticalLayout_3.addWidget(self.searchButton)
+
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.verticalLayout_3.addItem(self.verticalSpacer)
 
 
         self.horizontalLayout_2.addWidget(self.leftSideBare)
@@ -294,8 +376,11 @@ class Ui_Records(object):
         self.toggleSideBarButton.setMinimumSize(QSize(30, 65))
         self.toggleSideBarButton.setMaximumSize(QSize(30, 16777215))
         icon3 = QIcon()
-        icon3.addFile(u":/resources/resources/Icons/angle-left-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
+        icon3.addFile(u":/resources/resources/Icons/angle-right-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
+        icon3.addFile(u":/resources/resources/Icons/angle-left-solid.svg", QSize(), QIcon.Normal, QIcon.On)
         self.toggleSideBarButton.setIcon(icon3)
+        self.toggleSideBarButton.setCheckable(True)
+        self.toggleSideBarButton.setAutoExclusive(False)
 
         self.horizontalLayout_2.addWidget(self.toggleSideBarButton)
 
@@ -305,7 +390,6 @@ class Ui_Records(object):
         self.rightSideBar.setMinimumSize(QSize(0, 0))
         self.rightSideBar.setMaximumSize(QSize(16777215, 16777215))
         self.rightSideBar.setFrameShadow(QFrame.Shadow.Raised)
-        self.rightSideBar.setProperty("toggled", True)
         self.verticalLayout = QVBoxLayout(self.rightSideBar)
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -331,15 +415,15 @@ class Ui_Records(object):
 
         self.horizontalLayout_2.addWidget(self.rightSideBar)
 
-        self.horizontalLayout_2.setStretch(0, 2)
-        self.horizontalLayout_2.setStretch(1, 5)
-        self.horizontalLayout_2.setStretch(3, 7)
+        self.horizontalLayout_2.setStretch(0, 1)
+        self.horizontalLayout_2.setStretch(1, 3)
+        self.horizontalLayout_2.setStretch(3, 4)
         QWidget.setTabOrder(self.videoRadioButton, self.pictureRadioButton)
         QWidget.setTabOrder(self.pictureRadioButton, self.startDateInput)
         QWidget.setTabOrder(self.startDateInput, self.endDateInput)
-        QWidget.setTabOrder(self.endDateInput, self.searchButton)
 
         self.retranslateUi(Records)
+        self.toggleSideBarButton.toggled.connect(self.rightSideBar.setHidden)
 
         self.stackedWidget.setCurrentIndex(0)
 
