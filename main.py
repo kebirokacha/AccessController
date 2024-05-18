@@ -89,9 +89,10 @@ class MainPage(Ui_MainWindow, QMainWindow):
         self.tabWidget.setCurrentIndex(self.tabWidget.count() - 1)
 
     def onTabChange(self, index):
-        if self.tabWidget.tabText(index) == self.recordsTabName:
-            self.recordsTab.hideSideBar()
-        if self.tabWidget.tabText(index) == self.dataBaseTabName:
+        currentTabName = self.tabWidget.tabText(index)
+        if currentTabName == self.recordsTabName and not self.recordsTab.toggleSideBarButton.isChecked():
+            self.recordsTab.toggleSideBarButton.setChecked(True)
+        if currentTabName == self.dataBaseTabName:
             self.dataBaseTab.populateCardInfoGrid()
 
 
