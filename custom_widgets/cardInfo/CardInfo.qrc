@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="icon">
+    <file>../../resources/Icons/trash-solid.svg</file>
+    <file>../../resources/Icons/pen-solid.svg</file>
+  </qresource>
+  <qresource prefix="image">
+    <file>../../resources/images/Person.jpg</file>
+  </qresource>
+</RCC>

@@ -26,7 +26,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">*{
+   <string notr="true">#PersonDetails{
 	background-color: rgb(33, 33, 33);
 }
 QPushButton{
@@ -35,9 +35,15 @@ QPushButton{
 	color: rgb(255, 255, 255);
 	height:50px;
 	font-size:20px
+
 }
-QPushButton#submitButton{
+#PersonDetails QPushButton:hover{
 	background-color: rgb(28, 113, 216);
+
+}
+QPushButton#cancelButton:hover{
+	background-color: rgb(255, 0, 0);
+
 }
 QLineEdit{
 	background-color: rgb(33, 33, 33);
@@ -84,10 +90,10 @@ QDateEdit::calendar-popup {
        <item>
         <widget class="QFrame" name="frame">
          <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
+          <enum>QFrame::Shape::StyledPanel</enum>
          </property>
          <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
+          <enum>QFrame::Shadow::Raised</enum>
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
           <property name="leftMargin">
@@ -104,7 +110,7 @@ QDateEdit::calendar-popup {
          <item>
           <spacer name="horizontalSpacer">
            <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+            <enum>Qt::Orientation::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -128,8 +134,8 @@ QDateEdit::calendar-popup {
               <string/>
              </property>
              <property name="icon">
-              <iconset resource="../../resources/qrcs/addPerson.qrc">
-               <normaloff>:/icons/Icons/rotate-right.png</normaloff>:/icons/Icons/rotate-right.png</iconset>
+              <iconset resource="personDetails.qrc">
+               <normaloff>:/icons/resources/Icons/rotate-solid.svg</normaloff>:/icons/resources/Icons/rotate-solid.svg</iconset>
              </property>
             </widget>
            </item>
@@ -145,8 +151,8 @@ QDateEdit::calendar-popup {
               <string/>
              </property>
              <property name="icon">
-              <iconset resource="../../resources/qrcs/addPerson.qrc">
-               <normaloff>:/icons/Icons/circle-plus.png</normaloff>:/icons/Icons/circle-plus.png</iconset>
+              <iconset resource="personDetails.qrc">
+               <normaloff>:/icons/resources/Icons/circle-plus-solid.svg</normaloff>:/icons/resources/Icons/circle-plus-solid.svg</iconset>
              </property>
             </widget>
            </item>
@@ -160,10 +166,19 @@ QDateEdit::calendar-popup {
       <layout class="QVBoxLayout" name="verticalLayout" stretch="2,0">
        <item>
         <layout class="QFormLayout" name="formLayout">
+         <property name="fieldGrowthPolicy">
+          <enum>QFormLayout::FieldGrowthPolicy::AllNonFixedFieldsGrow</enum>
+         </property>
+         <property name="labelAlignment">
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
+         <property name="formAlignment">
+          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+         </property>
          <item row="0" column="0">
           <widget class="QLabel" name="nameLabel">
            <property name="text">
-            <string>Name</string>
+            <string>&amp;Name</string>
            </property>
            <property name="buddy">
             <cstring>nameInput</cstring>
@@ -176,7 +191,7 @@ QDateEdit::calendar-popup {
             <number>35</number>
            </property>
            <property name="alignment">
-            <set>Qt::AlignCenter</set>
+            <set>Qt::AlignmentFlag::AlignCenter</set>
            </property>
            <property name="placeholderText">
             <string>Name</string>
@@ -186,10 +201,10 @@ QDateEdit::calendar-popup {
          <item row="1" column="0">
           <widget class="QLabel" name="birthdayLabel">
            <property name="text">
-            <string>Birthday</string>
+            <string>&amp;Birthday</string>
            </property>
            <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
            </property>
            <property name="buddy">
             <cstring>birthdayInput</cstring>
@@ -205,13 +220,13 @@ QDateEdit::calendar-popup {
             <bool>true</bool>
            </property>
            <property name="alignment">
-            <set>Qt::AlignCenter</set>
+            <set>Qt::AlignmentFlag::AlignCenter</set>
            </property>
            <property name="buttonSymbols">
-            <enum>QAbstractSpinBox::NoButtons</enum>
+            <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
            </property>
            <property name="currentSection">
-            <enum>QDateTimeEdit::DaySection</enum>
+            <enum>QDateTimeEdit::Section::DaySection</enum>
            </property>
            <property name="displayFormat">
             <string>d/M/yyyy</string>
@@ -240,7 +255,7 @@ QDateEdit::calendar-popup {
             <number>13</number>
            </property>
            <property name="alignment">
-            <set>Qt::AlignCenter</set>
+            <set>Qt::AlignmentFlag::AlignCenter</set>
            </property>
            <property name="placeholderText">
             <string>+000000000000</string>
@@ -250,7 +265,7 @@ QDateEdit::calendar-popup {
          <item row="3" column="0">
           <widget class="QLabel" name="emailLabel">
            <property name="text">
-            <string>Email</string>
+            <string>Ema&amp;il</string>
            </property>
            <property name="buddy">
             <cstring>emailInput</cstring>
@@ -266,7 +281,7 @@ QDateEdit::calendar-popup {
             <number>250</number>
            </property>
            <property name="alignment">
-            <set>Qt::AlignCenter</set>
+            <set>Qt::AlignmentFlag::AlignCenter</set>
            </property>
            <property name="placeholderText">
             <string>Email</string>
@@ -276,7 +291,7 @@ QDateEdit::calendar-popup {
          <item row="4" column="0">
           <widget class="QLabel" name="adresseLabel">
            <property name="text">
-            <string>Adresse</string>
+            <string>&amp;Adresse</string>
            </property>
            <property name="buddy">
             <cstring>adresseInput</cstring>
@@ -289,7 +304,7 @@ QDateEdit::calendar-popup {
             <number>250</number>
            </property>
            <property name="alignment">
-            <set>Qt::AlignCenter</set>
+            <set>Qt::AlignmentFlag::AlignCenter</set>
            </property>
            <property name="placeholderText">
             <string>Adresse</string>
@@ -329,7 +344,7 @@ QDateEdit::calendar-popup {
   <tabstop>adresseInput</tabstop>
  </tabstops>
  <resources>
-  <include location="../../resources/qrcs/addPerson.qrc"/>
+  <include location="personDetails.qrc"/>
  </resources>
  <connections/>
 </ui>

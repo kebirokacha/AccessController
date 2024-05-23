@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QWidget ,QListWidgetItem
 from PySide6.QtCore import Slot ,QUrl 
-from PySide6.QtGui import QPixmap
+from PySide6.QtGui import QPixmap ,Qt
 from PySide6.QtMultimediaWidgets import QVideoWidget
 from PySide6.QtMultimedia import QMediaPlayer
 from .records_ui import  Ui_Records
@@ -13,15 +13,13 @@ class Records(Ui_Records ,QWidget):
 	def __init__(self):
 		super(Records ,self).__init__()
 		self.setupUi(self)
-		self.rightSideBar.setMinimumWidth(600)
-		self.rightSideBar.hide()
-		self.toggleSideBarButton.clicked.connect(self.toggleSideBar)
+		self.toggleSideBarButton.setChecked(True)
 		self.initializeVideoPlayer()
+		self.fillListWidgetWithVideos()
+		self.toggleSideBarButton.clicked.connect(self.toggleSideBar)
 		self.videoRadioButton.toggled.connect(self.setVideoPlayer)
 		self.pictureRadioButton.toggled.connect(self.setPictureViewer)
-		self.fillListWidgetWithVideos()
 		
-
 	def setPosition(self, position):
 		self.player.setPosition(position)
 
@@ -43,6 +41,7 @@ class Records(Ui_Records ,QWidget):
 		return f"{hours:02d}:{minutes % 60:02d}:{seconds % 60:02d}"
 
 	def initializeVideoPlayer(self):
+		self.titleLabel.setText('Videos')
 		self.player = QMediaPlayer()
 		self.videoWidget = QVideoWidget()
 		self.player.setVideoOutput(self.videoWidget)
@@ -56,15 +55,20 @@ class Records(Ui_Records ,QWidget):
 		self.player.positionChanged.connect(self.updateCurrentTimeLabel)
 
 	def setVideoPlayer(self):
+		self.titleLabel.setText('Videos')
 		self.player.setSource(QUrl())
 		self.player.play()
 		self.stackedWidget.setCurrentIndex(0)
 		self.fillListWidgetWithVideos()
 
 	def setPictureViewer(self):
+		self.titleLabel.setText('Pictures')
 		self.currentTimeVideo.setText("00:00:00")
 		self.totalTimeVideo.setText("00:00:00")
-		self.pictureViewer.clear()
+		size = self.pictureViewer.size()
+		self.pictureViewer.setPixmap(
+				QPixmap('resources/images/blackImage.jpg').scaled(size ,Qt.AspectRatioMode.KeepAspectRatio)
+			)
 		self.stackedWidget.setCurrentIndex(1)
 		self.fillListWidgetWithPictures()
 
@@ -113,24 +117,10 @@ class Records(Ui_Records ,QWidget):
 
 
 	def toggleSideBar(self):
-		toggled = self.rightSideBar.property('toggled')
 		if self.videoRadioButton.isChecked():
 			self.fillListWidgetWithVideos()
 		elif self.pictureRadioButton.isChecked():
 			self.fillListWidgetWithPictures()
-		if not toggled:
-			self.showSideBar()
-		else:
-			self.hideSideBar()
-
-	def hideSideBar(self):
-		self.rightSideBar.setProperty('toggled' ,False)
-		self.rightSideBar.hide()
-
-	def showSideBar(self):
-		self.rightSideBar.setProperty('toggled' ,True)
-		self.rightSideBar.show()
-		
 		
 	def itemSelected(self ,item:QListWidgetItem):
 		itemWidget = self.listWidget.itemWidget(item)

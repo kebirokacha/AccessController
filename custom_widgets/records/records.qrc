@@ -1,0 +1,11 @@
+<RCC>
+  <qresource prefix="resources">
+    <file>../../resources/Icons/angle-up-solid.svg</file>
+    <file>../../resources/Icons/angle-down-solid.svg</file>
+    <file>../../resources/Icons/angle-left-solid.svg</file>
+    <file>../../resources/Icons/angle-right-solid.svg</file>
+    <file>../../resources/Icons/play-solid.svg</file>
+    <file>../../resources/Icons/magnifying-glass-solid.svg</file>
+    <file>../../resources/Icons/stop-solid.svg</file>
+  </qresource>
+</RCC>

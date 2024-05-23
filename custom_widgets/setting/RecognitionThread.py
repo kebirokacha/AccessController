@@ -7,12 +7,11 @@ import os
 
 class RecognitionThread(QThread):
 	signalEmail = Signal()
-
+	
 	def __init__(self ,captureName:str ,parent=None):
 		QThread.__init__(self ,parent)
 		self.dataBaseManager = None
 		self.knownEmbeddings = None
-		self.pictureFolderPath = None
 		self.pictureFolderPath = None
 		self.captureName = captureName
 		self.initializeKnownEmbeddings()
@@ -35,6 +34,7 @@ class RecognitionThread(QThread):
 						filename = f"{self.captureName}_{currentTime}.jpg"
 						filename = filename.replace(":", "_")
 						filename = os.path.join(self.pictureFolderPath ,filename)
+						# save only when we find new face
 						dataBaseManager = DataBaseManager()
 						isSaved = dataBaseManager.saveUnknownEmbedding(embedding)
 						if isSaved:
@@ -49,9 +49,9 @@ class RecognitionThread(QThread):
 			finally:
 				self.frame = None
 
-	def checkEmbeddingMatch(self, knownEmbeddings: dict, unknownEmbedding: np.ndarray, threshold: int = 20):
+	def checkEmbeddingMatch(self ,knownEmbeddings:dict ,unknownEmbedding:np.ndarray ,threshold:int=20):
 		matches = {}
-		for personId, embeddings in knownEmbeddings.items():
+		for personId , embeddings in knownEmbeddings.items():
 			matchCounter = 0
 			for embedding in embeddings:
 				knownEmbedding = np.array(embedding)
@@ -59,24 +59,23 @@ class RecognitionThread(QThread):
 				distance = np.sqrt(distance_vector.sum())
 				if distance < threshold:
 					matchCounter += 1
-			matches[personId] = (matchCounter / len(embeddings)) * 100
+			matches[personId] = (matchCounter/len(embeddings)) * 100
 		maxMatche = max(matches.values())
 		return maxMatche
-
+	
 	def initializeRecordsFolderPath(self):
 		if self.pictureFolderPath is None:
 			dataBaseManager = DataBaseManager()
 			recordsFolderPath = dataBaseManager.getRecordsFolderPath()
-			self.pictureFolderPath = os.path.join(recordsFolderPath, 'pictures')
+			self.pictureFolderPath = os.path.join(recordsFolderPath ,'pictures')
 			if not os.path.isdir(self.pictureFolderPath):
 				os.mkdir(self.pictureFolderPath)
-
 
 	def updateRecordsFolderPath(self):
 		if self.pictureFolderPath is not None:
 			dataBaseManager = DataBaseManager()
 			recordsFolderPath = dataBaseManager.getRecordsFolderPath()
-			self.pictureFolderPath = os.path.join(recordsFolderPath ,'pictures')
+			self.pictureFolderPath = os.path.join(recordsFolderPath, 'pictures')
 			if not os.path.isdir(self.pictureFolderPath):
 				os.mkdir(self.pictureFolderPath)
 
@@ -85,12 +84,11 @@ class RecognitionThread(QThread):
 		self.knownEmbeddings = self.dataBaseManager.getEncodingArray()
 
 	@Slot(cv2.Mat)
-	def setFrame(self ,frame:cv2.Mat):
-		print('setFrame complete')
+	def setFrame(self, frame: cv2.Mat):
 		self.frame = frame
 
 	def killThread(self):
-		self.frame = None
 		self.status = False
+		self.frame = None
 		self.quit()
 		self.wait()

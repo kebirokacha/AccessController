@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>../../resources/Icons/circle-plus-solid.svg</file>
+    <file>../../resources/Icons/rotate-solid.svg</file>
+  </qresource>
+</RCC>

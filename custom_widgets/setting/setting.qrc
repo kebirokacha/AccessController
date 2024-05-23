@@ -1,0 +1,10 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>../../resources/Icons/photo-film-solid.svg</file>
+    <file>../../resources/Icons/record-vinyl-solid.svg</file>
+    <file>../../resources/Icons/floppy-disk-solid.svg</file>
+    <file>../../resources/Icons/folder-solid.svg</file>
+    <file>../../resources/Icons/bell-solid.svg</file>
+    <file>../../resources/Icons/rotate-solid.svg</file>
+  </qresource>
+</RCC>

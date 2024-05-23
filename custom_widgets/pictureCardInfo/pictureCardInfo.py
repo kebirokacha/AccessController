@@ -42,6 +42,7 @@ class PictureCardInfo(Ui_PictureCardInfo ,QWidget):
 			if reply == QMessageBox.Yes:
 				try:
 					os.remove(self.pictureFilePath)
+					#TODO: Modify the signal to update the viewers in the records widget
 					self.refreshPicturesList.emit()
 					print(f'Video {self.pictureFilePath} deleted successfully.')
 				except Exception as e:

@@ -14,19 +14,21 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#MainWindow{
+   <string notr="true">#MainWindow ,#centralwidget{
 	background-color: rgb(53, 53, 53);
+
 }
-QTabWidget::tab-bar {
+#MainWindow #tabWidget::tab-bar {
 	border: 30px solid rgb(0, 0, 255);
 	color: rgb(189, 189, 189);
+
 }
 
-QTabBar{
+#MainWindow  QTabBar{
 	background-color: rgb(53, 53, 53);
 	
 }
-QTabBar::tab { 
+#MainWindow  QTabBar::tab { 
 	border-top-left-radius:12;
 	border-top-right-radius:12;
   	padding: 10px;
@@ -34,16 +36,15 @@ QTabBar::tab {
 	
  }
 
-QTabBar::tab:selected {
+#MainWindow  QTabBar::tab:selected {
 	background-color: rgb(0, 142, 246);
 	text-decoration: none;
+
  }
 
-QTabWidget::pane{
-	background-color: rgb(33, 33, 33);
-}
-QTabWidget::pane {
- border-top:2px solid rgb(0, 142, 246) ;
+#MainWindow  #tabWidget::pane{
+	border-top:2px solid rgb(0, 142, 246) ;
+
 }
 
 #mainTab QPushButton{
@@ -52,6 +53,7 @@ QTabWidget::pane {
     border: 1px solid rgb(189, 189, 189);
     border-radius: 12px; 
     padding: 20px; 
+
 }
 
 #mainTab QPushButton::hover{
@@ -60,6 +62,7 @@ QTabWidget::pane {
     border: 1px solid rgb(189, 189, 189);
     border-radius: 12px; 
     padding: 20px; 
+
 }
 
 
@@ -69,6 +72,21 @@ QTabWidget::pane {
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <property name="spacing">
+     <number>0</number>
+    </property>
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="tabletTracking">
@@ -78,7 +96,7 @@ QTabWidget::pane {
        <string notr="true"/>
       </property>
       <property name="tabShape">
-       <enum>QTabWidget::Rounded</enum>
+       <enum>QTabWidget::TabShape::Rounded</enum>
       </property>
       <property name="currentIndex">
        <number>1</number>
@@ -90,7 +108,7 @@ QTabWidget::pane {
        </size>
       </property>
       <property name="elideMode">
-       <enum>Qt::ElideMiddle</enum>
+       <enum>Qt::TextElideMode::ElideMiddle</enum>
       </property>
       <property name="documentMode">
        <bool>false</bool>
@@ -99,7 +117,7 @@ QTabWidget::pane {
        <bool>true</bool>
       </property>
       <property name="movable">
-       <bool>true</bool>
+       <bool>false</bool>
       </property>
       <property name="tabBarAutoHide">
        <bool>false</bool>
@@ -114,8 +132,8 @@ QTabWidget::pane {
       </widget>
       <widget class="QWidget" name="mainTab">
        <attribute name="icon">
-        <iconset resource="resources.qrc">
-         <normaloff>:/icons/Icons/Home.png</normaloff>:/icons/Icons/Home.png</iconset>
+        <iconset resource="main.qrc">
+         <normaloff>:/icons/Icons/house-solid.svg</normaloff>:/icons/Icons/house-solid.svg</iconset>
        </attribute>
        <attribute name="title">
         <string>Main</string>
@@ -129,8 +147,8 @@ QTabWidget::pane {
              <string>  Live</string>
             </property>
             <property name="icon">
-             <iconset resource="resources.qrc">
-              <normaloff>:/icons/Icons/circle-dot.png</normaloff>:/icons/Icons/circle-dot.png</iconset>
+             <iconset resource="main.qrc">
+              <normaloff>:/icons/Icons/circle-dot-regular.svg</normaloff>:/icons/Icons/circle-dot-regular.svg</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -146,8 +164,8 @@ QTabWidget::pane {
              <string>Records</string>
             </property>
             <property name="icon">
-             <iconset resource="resources.qrc">
-              <normaloff>:/icons/Icons/Play-back.png</normaloff>:/icons/Icons/Play-back.png</iconset>
+             <iconset resource="main.qrc">
+              <normaloff>:/icons/Icons/film-solid.svg</normaloff>:/icons/Icons/film-solid.svg</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -163,8 +181,8 @@ QTabWidget::pane {
              <string>  Data Base</string>
             </property>
             <property name="icon">
-             <iconset resource="resources.qrc">
-              <normaloff>:/icons/Icons/Data-Base.png</normaloff>:/icons/Icons/Data-Base.png</iconset>
+             <iconset resource="main.qrc">
+              <normaloff>:/icons/Icons/database-solid.svg</normaloff>:/icons/Icons/database-solid.svg</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -180,8 +198,8 @@ QTabWidget::pane {
              <string>parametre </string>
             </property>
             <property name="icon">
-             <iconset resource="resources.qrc">
-              <normaloff>:/icons/Icons/gear.png</normaloff>:/icons/Icons/gear.png</iconset>
+             <iconset resource="main.qrc">
+              <normaloff>:/icons/Icons/gear-solid.svg</normaloff>:/icons/Icons/gear-solid.svg</iconset>
             </property>
             <property name="iconSize">
              <size>
@@ -201,7 +219,7 @@ QTabWidget::pane {
   </widget>
  </widget>
  <resources>
-  <include location="resources.qrc"/>
+  <include location="main.qrc"/>
  </resources>
  <connections/>
 </ui>

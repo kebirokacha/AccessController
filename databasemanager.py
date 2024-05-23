@@ -49,7 +49,7 @@ class DataBaseManager:
 						FOREIGN KEY(personID) REFERENCES person(id)
 					);
 				"""
-				)
+									)
 			self.connection.execute("""
 				CREATE TABLE IF NOT EXISTS unknownPerson(
 						id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -58,7 +58,6 @@ class DataBaseManager:
 					);
 				"""
 			)
-
 			self.connection.commit()
 
 	def addPerson(self, name: str, birthday: str, phone: str, email: str, address: str, embeddingsList: list[list],
@@ -230,7 +229,7 @@ class DataBaseManager:
 			content = content.replace(content, newRecordsFolderPath)
 			with open(self.recordsFolderTxt, 'w') as file:
 				file.write(content)
-	def  saveUnknownEmbedding (self ,unknownEmbedding:np.ndarray ,threshold:int=20) ->bool:
+	def saveUnknownEmbedding(self, unknownEmbedding: np.ndarray, threshold: int = 20) -> bool:
 		"""
 		this function will save unknownEmbedding in the unknownEmbedding table in database
 		will check if the unknownEmbedding if exist in the database before
@@ -245,14 +244,14 @@ class DataBaseManager:
 			cursor = self.connection.execute("""
 						SELECT embedding FROM unknownPerson;
 					"""
-				)
+											 )
 			rows = cursor.fetchall()
 		if len(rows) == 0:
 			with self.connection:
 				self.connection.execute("""
 						INSERT INTO unknownPerson (embedding) VALUES (?);
 						""", (embeddingJson,)
-					)
+										)
 				self.connection.commit()
 			return True
 		thereIsMatch = False

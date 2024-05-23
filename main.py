@@ -18,10 +18,11 @@ class MainPage(Ui_MainWindow, QMainWindow):
         self.live = Live(self.setting)
         self.liveTab, self.recordsTab, self.dataBaseTab, self.settingTab = None, None, None, None
         self.liveTabName, self.recordsTabName, self.dataBaseTabName, self.settingTabName = 'Live', 'records', 'Data Base', 'Setting'
-        self.liveTabIcon = QIcon(QPixmap('./resources/Icons/circle-dot.png'))
-        self.recordsTabIcon = QIcon(QPixmap('./resources/Icons/Play-back.png'))
-        self.settingTabIcon = QIcon(QPixmap('./resources/Icons/gear.png'))
-        self.dataBaseTabIcon = QIcon(QPixmap('./resources/Icons/Data-Base.png'))
+
+        self.liveTabIcon = QIcon(QPixmap('./resources/Icons/circle-dot-regular.svg'))
+        self.recordsTabIcon = QIcon(QPixmap('./resources/Icons/film-solid.svg'))
+        self.settingTabIcon = QIcon(QPixmap('./resources/Icons/gear-solid.svg'))
+        self.dataBaseTabIcon = QIcon(QPixmap('./resources/Icons/database-solid.svg'))
         self.tabWidget.setTabEnabled(0, False)
         self.tabWidget.currentChanged.connect(self.onTabChange)
         tabs = self.tabWidget.tabBar()
@@ -89,15 +90,16 @@ class MainPage(Ui_MainWindow, QMainWindow):
         self.tabWidget.setCurrentIndex(self.tabWidget.count() - 1)
 
     def onTabChange(self, index):
-        if self.tabWidget.tabText(index) == self.recordsTabName:
-            self.recordsTab.hideSideBar()
-        if self.tabWidget.tabText(index) == self.dataBaseTabName:
+        currentTabName = self.tabWidget.tabText(index)
+        if currentTabName == self.recordsTabName and not self.recordsTab.toggleSideBarButton.isChecked():
+            self.recordsTab.toggleSideBarButton.setChecked(True)
+        if currentTabName == self.dataBaseTabName:
             self.dataBaseTab.populateCardInfoGrid()
 
 
 if __name__ == "__main__":
     import sys
-    # TODO
+    # TODO: add loading screen here
     dummy_frame = np.zeros((480, 640, 3), dtype=np.uint8)  # Example dummy frame
     _ = represent(dummy_frame, model_name='Facenet512', detector_backend='yolov8', enforce_detection=False)
     app = QApplication(sys.argv)

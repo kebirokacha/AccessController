@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QTableWidgetItem, QCheckBox, QFileDialog
+from PySide6.QtWidgets import QWidget, QTableWidgetItem, QCheckBox, QFileDialog ,QHeaderView
 from PySide6.QtMultimedia import QMediaDevices
 from PySide6.QtCore import Slot, Signal, QStandardPaths
 from .FrameReadingThread import FrameReadingThread
@@ -27,18 +27,25 @@ class Setting(Ui_Setting, QWidget):
 		self.savedEmailTxt = 'savedEmail.txt'
 		self.savedEmail = ''
 		self.framReaderThreads: dict[int, FrameReadingThread] = {}
+		self.cameraTableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+		self.cameraTableWidget.hideColumn(0)
 		self.initializeRecordsFolder()
 		self.loadCameras()
-		self.saveEmailButton.clicked.connect(self.saveEmail)
 		self.loadSavedEmail()
+		self.saveEmailButton.clicked.connect(self.saveEmail)
+		self.refreshButton.clicked.connect(self.loadCameras)
+		self.recognitionButton.clicked.connect(lambda : self.stackedWidget.setCurrentIndex(0))
+		self.recordsButton.clicked.connect(lambda : self.stackedWidget.setCurrentIndex(1))
+		self.notificationButton.clicked.connect(lambda : self.stackedWidget.setCurrentIndex(2))
+		self.stackedWidget.currentChanged.connect(self.updateButtonStyles)
+		self.updateButtonStyles()
 
 	def loadCameras(self):
 		self.cameraTableWidget.clear()
+		self.cameraTableWidget.setHorizontalHeaderLabels(["Camera ID","Camera Name","Recognition status"])
 		captures = QMediaDevices.videoInputs()
 		self.cameraTableWidget.setRowCount(len(captures))
-		self.cameraTableWidget.setColumnCount(3)
 		for row, capture in enumerate(captures):
-			captureId = capture.id().data().decode()
 			name = capture.description()
 			self.cameraTableWidget.setItem(row, 0, QTableWidgetItem(str(row)))
 			self.cameraTableWidget.setItem(row, 1, QTableWidgetItem(name))
@@ -49,8 +56,22 @@ class Setting(Ui_Setting, QWidget):
 		else:
 			#TODO: when there are co capture detected
 			pass
-		# self.cameraTableWidget.hideColumn(0)
-		
+	
+	def updateButtonStyles(self):
+		currentIndex = self.stackedWidget.currentIndex()
+		selected_style = "QPushButton { background-color: #008EF6;}"
+
+		# Apply the base style to all buttons
+		self.recognitionButton.setStyleSheet("")
+		self.recordsButton.setStyleSheet("")
+		self.notificationButton.setStyleSheet("")
+		match currentIndex:
+			case 0:
+				self.recognitionButton.setStyleSheet(selected_style)
+			case 1:
+				self.recordsButton.setStyleSheet(selected_style)
+			case 2:
+				self.notificationButton.setStyleSheet(selected_style)
 
 	def saveEmail(self):
 		if self.emailInput.text() == "":
