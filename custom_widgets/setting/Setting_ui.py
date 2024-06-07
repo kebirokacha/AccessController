@@ -286,7 +286,7 @@ class Ui_Setting(object):
         self.label.setText(QCoreApplication.translate("Setting", u"Default Folder :", None))
         self.path.setText(QCoreApplication.translate("Setting", u"Path", None))
         self.selectPathButton.setText(QCoreApplication.translate("Setting", u"select folder", None))
-        self.emailLabel.setText(QCoreApplication.translate("Setting", u"Ema&il", None))
+        self.emailLabel.setText(QCoreApplication.translate("Setting", u"Email", None))
         self.emailInput.setPlaceholderText(QCoreApplication.translate("Setting", u"example@mail.com", None))
         self.saveEmailButton.setText(QCoreApplication.translate("Setting", u"Save", None))
         self.liveEmailCheckBox.setText(QCoreApplication.translate("Setting", u"Live Email", None))

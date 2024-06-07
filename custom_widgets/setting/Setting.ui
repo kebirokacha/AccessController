@@ -140,7 +140,7 @@ QTableWidget {
         <property name="currentIndex">
          <number>0</number>
         </property>
-        <widget class="QWidget" name="recognitionStack" native="true">
+        <widget class="QWidget" name="recognitionStack">
          <layout class="QVBoxLayout" name="verticalLayout">
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout">
@@ -222,7 +222,7 @@ QTableWidget {
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="recordsStrack" native="true">
+        <widget class="QWidget" name="recordsStrack">
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1,1">
@@ -276,14 +276,14 @@ QTableWidget {
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="notificationStack" native="true">
+        <widget class="QWidget" name="notificationStack">
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1,1">
             <item>
              <widget class="QLabel" name="emailLabel">
               <property name="text">
-               <string>Ema&amp;il</string>
+               <string>Email</string>
               </property>
              </widget>
             </item>
