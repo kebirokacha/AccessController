@@ -17,9 +17,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractItemView, QAbstractSpinBox, QApplication, QDateTimeEdit,
     QFrame, QGridLayout, QHBoxLayout, QLabel,
-    QListWidget, QListWidgetItem, QPushButton, QRadioButton,
-    QSizePolicy, QSlider, QSpacerItem, QStackedWidget,
-    QVBoxLayout, QWidget)
+    QLayout, QListView, QListWidget, QListWidgetItem,
+    QPushButton, QRadioButton, QSizePolicy, QSlider,
+    QSpacerItem, QStackedWidget, QVBoxLayout, QWidget)
 from . import records_rc
 
 class Ui_Records(object):
@@ -52,6 +52,10 @@ class Ui_Records(object):
 "	background-color: rgb(0, 142, 246);\n"
 "\n"
 "}\n"
+"#deleteAllButton::hover{\n"
+"	background-color: rgb(255, 0, 4);\n"
+"\n"
+"}\n"
 "\n"
 " #searchButton {\n"
 "	border : 1px solid rgb(189, 189, 189);\n"
@@ -77,10 +81,10 @@ class Ui_Records(object):
 "}\n"
 "\n"
 "#toggleSideBarButton{\n"
-"	background-color: rgb(43, 45, 53);\n"
+""
+                        "	background-color: rgb(43, 45, 53);\n"
 "	color: rgb(189, 189, 189);\n"
-"    b"
-                        "order: 1px solid rgb(189, 189, 189);\n"
+"    border: 1px solid rgb(189, 189, 189);\n"
 "    border-radius: 12px; \n"
 "\n"
 "}\n"
@@ -113,11 +117,11 @@ class Ui_Records(object):
 "    QDateTimeEdit::drop-down {\n"
 "		 image: url(:/resources/resources/Icons/angle-down-solid.svg);\n"
 "       	subcontrol-origin: padding;\n"
-"        subcontrol-position: top right;\n"
+"        subcontrol-position: top right;"
+                        "\n"
 "        width: 25px;\n"
 "        border-left-width: 1px;\n"
-"        bor"
-                        "der-left-color: rgb(189, 189, 189);\n"
+"        border-left-color: rgb(189, 189, 189);\n"
 "        border-left-style: solid;\n"
 "        border-top-right-radius: 12px;\n"
 "        border-bottom-right-radius: 12px;\n"
@@ -153,10 +157,10 @@ class Ui_Records(object):
 "QScrollBar::add-line:vertical {	\n"
 "	background: #444444;\n"
 "	height: 15px;\n"
-"	subcontrol-position: bottom;\n"
+"	subcontrol-position: b"
+                        "ottom;\n"
 "	subcontrol-origin: margin;\n"
-"	border-image: url(:/resources/res"
-                        "ources/Icons/angle-down-solid.svg);\n"
+"	border-image: url(:/resources/resources/Icons/angle-down-solid.svg);\n"
 "\n"
 "}\n"
 "QScrollBar:horizontal{\n"
@@ -190,6 +194,7 @@ class Ui_Records(object):
         self.horizontalLayout_2 = QHBoxLayout(Records)
         self.horizontalLayout_2.setSpacing(3)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setSizeConstraint(QLayout.SizeConstraint.SetNoConstraint)
         self.horizontalLayout_2.setContentsMargins(5, 5, 3, 5)
         self.leftSideBare = QFrame(Records)
         self.leftSideBare.setObjectName(u"leftSideBare")
@@ -380,6 +385,7 @@ class Ui_Records(object):
         icon3.addFile(u":/resources/resources/Icons/angle-left-solid.svg", QSize(), QIcon.Normal, QIcon.On)
         self.toggleSideBarButton.setIcon(icon3)
         self.toggleSideBarButton.setCheckable(True)
+        self.toggleSideBarButton.setChecked(False)
         self.toggleSideBarButton.setAutoExclusive(False)
 
         self.horizontalLayout_2.addWidget(self.toggleSideBarButton)
@@ -391,7 +397,7 @@ class Ui_Records(object):
         self.rightSideBar.setMaximumSize(QSize(16777215, 16777215))
         self.rightSideBar.setFrameShadow(QFrame.Shadow.Raised)
         self.verticalLayout = QVBoxLayout(self.rightSideBar)
-        self.verticalLayout.setSpacing(0)
+        self.verticalLayout.setSpacing(2)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.titleLabel = QLabel(self.rightSideBar)
@@ -405,19 +411,28 @@ class Ui_Records(object):
 
         self.verticalLayout.addWidget(self.titleLabel)
 
+        self.deleteAllButton = QPushButton(self.rightSideBar)
+        self.deleteAllButton.setObjectName(u"deleteAllButton")
+        icon4 = QIcon()
+        icon4.addFile(u":/resources/resources/Icons/trash-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.deleteAllButton.setIcon(icon4)
+        self.deleteAllButton.setFlat(False)
+
+        self.verticalLayout.addWidget(self.deleteAllButton)
+
         self.listWidget = QListWidget(self.rightSideBar)
         self.listWidget.setObjectName(u"listWidget")
         self.listWidget.setEnabled(True)
         self.listWidget.setEditTriggers(QAbstractItemView.EditTrigger.DoubleClicked)
+        self.listWidget.setResizeMode(QListView.ResizeMode.Adjust)
+        self.listWidget.setLayoutMode(QListView.LayoutMode.SinglePass)
 
         self.verticalLayout.addWidget(self.listWidget)
 
 
         self.horizontalLayout_2.addWidget(self.rightSideBar)
 
-        self.horizontalLayout_2.setStretch(0, 1)
         self.horizontalLayout_2.setStretch(1, 3)
-        self.horizontalLayout_2.setStretch(3, 4)
         QWidget.setTabOrder(self.videoRadioButton, self.pictureRadioButton)
         QWidget.setTabOrder(self.pictureRadioButton, self.startDateInput)
         QWidget.setTabOrder(self.startDateInput, self.endDateInput)
@@ -447,5 +462,6 @@ class Ui_Records(object):
         self.pictureViewer.setText(QCoreApplication.translate("Records", u"TextLabel", None))
         self.toggleSideBarButton.setText("")
         self.titleLabel.setText(QCoreApplication.translate("Records", u"Title", None))
+        self.deleteAllButton.setText(QCoreApplication.translate("Records", u"Delete All", None))
     # retranslateUi
 

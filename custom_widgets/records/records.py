@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget ,QListWidgetItem
+from PySide6.QtWidgets import QWidget ,QListWidgetItem ,QMessageBox
 from PySide6.QtCore import Slot ,QUrl 
 from PySide6.QtGui import QPixmap ,Qt
 from PySide6.QtMultimediaWidgets import QVideoWidget
@@ -19,6 +19,7 @@ class Records(Ui_Records ,QWidget):
 		self.toggleSideBarButton.clicked.connect(self.toggleSideBar)
 		self.videoRadioButton.toggled.connect(self.setVideoPlayer)
 		self.pictureRadioButton.toggled.connect(self.setPictureViewer)
+		self.deleteAllButton.clicked.connect(self.deleteAll)
 		
 	def setPosition(self, position):
 		self.player.setPosition(position)
@@ -71,7 +72,6 @@ class Records(Ui_Records ,QWidget):
 			)
 		self.stackedWidget.setCurrentIndex(1)
 		self.fillListWidgetWithPictures()
-
 
 	@Slot()
 	def fillListWidgetWithVideos(self):
@@ -126,9 +126,45 @@ class Records(Ui_Records ,QWidget):
 		itemWidget = self.listWidget.itemWidget(item)
 		if isinstance(itemWidget ,VideoCardInfo):
 			videoCardInfo:VideoCardInfo = self.listWidget.itemWidget(item)
+
+			print(f"QUrl(videoCardInfo.videoFilePath) {QUrl(videoCardInfo.videoFilePath)}")
+			print(f"videoCardInfo.videoFilePath {videoCardInfo.videoFilePath}")
 			self.player.setSource(QUrl(videoCardInfo.videoFilePath))
 			self.player.play()
 		elif isinstance(itemWidget ,PictureCardInfo):
 			pictureCardInfo:PictureCardInfo = self.listWidget.itemWidget(item)
 			self.pictureViewer.setPixmap(QPixmap(pictureCardInfo.pictureFilePath))
 
+	def deleteAll(self):
+		reply = QMessageBox.question(self, 'Confirm Delete',
+										f"Are you sure you want to delete All Items ?", QMessageBox.Yes |
+										QMessageBox.No, QMessageBox.No)
+		if reply != QMessageBox.Yes:
+			return
+		
+		if self.videoRadioButton.isChecked():
+			# delte all file video
+			dataBaseManager = DataBaseManager()
+			recordsFolderPath = dataBaseManager.getRecordsFolderPath()
+			videoFolderPath = os.path.join(recordsFolderPath, 'videos')
+			for filename in os.listdir(videoFolderPath):
+				if filename.endswith(('.mp4', '.avi', '.mkv')):
+					os.remove(os.path.join(videoFolderPath, filename))
+			#TODO: cleare the video viewer
+			# Clear the list widget
+			self.listWidget.clear()
+			# Refill the list widget with videos
+			self.fillListWidgetWithVideos()
+		elif self.pictureRadioButton.isChecked():
+			 # Delete all picture files
+			dataBaseManager = DataBaseManager()
+			recordsFolderPath = dataBaseManager.getRecordsFolderPath()
+			picturesFolderPath = os.path.join(recordsFolderPath, 'pictures')
+			for filename in os.listdir(picturesFolderPath):
+				if filename.endswith(('.jpg', '.jpeg', '.png')):
+					os.remove(os.path.join(picturesFolderPath, filename))
+			#TODO: cleare the picture viewer
+			# Clear the list widget
+			self.listWidget.clear()
+			# Refill the list widget with pictures
+			self.fillListWidgetWithPictures()

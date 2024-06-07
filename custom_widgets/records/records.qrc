@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="resources">
+    <file>../../resources/Icons/trash-solid.svg</file>
     <file>../../resources/Icons/angle-up-solid.svg</file>
     <file>../../resources/Icons/angle-down-solid.svg</file>
     <file>../../resources/Icons/angle-left-solid.svg</file>
