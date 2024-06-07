@@ -15,10 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QFrame,
-    QGridLayout, QHBoxLayout, QLineEdit, QPushButton,
-    QScrollArea, QSizePolicy, QSpacerItem, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
+    QHBoxLayout, QLineEdit, QPushButton, QScrollArea,
+    QSizePolicy, QSpacerItem, QVBoxLayout, QWidget)
 from . import dataBase_rc
 
 class Ui_DataBase(object):
@@ -48,11 +47,11 @@ class Ui_DataBase(object):
 "	border: 1px solid  rgb(0, 142, 246);\n"
 "\n"
 "}\n"
-"#DataBase #deleteButton{\n"
+"#DataBase #deleteAllButton{\n"
 "	border: 1px solid  red\n"
 "\n"
 "}\n"
-"#DataBase #deleteButton::hover{\n"
+"#DataBase #deleteAllButton::hover{\n"
 "	background-color: rgb(255, 0, 4);\n"
 "\n"
 "}\n"
@@ -67,8 +66,8 @@ class Ui_DataBase(object):
 "\n"
 "/* the style of the combobox is mostly generated with chatgpt (tried the gpt-40 and till now look good )*/\n"
 "QComboBox {\n"
-"    background-color: rgb(33, 33, "
-                        "33);\n"
+"    background-color: rgb(33"
+                        ", 33, 33);\n"
 "    color: rgb(204, 204, 204);\n"
 "    border: 1px solid rgb(204, 204, 204);\n"
 "    border-radius: 10px;\n"
@@ -107,8 +106,8 @@ class Ui_DataBase(object):
 "	min-height: 30px;\n"
 "\n"
 "}\n"
-"QScrollBar::sub-line:vertical:hover,QSc"
-                        "rollBar::sub-line:vertical {\n"
+"QScrollBar::sub-line:vertical:hov"
+                        "er,QScrollBar::sub-line:vertical {\n"
 "	background: #444444;\n"
 "	height: 15px;\n"
 "	subcontrol-position: top;\n"
@@ -197,25 +196,6 @@ class Ui_DataBase(object):
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.deleteButton = QPushButton(DataBase)
-        self.deleteButton.setObjectName(u"deleteButton")
-        self.deleteButton.setFont(font1)
-        icon2 = QIcon()
-        icon2.addFile(u":/icons/resources/Icons/trash-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.deleteButton.setIcon(icon2)
-        self.deleteButton.setIconSize(QSize(16, 16))
-
-        self.horizontalLayout_2.addWidget(self.deleteButton)
-
-        self.selectAllCheckBox = QCheckBox(DataBase)
-        self.selectAllCheckBox.setObjectName(u"selectAllCheckBox")
-        font2 = QFont()
-        font2.setFamilies([u"Inter"])
-        font2.setPointSize(10)
-        self.selectAllCheckBox.setFont(font2)
-
-        self.horizontalLayout_2.addWidget(self.selectAllCheckBox)
-
 
         self.horizontalLayout_3.addLayout(self.horizontalLayout_2)
 
@@ -223,22 +203,12 @@ class Ui_DataBase(object):
 
         self.horizontalLayout_3.addItem(self.horizontalSpacer)
 
-        self.batchRegisterButton = QPushButton(DataBase)
-        self.batchRegisterButton.setObjectName(u"batchRegisterButton")
-        self.batchRegisterButton.setFont(font1)
-        icon3 = QIcon()
-        icon3.addFile(u":/icons/resources/Icons/users-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.batchRegisterButton.setIcon(icon3)
-        self.batchRegisterButton.setIconSize(QSize(16, 16))
-
-        self.horizontalLayout_3.addWidget(self.batchRegisterButton)
-
         self.registerIdButton = QPushButton(DataBase)
         self.registerIdButton.setObjectName(u"registerIdButton")
         self.registerIdButton.setFont(font1)
-        icon4 = QIcon()
-        icon4.addFile(u":/icons/resources/Icons/user-plus-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.registerIdButton.setIcon(icon4)
+        icon2 = QIcon()
+        icon2.addFile(u":/icons/resources/Icons/user-plus-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.registerIdButton.setIcon(icon2)
         self.registerIdButton.setIconSize(QSize(16, 16))
 
         self.horizontalLayout_3.addWidget(self.registerIdButton)
@@ -258,7 +228,7 @@ class Ui_DataBase(object):
         self.scrollArea.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 766, 387))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 750, 377))
         self.horizontalLayout_4 = QHBoxLayout(self.scrollAreaWidgetContents)
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.cardInfoGrid = QGridLayout()
@@ -290,9 +260,6 @@ class Ui_DataBase(object):
         self.filterSelecter.setPlaceholderText(QCoreApplication.translate("DataBase", u"Select Filter", None))
         self.resetButton.setText(QCoreApplication.translate("DataBase", u"Reset", None))
         self.searchButton.setText(QCoreApplication.translate("DataBase", u"Search", None))
-        self.deleteButton.setText(QCoreApplication.translate("DataBase", u"Delete", None))
-        self.selectAllCheckBox.setText(QCoreApplication.translate("DataBase", u"ALL", None))
-        self.batchRegisterButton.setText(QCoreApplication.translate("DataBase", u"Batch Register", None))
         self.registerIdButton.setText(QCoreApplication.translate("DataBase", u"Register ID", None))
     # retranslateUi
 

@@ -36,11 +36,11 @@
 	border: 1px solid  rgb(0, 142, 246);
 
 }
-#DataBase #deleteButton{
+#DataBase #deleteAllButton{
 	border: 1px solid  red
 
 }
-#DataBase #deleteButton::hover{
+#DataBase #deleteAllButton::hover{
 	background-color: rgb(255, 0, 4);
 
 }
@@ -244,45 +244,7 @@ QScrollBar::add-line:vertical:hover, QScrollBar::add-line:vertical {	background:
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <item>
-        <widget class="QPushButton" name="deleteButton">
-         <property name="font">
-          <font>
-           <family>Inter</family>
-           <pointsize>10</pointsize>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Delete</string>
-         </property>
-         <property name="icon">
-          <iconset resource="dataBase.qrc">
-           <normaloff>:/icons/resources/Icons/trash-solid.svg</normaloff>:/icons/resources/Icons/trash-solid.svg</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>16</width>
-           <height>16</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QCheckBox" name="selectAllCheckBox">
-         <property name="font">
-          <font>
-           <family>Inter</family>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>ALL</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <layout class="QHBoxLayout" name="horizontalLayout_2"/>
      </item>
      <item>
       <spacer name="horizontalSpacer">
@@ -296,30 +258,6 @@ QScrollBar::add-line:vertical:hover, QScrollBar::add-line:vertical {	background:
         </size>
        </property>
       </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="batchRegisterButton">
-       <property name="font">
-        <font>
-         <family>Inter</family>
-         <pointsize>10</pointsize>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Batch Register</string>
-       </property>
-       <property name="icon">
-        <iconset resource="dataBase.qrc">
-         <normaloff>:/icons/resources/Icons/users-solid.svg</normaloff>:/icons/resources/Icons/users-solid.svg</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>16</width>
-         <height>16</height>
-        </size>
-       </property>
-      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="registerIdButton">
@@ -369,8 +307,8 @@ QScrollBar::add-line:vertical:hover, QScrollBar::add-line:vertical {	background:
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>766</width>
-           <height>387</height>
+           <width>750</width>
+           <height>377</height>
           </rect>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0">
