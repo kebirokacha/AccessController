@@ -24,8 +24,8 @@ class Ui_VideoCardInfo(object):
     def setupUi(self, VideoCardInfo):
         if not VideoCardInfo.objectName():
             VideoCardInfo.setObjectName(u"VideoCardInfo")
-        VideoCardInfo.resize(320, 120)
-        VideoCardInfo.setMinimumSize(QSize(320, 120))
+        VideoCardInfo.resize(270, 115)
+        VideoCardInfo.setMinimumSize(QSize(270, 115))
         VideoCardInfo.setStyleSheet(u"#videoIcon {\n"
 "	background-color: rgb(0, 0, 0);\n"
 "	padding: 7px;\n"
