@@ -1,6 +1,6 @@
 # Access Controller Python 
 
-An Access controller use AI to detect the unauthorized access and send alert message vai email and it save records 
+An Access controller use AI to detect the unauthorized access, send alert message via email and it save records 
 
 ## Table of Contents
 - [Installation](#installation)
